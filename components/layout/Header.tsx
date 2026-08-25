@@ -7,7 +7,6 @@ import { LogIn } from "lucide-react";
 const Header = async () => {
    const headersList = await headers();
    const pathname = headersList.get("x-pathname") || "";
-   console.log("pathname", pathname);
 
    const links = [
       {

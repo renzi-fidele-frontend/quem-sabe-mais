@@ -9,14 +9,17 @@
 }
 
 @theme inline {
-   --color-fundo: var(--fundo);
-   --font-sans: var(--font-outfit);
-   --color-azul-escuro: var(--azul-escuro);
    --color-tema: var(--tema);
+   --color-fundo: var(--fundo);
+   --font-outfit: var(--font-outfit);
+   --font-sora: var(--font-sora);
+   --color-texto-1: var(--texto-1);
+   --color-texto-2: var(--texto-2);
+   --color-azul-escuro: var(--azul-escuro);
 }
 
 body {
    background: var(--fundo);
-   font-family: var(--fundo);
+   font-family: var(--font-outfit);
    color: var(--texto-1);
 }
