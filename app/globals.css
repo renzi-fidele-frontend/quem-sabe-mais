@@ -2,13 +2,21 @@
 
 :root {
    --fundo: #05070f;
+   --azul-escuro: #0a0d1d;
+   --texto-1: #8e9bb4;
+   --texto-2: #ffffff;
+   --tema: #ffc72c;
 }
 
 @theme inline {
    --color-fundo: var(--fundo);
    --font-sans: var(--font-outfit);
+   --color-azul-escuro: var(--azul-escuro);
+   --color-tema: var(--tema);
 }
 
 body {
    background: var(--fundo);
+   font-family: var(--fundo);
+   color: var(--texto-1);
 }
