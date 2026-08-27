@@ -1,10 +1,34 @@
 import Container from "@/components/layout/Container";
+import SectionIntro from "@/components/layout/SectionIntro";
 import Button from "@/components/shared/Button";
-import { Info, Play, Shield, Star } from "lucide-react";
+import { Award, BadgeQuestionMark, Info, Play, Shield, Star, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+   const comoFunciona = [
+      {
+         titulo: "Começe a jogar",
+         descricao: "Entre em uma partida rápida de qualquer lugar, diretamente no seu telemóvel ou computador.",
+         icone: Play,
+      },
+      {
+         titulo: "Responda e Avance",
+         descricao: "Teste seus conhecimentos em 15 perguntas de dificuldade progressiva com tempo limitado.",
+         icone: BadgeQuestionMark,
+      },
+      {
+         titulo: "Suba na Escala",
+         descricao: "A cada resposta certa, o valor do seu prémio aumenta. Use as linhas de apoio nos momentos difíceis.",
+         icone: TrendingUp,
+      },
+      {
+         titulo: "Conquiste Prémios",
+         descricao: "Atinja os patamares de segurança, garanta seus pontos de progresso e dispute o ranking global.",
+         icone: Award,
+      },
+   ];
+
    return (
       <div>
          {/* Background */}
@@ -18,7 +42,7 @@ export default function Home() {
          {/* Conteúdo principal */}
          <div>
             {/* Hero */}
-            <Container className="pt-23 pb-20">
+            <Container className="pt-20 pb-18">
                <section className="[&_span]:text-tema flex items-center gap-16 flex-nowrap">
                   {/* Esquerda */}
                   <div className="basis-[75%] space-y-7">
@@ -54,7 +78,7 @@ export default function Home() {
                      style={{ boxShadow: "0px 16px 48px 0 rgba(255,199,44,0.2)" }}
                   >
                      <div className="text-center space-y-5">
-                        <p className="text-tema text-sm font-extrabold uppercase">
+                        <p className="text-tema text-[13px] font-extrabold uppercase">
                            🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores
                         </p>
                         <p className="font-outfit text-5xl text-tema text-shadow-md text-shadow-tema font-black">1000.00 MT</p>
@@ -101,6 +125,28 @@ export default function Home() {
                   <span>perguntas por partida</span>
                </div>
             </div>
+            {/* Como funciona o QUIZ */}
+            <Container className="pb-25">
+               <SectionIntro
+                  subtitulo="Estrutura de Jogo"
+                  titulo="Como funciona o Quiz?"
+                  descricao="É simples começar a disputar prémios, mas apenas os mais astutos chegam ao topo da escada milionária."
+               />
+               <div className="grid grid-cols-4 gap-6">
+                  {comoFunciona.map((item, k) => (
+                     <div key={k} className="bg-azul-escuro2 p-8 border-cor-borda border rounded-3xl space-y-5">
+                        <div className="flex justify-between">
+                           <span className="text-tema text-[32px] font-black">0{k + 1}</span>
+                           <div className="p-2.5 rounded-xl bg-tema/13">
+                              <item.icone className="stroke-tema" />
+                           </div>
+                        </div>
+                        <p className="text-white font-bold text-xl">{item.titulo}</p>
+                        <p className="text-sm font-sora">{item.descricao}</p>
+                     </div>
+                  ))}
+               </div>
+            </Container>
          </div>
       </div>
    );
