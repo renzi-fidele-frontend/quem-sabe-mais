@@ -1,6 +1,6 @@
 import Container from "@/components/layout/Container";
 import Button from "@/components/shared/Button";
-import { Play, Shield, Star } from "lucide-react";
+import { Info, Play, Shield, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,17 +9,19 @@ export default function Home() {
       <div>
          {/* Background */}
          <div className="absolute inset-0 -z-2">
-            <Image className="absolute -z-2" width={1920} height={1500} src="/img/fundo-palco.webp" alt="Palco do quem sabe mais" />
-            {/* Overlay */}
-            <div className="inset-0 absolute -z-1 bg-fundo opacity-67 w-full h-full" />
+            <div className="relative">
+               <Image className="" width={1920} height={1500} src="/img/fundo-palco.webp" alt="Palco do quem sabe mais" />
+               {/* Overlay */}
+               <div className="inset-0 absolute bg-fundo opacity-70 size-full" />
+            </div>
          </div>
          {/* Conteúdo principal */}
          <div>
             {/* Hero */}
-            <Container className="py-23">
+            <Container className="pt-23 pb-20">
                <section className="[&_span]:text-tema flex items-center gap-16 flex-nowrap">
                   {/* Esquerda */}
-                  <div className="basis-[70%] space-y-8">
+                  <div className="basis-[75%] space-y-7">
                      <h6 className="text-tema border-tema border rounded-lg px-4 py-1.5 bg-tema/12 text-sm w-fit font-sora font-bold">
                         🏆 O MAIOR QUIZ DE CONHECIMENTOS DE MOÇAMBIQUE
                      </h6>
@@ -48,11 +50,13 @@ export default function Home() {
                   </div>
                   {/* Direita */}
                   <div
-                     className="**:font-sora border-2 border-tema bg-[#0d1127]/90 p-12 rounded-[28px] grow space-y-6"
+                     className="**:font-sora border-2 border-tema bg-azul-escuro2/90 p-12 rounded-[28px] grow space-y-6"
                      style={{ boxShadow: "0px 16px 48px 0 rgba(255,199,44,0.2)" }}
                   >
                      <div className="text-center space-y-5">
-                        <p className="text-tema text-sm font-black">🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores</p>
+                        <p className="text-tema text-sm font-extrabold uppercase">
+                           🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores
+                        </p>
                         <p className="font-outfit text-5xl text-tema text-shadow-md text-shadow-tema font-black">1000.00 MT</p>
                         <Image src="/img/maleta-com-dinheiro.webp" width={534} height={299} alt="" />
                         <p className="text-white font-semibold">Para o grande campeão do mês!</p>
@@ -67,14 +71,36 @@ export default function Home() {
                         </p>
                      </div>
                      <Link
-                        className="uppercase text-tema text-center bg-tema/13 p-4 rounded-xl flex grow justify-center text-sm font-bold "
+                        className="uppercase text-tema text-center bg-tema/13 p-4 rounded-xl flex items-center grow justify-center text-sm font-bold "
                         href="central-de-ajuda"
                      >
-                        Saiba mais sobre o prêmio
+                        <Info className="size-4.75 me-2" /> Saiba mais sobre o prêmio
                      </Link>
                   </div>
                </section>
             </Container>
+            {/* Estatísticas */}
+            <div className="bg-azul-escuro2 border border-cor-borda rounded-2xl uppercase [&_p]:text-tema [&_p]:text-2xl [&_p]:font-black [&_span]:font-semibold [&_span]:font-sora [&_span]:text-[12px] flex max-w-7xl px-10 py-6 justify-between items-center">
+               <div>
+                  <p>10.000+</p>
+                  <span>Jogadores ativos</span>
+               </div>
+               <div className="h-9 border-r-2 border-cor-borda"></div>
+               <div>
+                  <p>500.000+</p>
+                  <span>Perguntas respondidas</span>
+               </div>
+               <div className="h-9 border-r-2 border-cor-borda"></div>
+               <div>
+                  <p>100.000 MT</p>
+                  <span>em prémios mensais</span>
+               </div>
+               <div className="h-9 border-r-2 border-cor-borda"></div>
+               <div>
+                  <p>15</p>
+                  <span>perguntas por partida</span>
+               </div>
+            </div>
          </div>
       </div>
    );
