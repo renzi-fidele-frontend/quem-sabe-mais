@@ -147,6 +147,43 @@ export default function Home() {
                   ))}
                </div>
             </Container>
+            {/* Níveis de recompensa */}
+            <div className="relative">
+               <Image width={1920} height={1087} src="/img/fundo-palco2.webp" className="inset-0 size-full object-cover -z-2 absolute" alt="" />
+               <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-46"></div>
+               <Container className="pb-25">
+                  <SectionIntro
+                     subtitulo="Níveis de Recompensa"
+                     titulo="Até onde você consegue chegar?"
+                     descricao="Cada resposta certa aproxima você do prémio máximo. Conheça a escala de premiação por partida."
+                  />
+                  <div className="grid grid-cols-2 gap-12 ">
+                     {/* Esquerda */}
+                     <div className="flex justify-center flex-col gap-6">
+                        <h6 className="text-3xl text-white font-extrabold">Níveis de Segurança Garantidos</h6>
+                        <p className="text-lg">
+                           Assim como no clássico show de TV, ao atingir as perguntas <span className="text-tema font-semibold">5</span> e{" "}
+                           <span className="text-tema font-semibold">10</span>, você alcança patamares de segurança. Mesmo que erre depois, seu
+                           prémio acumulado nesses checkpoints estará garantido!
+                        </p>
+                        <div className="pt-2.5 space-y-4 [&>div]:border [&>div]:rounded-xl [&>div]:p-5 [&>div]:space-y-4 [&>div]:bg-azul-escuro2">
+                           <div className="border-tema">
+                              <p className="text-tema font-extrabold text-xl">Nível 15: 100.000 MT</p>
+                              <p>O topo do conhecimento. O prêmio máximo reservado aos verdadeiros mestres.</p>
+                           </div>
+                           <div className="border-cor-borda">
+                              <p>Nível 10: 7.500 MT (Seguro)</p>
+                              <p>Segundo checkpoint de segurança. Valor totalmente garantido em sua carteira.</p>
+                           </div>
+                        </div>
+                     </div>
+                     {/* Direita */}
+                     <div>
+                        <Image src="/img/tabela-recompensas.png" alt="Tabela de recompensa" width={680} height={686} />
+                     </div>
+                  </div>
+               </Container>
+            </div>
          </div>
       </div>
    );
