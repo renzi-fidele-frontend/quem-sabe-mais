@@ -1,7 +1,22 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
 import Button from "@/components/shared/Button";
-import { Activity, Award, BadgeQuestionMark, Beaker, BookOpen, Film, Globe, Info, Play, Shield, Star, TrendingUp } from "lucide-react";
+import {
+   Activity,
+   Award,
+   BadgeQuestionMark,
+   Beaker,
+   BookOpen,
+   Film,
+   Gift,
+   Globe,
+   Info,
+   Play,
+   Shield,
+   Star,
+   TrendingUp,
+   Users,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -48,6 +63,24 @@ export default function Home() {
       { icone: Award, nome: "Cultura Geral", nrPerguntas: 1800 },
    ];
 
+   const beneficios = [
+      {
+         icone: BookOpen,
+         titulo: "Teste seu conhecimento real",
+         descricao: "Milhares de questões elaboradas por educadores, cobrindo o currículo escolar nacional e curiosidades internacionais.",
+      },
+      {
+         icone: Users,
+         titulo: "Compita com outros jogadores",
+         descricao: "Compare sua agilidade mental em tempo real com amigos e concorrentes de todas as províncias do país.",
+      },
+      {
+         icone: Gift,
+         titulo: "Ganhe Recompensas Reais",
+         descricao: "Seu intelecto se traduz em pontos conversíveis e grandes premiações em dinheiro no final de cada temporada.",
+      },
+   ];
+
    return (
       <div>
          {/* Background */}
@@ -55,7 +88,7 @@ export default function Home() {
             <div className="relative">
                <Image className="" width={1920} height={1500} src="/img/fundo-palco.webp" alt="Palco do quem sabe mais" />
                {/* Overlay */}
-               <div className="inset-0 absolute bg-fundo opacity-70 size-full" />
+               <div className="inset-0 absolute bg-fundo opacity-72 size-full" />
             </div>
          </div>
          {/* Conteúdo principal */}
@@ -253,7 +286,8 @@ export default function Home() {
                   </div>
                </Container>
             </section>
-            <section className="pb-25 relative">
+            {/* Conteúdo Programático */}
+            <section className="pb-25">
                <Container>
                   <SectionIntro
                      subtitulo="Conteúdo Programático"
@@ -262,13 +296,45 @@ export default function Home() {
                   />
                   <div className="flex items-stretch gap-5 flex-wrap">
                      {categorias.map((item, k) => (
-                        <div className="p-7 rounded-2xl bg-azul-escuro2/90 border border-cor-borda space-y-4 basis-[calc(25%-20px)]" key={k}>
+                        <div
+                           className="p-7 rounded-2xl bg-azul-escuro2/90 border border-cor-borda space-y-4 basis-[calc(25%-(--spacing(4)))]"
+                           key={k}
+                        >
                            <div className="p-3 rounded-xl bg-azul-escuro w-fit">
                               <item.icone className="stroke-texto-1" />
                            </div>
                            <div className="space-y-1.5">
                               <p className="text-white font-bold text-lg">{item.nome}</p>
                               <p className="font-sora text-sm">{item.nrPerguntas}</p>
+                           </div>
+                        </div>
+                     ))}
+                  </div>
+               </Container>
+            </section>
+            {/* Benefícios */}
+            <section className="pb-25 relative">
+               {/* Fundo */}
+               <Image className="absolute inset-0 size-full object-cover -z-2" alt="" src="/img/fundo-wavy2.webp" width={1920} height={1440} />
+               <div className="absolute -z-1 inset-0 size-full bg-fundo opacity-89"></div>
+               <Container>
+                  <SectionIntro
+                     subtitulo="Benefícios"
+                     titulo="Muito mais do que um simples quiz"
+                     descricao="Uma experiência completa de competição mental com mecânicas projetadas para prender sua atenção."
+                  />
+                  <div className="flex items-stretch gap-8">
+                     {beneficios.map((item, k) => (
+                        <div
+                           className="p-10 rounded-2xl bg-azul-escuro2/90 border border-cor-borda space-y-4 basis-[calc(33.3%-(--spacing(8)))] grow"
+                           key={k}
+                        >
+                           <div className="bg-tema/13 rounded-full p-4 w-fit">
+                              <item.icone className="stroke-tema" />
+                           </div>
+                           <div className="space-y-3">
+                              <p className="text-white font-extrabold text-[22px]">{item.titulo}</p>
+                              <p className="font-sora text-sm">{item.descricao}</p>
                            </div>
                         </div>
                      ))}
