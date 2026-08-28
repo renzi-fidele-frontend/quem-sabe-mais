@@ -29,6 +29,14 @@ export default function Home() {
       },
    ];
 
+   const quemEstaNoTopo = [
+      { nome: "Carlos Matsinhe", pontos: 98500, nivel: "Especialista" },
+      { nome: "Nelson Nascimento", pontos: 87200, nivel: "Especialista" },
+      { nome: "Lucas Pedro", pontos: 75000, nivel: "Especialista" },
+      { nome: "Maria Tembe", pontos: 62500, nivel: "Especialista" },
+      { nome: "João Nhaca", pontos: 58300, nivel: "Especialista" },
+   ];
+
    return (
       <div>
          {/* Background */}
@@ -42,69 +50,72 @@ export default function Home() {
          {/* Conteúdo principal */}
          <div>
             {/* Hero */}
-            <Container className="pt-20 pb-18">
-               <section className="[&_span]:text-tema flex items-center gap-16 flex-nowrap">
-                  {/* Esquerda */}
-                  <div className="basis-[75%] space-y-7">
-                     <h6 className="text-tema border-tema border rounded-lg px-4 py-1.5 bg-tema/12 text-sm w-fit font-sora font-bold">
-                        🏆 O MAIOR QUIZ DE CONHECIMENTOS DE MOÇAMBIQUE
-                     </h6>
-                     <div className="text-white">
-                        <div className="space-y-6">
-                           <h1 className="text-7xl font-black">
-                              QUEM SABE <span>MAIS?</span>
-                           </h1>
-                           <p className="text-3xl font-bold">
-                              Mostre o que você sabe. <span>Conquiste o seu prêmio.</span>
+            <section>
+               <Container className="pt-20 pb-18">
+                  <section className="[&_span]:text-tema flex items-center gap-16 flex-nowrap">
+                     {/* Esquerda */}
+                     <div className="basis-[75%] space-y-7">
+                        <h6 className="text-tema border-tema border rounded-lg px-4 py-1.5 bg-tema/12 text-sm w-fit font-sora font-bold">
+                           🏆 O MAIOR QUIZ DE CONHECIMENTOS DE MOÇAMBIQUE
+                        </h6>
+                        <div className="text-white">
+                           <div className="space-y-6">
+                              <h1 className="text-7xl font-black">
+                                 QUEM SABE <span>MAIS?</span>
+                              </h1>
+                              <p className="text-3xl font-bold">
+                                 Mostre o que você sabe. <span>Conquiste o seu prêmio.</span>
+                              </p>
+                              <p className="text-lg text-[#E8E9EA] pe-30 font-sora mb-8">
+                                 Responda a perguntas desafiadoras sobre ciência, geografia, história, desporto e a nossa rica cultura
+                                 moçambicana. Suba nos rankings de liderança e{" "}
+                                 <span className="font-bold">concorra a recompensas reais todas as épocas!</span>
+                              </p>
+                              <Link href="/jogar">
+                                 <Button className="px-9 py-4.5 gap-3.5 font-black!">
+                                    <Play className="stroke-3" /> COMEÇAR A JOGAR
+                                 </Button>
+                              </Link>
+                           </div>
+                           <p className="text-sm text-[#E9EBEE] mt-4.5 font-sora opacity-80">
+                              É grátis para começar • Jogue diretamente do navegador
                            </p>
-                           <p className="text-lg text-[#E8E9EA] pe-30 font-sora mb-8">
-                              Responda a perguntas desafiadoras sobre ciência, geografia, história, desporto e a nossa rica cultura moçambicana.
-                              Suba nos rankings de liderança e <span className="font-bold">concorra a recompensas reais todas as épocas!</span>
-                           </p>
-                           <Link href="/jogar">
-                              <Button className="px-9 py-4.5 gap-3.5 font-black!">
-                                 <Play className="stroke-3" /> COMEÇAR A JOGAR
-                              </Button>
-                           </Link>
                         </div>
-                        <p className="text-sm text-[#E9EBEE] mt-4.5 font-sora opacity-80">
-                           É grátis para começar • Jogue diretamente do navegador
-                        </p>
                      </div>
-                  </div>
-                  {/* Direita */}
-                  <div
-                     className="**:font-sora border-2 border-tema bg-azul-escuro2/90 p-12 rounded-[28px] grow space-y-6"
-                     style={{ boxShadow: "0px 16px 48px 0 rgba(255,199,44,0.2)" }}
-                  >
-                     <div className="text-center space-y-5">
-                        <p className="text-tema text-[13px] font-extrabold uppercase">
-                           🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores
-                        </p>
-                        <p className="font-outfit text-5xl text-tema text-shadow-md text-shadow-tema font-black">1000.00 MT</p>
-                        <Image src="/img/maleta-com-dinheiro.webp" width={534} height={299} alt="" />
-                        <p className="text-white font-semibold">Para o grande campeão do mês!</p>
-                     </div>
-                     <hr className="border-[#1E254A]" />
-                     <div className="*:gap-3 space-y-4 text-sm [&_svg]:size-5">
-                        <p className="flex items-center">
-                           <Star className="stroke-tema" /> Mostre seu conhecimento e conquiste o topo
-                        </p>
-                        <p className="flex items-center">
-                           <Shield className="stroke-tema" /> Suba nos níveis e seja um grande vencedor
-                        </p>
-                     </div>
-                     <Link
-                        className="uppercase text-tema text-center bg-tema/13 p-4 rounded-xl flex items-center grow justify-center text-sm font-bold "
-                        href="central-de-ajuda"
+                     {/* Direita */}
+                     <div
+                        className="**:font-sora border-2 border-tema bg-azul-escuro2/90 p-12 rounded-[28px] grow space-y-6"
+                        style={{ boxShadow: "0px 16px 48px 0 rgba(255,199,44,0.2)" }}
                      >
-                        <Info className="size-4.75 me-2" /> Saiba mais sobre o prêmio
-                     </Link>
-                  </div>
-               </section>
-            </Container>
+                        <div className="text-center space-y-5">
+                           <p className="text-tema text-[13px] font-extrabold uppercase">
+                              🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores
+                           </p>
+                           <p className="font-outfit text-5xl text-tema text-shadow-md text-shadow-tema font-black">1000.00 MT</p>
+                           <Image src="/img/maleta-com-dinheiro.webp" width={534} height={299} alt="" />
+                           <p className="text-white font-semibold">Para o grande campeão do mês!</p>
+                        </div>
+                        <hr className="border-[#1E254A]" />
+                        <div className="*:gap-3 space-y-4 text-sm [&_svg]:size-5">
+                           <p className="flex items-center">
+                              <Star className="stroke-tema" /> Mostre seu conhecimento e conquiste o topo
+                           </p>
+                           <p className="flex items-center">
+                              <Shield className="stroke-tema" /> Suba nos níveis e seja um grande vencedor
+                           </p>
+                        </div>
+                        <Link
+                           className="uppercase text-tema text-center bg-tema/13 p-4 rounded-xl flex items-center grow justify-center text-sm font-bold "
+                           href="central-de-ajuda"
+                        >
+                           <Info className="size-4.75 me-2" /> Saiba mais sobre o prêmio
+                        </Link>
+                     </div>
+                  </section>
+               </Container>
+            </section>
             {/* Estatísticas */}
-            <div className="bg-azul-escuro2 border border-cor-borda rounded-2xl uppercase [&_p]:text-tema [&_p]:text-2xl [&_p]:font-black [&_span]:font-semibold [&_span]:font-sora [&_span]:text-[12px] flex max-w-7xl px-10 py-6 justify-between items-center">
+            <section className="bg-azul-escuro2 border border-cor-borda rounded-2xl uppercase [&_p]:text-tema [&_p]:text-2xl [&_p]:font-black [&_span]:font-semibold [&_span]:font-sora [&_span]:text-[12px] flex max-w-7xl px-10 py-6 justify-between items-center">
                <div>
                   <p>10.000+</p>
                   <span>Jogadores ativos</span>
@@ -124,31 +135,33 @@ export default function Home() {
                   <p>15</p>
                   <span>perguntas por partida</span>
                </div>
-            </div>
+            </section>
             {/* Como funciona o QUIZ */}
-            <Container className="pb-25">
-               <SectionIntro
-                  subtitulo="Estrutura de Jogo"
-                  titulo="Como funciona o Quiz?"
-                  descricao="É simples começar a disputar prémios, mas apenas os mais astutos chegam ao topo da escada milionária."
-               />
-               <div className="grid grid-cols-4 gap-6">
-                  {comoFunciona.map((item, k) => (
-                     <div key={k} className="bg-azul-escuro2 p-8 border-cor-borda border rounded-3xl space-y-5">
-                        <div className="flex justify-between">
-                           <span className="text-tema text-[32px] font-black">0{k + 1}</span>
-                           <div className="p-2.5 rounded-xl bg-tema/13">
-                              <item.icone className="stroke-tema" />
+            <section>
+               <Container className="pb-25">
+                  <SectionIntro
+                     subtitulo="Estrutura de Jogo"
+                     titulo="Como funciona o Quiz?"
+                     descricao="É simples começar a disputar prémios, mas apenas os mais astutos chegam ao topo da escada milionária."
+                  />
+                  <div className="grid grid-cols-4 gap-6">
+                     {comoFunciona.map((item, k) => (
+                        <div key={k} className="bg-azul-escuro2 p-8 border-cor-borda border rounded-3xl space-y-5">
+                           <div className="flex justify-between">
+                              <span className="text-tema text-[32px] font-black">0{k + 1}</span>
+                              <div className="p-2.5 rounded-xl bg-tema/13">
+                                 <item.icone className="stroke-tema" />
+                              </div>
                            </div>
+                           <p className="text-white font-bold text-xl">{item.titulo}</p>
+                           <p className="text-sm font-sora">{item.descricao}</p>
                         </div>
-                        <p className="text-white font-bold text-xl">{item.titulo}</p>
-                        <p className="text-sm font-sora">{item.descricao}</p>
-                     </div>
-                  ))}
-               </div>
-            </Container>
-            {/* Níveis de recompensa */}
-            <div className="relative">
+                     ))}
+                  </div>
+               </Container>
+            </section>
+            {/* Até onde você consegue chegar? */}
+            <section className="relative">
                <Image width={1920} height={1087} src="/img/fundo-palco2.webp" className="inset-0 size-full object-cover -z-2 absolute" alt="" />
                <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-46"></div>
                <Container className="pb-25">
@@ -172,7 +185,7 @@ export default function Home() {
                               <p>O topo do conhecimento. O prêmio máximo reservado aos verdadeiros mestres.</p>
                            </div>
                            <div className="border-cor-borda">
-                              <p>Nível 10: 7.500 MT (Seguro)</p>
+                              <p className="text-white font-bold">Nível 10: 7.500 MT (Seguro)</p>
                               <p>Segundo checkpoint de segurança. Valor totalmente garantido em sua carteira.</p>
                            </div>
                         </div>
@@ -183,7 +196,52 @@ export default function Home() {
                      </div>
                   </div>
                </Container>
-            </div>
+            </section>
+            {/* Quem está no topo */}
+            <section className="pb-25 relative">
+               <Image
+                  className="absolute inset-0 size-full object-cover -z-2"
+                  alt="Fundo wavy"
+                  src="/img/fundo-wavy.webp"
+                  width={1919}
+                  height={1439}
+               />
+               <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-81"></div>
+               <Container>
+                  <SectionIntro
+                     subtitulo="Liderança Geral"
+                     titulo="Quem está no topo?"
+                     descricao="Os jogadores mais rápidos e inteligentes que lideram a corrida pelo prêmio acumulado desta época."
+                  />
+                  <div className="space-y-4 mx-22">
+                     {quemEstaNoTopo.map((item, k) => (
+                        <div
+                           className={`flex items-center justify-between rounded-2xl border p-4 ${k === 0 ? "bg-tema/13 border-tema" : "bg-azul-escuro2/80 border-cor-borda"}`}
+                           key={k}
+                        >
+                           {/* Esquerda */}
+                           <div className="flex items-center gap-6">
+                              {/* Rank */}
+                              <p className={`text-xl font-black ${k === 0 ? "text-tema" : ""}`}>0{k + 1}</p>
+                              {/* Avatar */}
+                              <div className={`border-2 rounded-3xl h-13 w-15 ${k === 0 ? "border-tema" : "border-cor-borda"}`}></div>
+                              {/* Nome e Status */}
+                              <div className="font-sora">
+                                 <p className="text-white font-bold">{item.nome}</p>
+                                 <p className="text-[12px]">{item.nivel}</p>
+                              </div>
+                           </div>
+                           {/* Direita */}
+                           <p
+                              className={`w-fit px-4 py-2 font-extrabold ${k === 0 ? "bg-tema text-black" : "bg-cor-borda text-white"} rounded-xl`}
+                           >
+                              {item.pontos.toLocaleString("de-DE")} MT
+                           </p>
+                        </div>
+                     ))}
+                  </div>
+               </Container>
+            </section>
          </div>
       </div>
    );
