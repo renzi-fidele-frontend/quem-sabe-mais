@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
 import Button from "@/components/shared/Button";
-import { Award, BadgeQuestionMark, Info, Play, Shield, Star, TrendingUp } from "lucide-react";
+import { Activity, Award, BadgeQuestionMark, Beaker, BookOpen, Film, Globe, Info, Play, Shield, Star, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -35,6 +35,17 @@ export default function Home() {
       { nome: "Lucas Pedro", pontos: 75000, nivel: "Especialista" },
       { nome: "Maria Tembe", pontos: 62500, nivel: "Especialista" },
       { nome: "João Nhaca", pontos: 58300, nivel: "Especialista" },
+   ];
+
+   const categorias = [
+      { icone: Globe, nome: "Geografia", nrPerguntas: 1200 },
+      { icone: BookOpen, nome: "História", nrPerguntas: 950 },
+      { icone: Beaker, nome: "Ciência", nrPerguntas: 840 },
+      { icone: Activity, nome: "Desporto", nrPerguntas: 1100 },
+      { icone: Film, nome: "Entretenimento", nrPerguntas: 1500 },
+      { icone: Star, nome: "Cultura Moçambicana", nrPerguntas: 2000 },
+      { icone: TrendingUp, nome: "Economia", nrPerguntas: 720 },
+      { icone: Award, nome: "Cultura Geral", nrPerguntas: 1800 },
    ];
 
    return (
@@ -237,6 +248,28 @@ export default function Home() {
                            >
                               {item.pontos.toLocaleString("de-DE")} MT
                            </p>
+                        </div>
+                     ))}
+                  </div>
+               </Container>
+            </section>
+            <section className="pb-25 relative">
+               <Container>
+                  <SectionIntro
+                     subtitulo="Conteúdo Programático"
+                     titulo="Você domina quais assuntos?"
+                     descricao="Explore as diversas áreas do conhecimento disponíveis no jogo para treinar suas habilidades."
+                  />
+                  <div className="flex items-stretch gap-5 flex-wrap">
+                     {categorias.map((item, k) => (
+                        <div className="p-7 rounded-2xl bg-azul-escuro2/90 border border-cor-borda space-y-4 basis-[calc(25%-20px)]" key={k}>
+                           <div className="p-3 rounded-xl bg-azul-escuro w-fit">
+                              <item.icone className="stroke-texto-1" />
+                           </div>
+                           <div className="space-y-1.5">
+                              <p className="text-white font-bold text-lg">{item.nome}</p>
+                              <p className="font-sora text-sm">{item.nrPerguntas}</p>
+                           </div>
                         </div>
                      ))}
                   </div>
