@@ -81,6 +81,14 @@ export default function Home() {
       },
    ];
 
+   const niveis = [
+      { nivel: 1, titulo: "Curioso", xpRequerido: "Início" },
+      { nivel: 5, titulo: "Competidor", xpRequerido: "500 XP" },
+      { nivel: 10, titulo: "Especialista", xpRequerido: "1.500 XP" },
+      { nivel: 20, titulo: "Mestre", xpRequerido: "5.000 XP" },
+      { nivel: 30, titulo: "Lenda", xpRequerido: "15.000 XP" },
+   ];
+
    return (
       <div>
          {/* Background */}
@@ -337,6 +345,32 @@ export default function Home() {
                               <p className="font-sora text-sm">{item.descricao}</p>
                            </div>
                         </div>
+                     ))}
+                  </div>
+               </Container>
+            </section>
+            {/* Sistema de classificação */}
+            <section className="pb-25">
+               <Container>
+                  <SectionIntro
+                     subtitulo="Sistema de classificação"
+                     titulo="Sua jornada rumo ao estrelato"
+                     descricao="Ganhe pontos de experiência (XP) a cada partida disputada e desbloqueie novos títulos honoríficos."
+                  />
+                  <div className="flex  justify-center gap-3 ">
+                     {niveis.map((item, k) => (
+                        <>
+                           <div className="text-center flex justify-center flex-col items-center" key={k}>
+                              <p
+                                 className={`text-2xl mb-4 font-black flex items-center justify-center size-22 rounded-full border-2 ${k < 3 ? "border-tema bg-tema/13 text-tema" : "border-cor-borda bg-azul-escuro2/90"}`}
+                              >
+                                 {item.nivel}
+                              </p>
+                              <p className="text-white text-lg font-bold">{item.titulo}</p>
+                              <p className="text-sm mt-1">{item.xpRequerido}</p>
+                           </div>
+                           {k < niveis.length - 1 && <hr className="w-28 relative top-10 border-dashed border" />}
+                        </>
                      ))}
                   </div>
                </Container>
