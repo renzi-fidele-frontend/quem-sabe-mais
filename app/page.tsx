@@ -5,6 +5,7 @@ import { categorias, comoFunciona, quemEstaNoTopo, beneficios, niveis, testemunh
 import { Info, Play, Quote, Shield, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Fragment } from "react";
 
 export default function Home() {
    return (
@@ -277,8 +278,8 @@ export default function Home() {
                   />
                   <div className="flex justify-center gap-3 mb-12">
                      {niveis.map((item, k) => (
-                        <>
-                           <div className="text-center flex justify-center flex-col items-center" key={k}>
+                        <Fragment key={k}>
+                           <div className="text-center flex justify-center flex-col items-center">
                               <p
                                  className={`text-2xl mb-4 font-black flex items-center justify-center size-22 rounded-full border-2 ${k < 3 ? "border-tema bg-tema/13 text-tema" : "border-cor-borda bg-azul-escuro2/90"}`}
                               >
@@ -288,7 +289,7 @@ export default function Home() {
                               <p className="text-sm mt-1">{item.xpRequerido}</p>
                            </div>
                            {k < niveis.length - 1 && <hr className="w-28 relative top-10 border-dashed border" />}
-                        </>
+                        </Fragment>
                      ))}
                   </div>
                   <p className="text-tema font-sora font-semibold text-center">
@@ -319,6 +320,20 @@ export default function Home() {
                         </div>
                      ))}
                   </div>
+               </Container>
+            </section>
+            <section className="py-30 relative">
+               {/* Fundo */}
+               <Image className="absolute inset-0 size-full object-cover -z-2" alt="" src="/img/fundo-bottom.webp" width={1920} height={440} />
+               <div className="absolute -z-1 inset-0 size-full bg-fundo opacity-70"></div>
+               <Container className="text-center">
+                  <p className="text-5xl text-white font-black mb-4">Pronto para descobrir quem sabe mais?</p>
+                  <p className="mb-8 text-lg">
+                     Entre de cabeça na maior competição de conhecimentos gerais do país. Cadastre-se em segundos e jogue agora.
+                  </p>
+                  <Button className="mx-auto px-7 py-3.5">
+                     <Play /> COMEÇAR A JOGAR
+                  </Button>
                </Container>
             </section>
          </div>
