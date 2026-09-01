@@ -1,94 +1,12 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
 import Button from "@/components/shared/Button";
-import {
-   Activity,
-   Award,
-   BadgeQuestionMark,
-   Beaker,
-   BookOpen,
-   Film,
-   Gift,
-   Globe,
-   Info,
-   Play,
-   Shield,
-   Star,
-   TrendingUp,
-   Users,
-} from "lucide-react";
+import { categorias, comoFunciona, quemEstaNoTopo, beneficios, niveis, testemunhos } from "@/data/home";
+import { Info, Play, Quote, Shield, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-   const comoFunciona = [
-      {
-         titulo: "Começe a jogar",
-         descricao: "Entre em uma partida rápida de qualquer lugar, diretamente no seu telemóvel ou computador.",
-         icone: Play,
-      },
-      {
-         titulo: "Responda e Avance",
-         descricao: "Teste seus conhecimentos em 15 perguntas de dificuldade progressiva com tempo limitado.",
-         icone: BadgeQuestionMark,
-      },
-      {
-         titulo: "Suba na Escala",
-         descricao: "A cada resposta certa, o valor do seu prémio aumenta. Use as linhas de apoio nos momentos difíceis.",
-         icone: TrendingUp,
-      },
-      {
-         titulo: "Conquiste Prémios",
-         descricao: "Atinja os patamares de segurança, garanta seus pontos de progresso e dispute o ranking global.",
-         icone: Award,
-      },
-   ];
-
-   const quemEstaNoTopo = [
-      { nome: "Carlos Matsinhe", pontos: 98500, nivel: "Especialista" },
-      { nome: "Nelson Nascimento", pontos: 87200, nivel: "Especialista" },
-      { nome: "Lucas Pedro", pontos: 75000, nivel: "Especialista" },
-      { nome: "Maria Tembe", pontos: 62500, nivel: "Especialista" },
-      { nome: "João Nhaca", pontos: 58300, nivel: "Especialista" },
-   ];
-
-   const categorias = [
-      { icone: Globe, nome: "Geografia", nrPerguntas: 1200 },
-      { icone: BookOpen, nome: "História", nrPerguntas: 950 },
-      { icone: Beaker, nome: "Ciência", nrPerguntas: 840 },
-      { icone: Activity, nome: "Desporto", nrPerguntas: 1100 },
-      { icone: Film, nome: "Entretenimento", nrPerguntas: 1500 },
-      { icone: Star, nome: "Cultura Moçambicana", nrPerguntas: 2000 },
-      { icone: TrendingUp, nome: "Economia", nrPerguntas: 720 },
-      { icone: Award, nome: "Cultura Geral", nrPerguntas: 1800 },
-   ];
-
-   const beneficios = [
-      {
-         icone: BookOpen,
-         titulo: "Teste seu conhecimento real",
-         descricao: "Milhares de questões elaboradas por educadores, cobrindo o currículo escolar nacional e curiosidades internacionais.",
-      },
-      {
-         icone: Users,
-         titulo: "Compita com outros jogadores",
-         descricao: "Compare sua agilidade mental em tempo real com amigos e concorrentes de todas as províncias do país.",
-      },
-      {
-         icone: Gift,
-         titulo: "Ganhe Recompensas Reais",
-         descricao: "Seu intelecto se traduz em pontos conversíveis e grandes premiações em dinheiro no final de cada temporada.",
-      },
-   ];
-
-   const niveis = [
-      { nivel: 1, titulo: "Curioso", xpRequerido: "Início" },
-      { nivel: 5, titulo: "Competidor", xpRequerido: "500 XP" },
-      { nivel: 10, titulo: "Especialista", xpRequerido: "1.500 XP" },
-      { nivel: 20, titulo: "Mestre", xpRequerido: "5.000 XP" },
-      { nivel: 30, titulo: "Lenda", xpRequerido: "15.000 XP" },
-   ];
-
    return (
       <div>
          {/* Background */}
@@ -357,7 +275,7 @@ export default function Home() {
                      titulo="Sua jornada rumo ao estrelato"
                      descricao="Ganhe pontos de experiência (XP) a cada partida disputada e desbloqueie novos títulos honoríficos."
                   />
-                  <div className="flex  justify-center gap-3 ">
+                  <div className="flex justify-center gap-3 mb-12">
                      {niveis.map((item, k) => (
                         <>
                            <div className="text-center flex justify-center flex-col items-center" key={k}>
@@ -371,6 +289,34 @@ export default function Home() {
                            </div>
                            {k < niveis.length - 1 && <hr className="w-28 relative top-10 border-dashed border" />}
                         </>
+                     ))}
+                  </div>
+                  <p className="text-tema font-sora font-semibold text-center">
+                     👉 Jogue partidas, acumule conquistas e suba até a classe das Lendas!
+                  </p>
+               </Container>
+            </section>
+            {/* Testemunhos */}
+            <section className="pb-48 relative">
+               {/* Fundo */}
+               <Image className="absolute inset-0 size-full object-cover -z-2" alt="" src="/img/fundo-wavy3.webp" width={1920} height={1440} />
+               <div className="absolute -z-1 inset-0 size-full bg-fundo opacity-92"></div>
+               <Container>
+                  <SectionIntro
+                     subtitulo="Testemunhos dos jogadores"
+                     titulo="Quem já joga, recomenda"
+                     descricao="Veja o feedback dos competidores que já garantiram suas primeiras conquistas na plataforma."
+                  />
+                  <div className="flex flex-nowrap gap-8">
+                     {testemunhos.map((item, k) => (
+                        <div className="p-10 rounded-2xl bg-azul-escuro2/90 border border-cor-borda space-y-6" key={k}>
+                           <Quote className="stroke-tema/40 size-8" />
+                           <p className="font-sora">{item.texto}</p>
+                           <div>
+                              <p className="font-bold text-white mb-1">{item.autor}</p>
+                              <p className="text-tema text-[12px] font-sora">{item.provincia}</p>
+                           </div>
+                        </div>
                      ))}
                   </div>
                </Container>
