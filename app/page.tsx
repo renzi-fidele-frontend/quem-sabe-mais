@@ -322,18 +322,20 @@ export default function Home() {
                   </div>
                </Container>
             </section>
-            <section className="py-30 relative">
+            {/* Pronto para jogar? */}
+            <section className="pt-30 pb-20 relative mb-22">
                {/* Fundo */}
                <Image className="absolute inset-0 size-full object-cover -z-2" alt="" src="/img/fundo-bottom.webp" width={1920} height={440} />
                <div className="absolute -z-1 inset-0 size-full bg-fundo opacity-70"></div>
                <Container className="text-center">
                   <p className="text-5xl text-white font-black mb-4">Pronto para descobrir quem sabe mais?</p>
-                  <p className="mb-8 text-lg">
+                  <p className="mb-8 text-lg font-sora">
                      Entre de cabeça na maior competição de conhecimentos gerais do país. Cadastre-se em segundos e jogue agora.
                   </p>
-                  <Button className="mx-auto px-7 py-3.5">
+                  <Button className="mx-auto px-7 py-3.5 mb-4">
                      <Play /> COMEÇAR A JOGAR
                   </Button>
+                  <p className="text-[13px] font-sora">Crie a sua conta gratuitamente.</p>
                </Container>
             </section>
          </div>
