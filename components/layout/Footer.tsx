@@ -18,17 +18,20 @@ const Footer = () => {
             {/* Cima */}
             <div className="flex items-center justify-between">
                {/* Esquerda */}
-               <div className="basis-[28%] gap-3">
-                  <Image className="mb-2.5" alt="Logo" width={214} height={38} src="/logo.png" />
+               <div className="basis-[28%]">
+                  <Image className="mb-2.75" alt="Logo" width={214} height={38} src="/logo.png" />
                   <p className="">O Maior Quiz de Conhecimentos da cultura Moçambicana de todos os tempo</p>
                </div>
                {/* Direita */}
                <div className="text-end text-sm space-y-3">
-                  <Link className="ms-auto flex gap-2.5 w-fit bg-cor-borda text-white rounded-xl px-5 py-2.75 font-semibold items-center" href="/">
+                  <Link
+                     className="ms-auto flex gap-2.5 w-fit bg-cor-borda text-white rounded-xl px-5 py-2.75 font-semibold items-center"
+                     href="/"
+                  >
                      <Image className="invert-100" src="/icons/facebook.svg" width={18} height={18} alt="Logo do facebook" /> Siga-nos no
                      Facebook
                   </Link>
-                  <nav className="flex gap-6">
+                  <nav className="flex gap-6 font-semibold">
                      {nav.map(({ nome, path }, k) => (
                         <Link className="" key={k} href={path}>
                            {nome}
@@ -39,7 +42,7 @@ const Footer = () => {
             </div>
             <hr className="my-10" />
             {/* Baixo */}
-            <div className="flex justify-between font-sora">
+            <div className="flex justify-between ">
                <p>© 2026 Quem Sabe Mais? Todos os direitos reservados.</p>
                <p className="text-tema">Feito para os campeões da mente.</p>
             </div>
