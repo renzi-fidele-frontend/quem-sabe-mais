@@ -42,7 +42,7 @@ const LoginForm = () => {
             <label htmlFor="nome_real">Nome completo</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
                <InputGroupInput name="nome_real" placeholder="Digite seu nome completo" />
-               <InputGroupAddon className="">
+               <InputGroupAddon>
                   <User />
                </InputGroupAddon>
             </InputGroup>
@@ -52,7 +52,7 @@ const LoginForm = () => {
             <label htmlFor="username">Nome de usuário</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
                <InputGroupInput name="username" placeholder="Escolha seu nome de usuário" />
-               <InputGroupAddon className="">
+               <InputGroupAddon>
                   <AtSign />
                </InputGroupAddon>
             </InputGroup>
@@ -62,7 +62,7 @@ const LoginForm = () => {
             <label htmlFor="email">Email</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
                <InputGroupInput name="email" placeholder="Digite seu email" />
-               <InputGroupAddon className="">
+               <InputGroupAddon>
                   <Mail />
                </InputGroupAddon>
             </InputGroup>
@@ -78,16 +78,17 @@ const LoginForm = () => {
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
                />
-               <InputGroupAddon className="">
+               <InputGroupAddon>
                   <Lock />
                </InputGroupAddon>
-               <button type="button" className="absolute top-0 right-0 h-full px-3 hover:bg-transparent cursor-pointer" onClick={() => setMostrarSenha(!mostrarSenha)}>
+               <button
+                  type="button"
+                  className="absolute top-0 right-0 h-full px-3 hover:bg-transparent cursor-pointer"
+                  onClick={() => setMostrarSenha(!mostrarSenha)}
+               >
                   {mostrarSenha ? <EyeOff className="size-4 text-muted-foreground" /> : <Eye className="size-4 text-muted-foreground" />}
                </button>
             </InputGroup>
-            {/* TODO: Definir o estado que identifica o nível de segurança da senha
-                     Deverei instalar o pacote https://zxcvbn-ts.github.io/zxcvbn/guide/getting-started/#installation
-                     */}
             {/* Indicador de segurança */}
             {senha.length > 0 && (
                <div className="space-y-2 mt-1">
@@ -117,7 +118,7 @@ const LoginForm = () => {
             <label htmlFor="confirmacao_senha">Confirmar senha</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
                <InputGroupInput type="password" name="confirmacao_senha" placeholder="Digite a senha novamente" />
-               <InputGroupAddon className="">
+               <InputGroupAddon>
                   <Lock />
                </InputGroupAddon>
             </InputGroup>
