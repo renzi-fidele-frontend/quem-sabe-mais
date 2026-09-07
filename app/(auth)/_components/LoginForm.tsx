@@ -2,12 +2,41 @@
 import Button from "@/components/shared/Button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { ArrowRight, AtSign, Lock, Mail, User } from "lucide-react";
+import { verificarForcaSenha } from "@/lib/verificarForcaSenha";
+import { ArrowRight, AtSign, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
+import { useMemo, useState } from "react";
 
 const LoginForm = () => {
+   const [senha, setSenha] = useState("");
+   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
+   const [mostrarSenha, setMostrarSenha] = useState(false);
+
+   const nivelSegurancaDaSenha = useMemo(() => verificarForcaSenha(senha), [senha]);
+
+   const senhasCoincidem = senha.length > 0 && confirmacaoSenha.length > 0 && senha === confirmacaoSenha;
+
+   const senhaForte = nivelSegurancaDaSenha.score >= 2;
+
+   function analisarCorNivel(nivel: number) {
+      switch (nivel) {
+         case 0:
+            return "bg-red-500";
+         case 1:
+            return "bg-red-500";
+         case 2:
+            return "bg-orange-500";
+         case 3:
+            return "bg-yellow-500";
+         case 4:
+            return "bg-green-500";
+         default:
+            return "bg-thema";
+      }
+   }
+
    return (
-      <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold">
+      <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold bg-oran">
          {/* Nome completo */}
          <fieldset>
             <label htmlFor="nome_real">Nome completo</label>
@@ -41,15 +70,47 @@ const LoginForm = () => {
          {/* Senha */}
          <fieldset>
             <label htmlFor="senha">Senha</label>
-            <InputGroup className="bg-azul-escuro2 border-cor-borda">
-               <InputGroupInput type="password" name="senha" placeholder="Crie uma senha" />
+            <InputGroup className="bg-azul-escuro2 border-cor-borda relative">
+               <InputGroupInput
+                  type={mostrarSenha ? "text" : "password"}
+                  name="senha"
+                  placeholder="Crie uma senha"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+               />
                <InputGroupAddon className="">
                   <Lock />
                </InputGroupAddon>
+               <button type="button" className="absolute top-0 right-0 h-full px-3 hover:bg-transparent cursor-pointer" onClick={() => setMostrarSenha(!mostrarSenha)}>
+                  {mostrarSenha ? <EyeOff className="size-4 text-muted-foreground" /> : <Eye className="size-4 text-muted-foreground" />}
+               </button>
             </InputGroup>
             {/* TODO: Definir o estado que identifica o nível de segurança da senha
                      Deverei instalar o pacote https://zxcvbn-ts.github.io/zxcvbn/guide/getting-started/#installation
                      */}
+            {/* Indicador de segurança */}
+            {senha.length > 0 && (
+               <div className="space-y-2 mt-1">
+                  {/* Barra */}
+                  <div className="flex gap-1">
+                     {[0, 1, 2, 3, 4].map((nivel) => (
+                        <div
+                           key={nivel}
+                           className={`h-1.5 flex-1 rounded-full transition-colors ${
+                              nivel <= nivelSegurancaDaSenha.score ? analisarCorNivel(nivelSegurancaDaSenha.score) : "bg-cor-borda"
+                           }`}
+                        />
+                     ))}
+                  </div>
+
+                  {/* Texto */}
+                  <div className="flex justify-between items-center">
+                     <span className="text-xs text-gray-400">Segurança da senha</span>
+
+                     <span className="text-xs font-semibold">{nivelSegurancaDaSenha.label}</span>
+                  </div>
+               </div>
+            )}
          </fieldset>
          {/* Confirmar senha */}
          <fieldset>
