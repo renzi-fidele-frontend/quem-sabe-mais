@@ -36,7 +36,7 @@ const LoginForm = () => {
    }
 
    return (
-      <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold bg-oran">
+      <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold">
          {/* Nome completo */}
          <fieldset>
             <label htmlFor="nome_real">Nome completo</label>

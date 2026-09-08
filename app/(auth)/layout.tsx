@@ -1,8 +1,23 @@
 import Container from "@/components/layout/Container";
 import { Check } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 
-export default function AuthLayout({ children }: { children: React.ReactNode }) {
+export default async function AuthLayout({ children }: { children: React.ReactNode }) {
+   const headersList = await headers();
+   const pathname = headersList.get("x-pathname") || "";
+
+   function analisarBg() {
+      switch (pathname) {
+         case "/entrar":
+            return "/img/fundo-palco-login.webp";
+         case "/cadastro":
+            return "/img/fundo-palco-cadastro.webp";
+         default:
+            return "/img/fundo-palco-cadastro.webp";
+      }
+   }
+
    return (
       <div className="py-6">
          <Container className="[&_span]:text-tema flex flex-nowrap gap-18 ">
@@ -12,7 +27,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                   className="absolute inset-0 object-cover -z-2"
                   width={1920}
                   height={1500}
-                  src="/img/fundo-palco-cadastro.webp"
+                  src={analisarBg()}
                   alt="Palco do quem sabe mais"
                />
                {/* Overlay */}
@@ -36,7 +51,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                <p className="text-[12px]">O maior quiz de Moçambique • Jogue no telemóvel ou computador</p>
             </div>
             {/* Direita */}
-            <div className="grow flex flex-col justify-center font-sora py-12">{children}</div>
+            <div className="grow flex flex-col justify-center font-sora py-12 min-h-185">{children}</div>
          </Container>
       </div>
    );
