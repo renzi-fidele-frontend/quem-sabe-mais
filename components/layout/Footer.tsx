@@ -40,7 +40,7 @@ const Footer = () => {
                   </nav>
                </div>
             </div>
-            <hr className="my-10" />
+            <hr className="my-10 border-cor-borda/60" />
             {/* Baixo */}
             <div className="flex justify-between ">
                <p>© 2026 Quem Sabe Mais? Todos os direitos reservados.</p>

@@ -71,6 +71,14 @@ const SignUpForm = () => {
                </InputGroupAddon>
             </InputGroup>
          </fieldset>
+         {/* Telefone */}
+         <fieldset>
+            <label htmlFor="telefone">Telefone</label>
+            <InputGroup className="bg-azul-escuro2 border-cor-borda">
+               <InputGroupInput required type="tel" name="telefone" placeholder="Digite seu telefone" />
+               <InputGroupAddon>+258</InputGroupAddon>
+            </InputGroup>
+         </fieldset>
          {/* Senha */}
          <fieldset>
             <label htmlFor="senha">Senha</label>

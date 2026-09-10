@@ -31,13 +31,13 @@ export default function Home() {
                         </h6>
                         <div className="text-white">
                            <div className="space-y-6">
-                              <h1 className="text-7xl font-black">
+                              <h1 className="text-7xl font-black text-shadow-lg/65">
                                  QUEM SABE <span>MAIS?</span>
                               </h1>
                               <p className="text-3xl font-bold">
                                  Mostre o que você sabe. <span>Conquiste o seu prêmio.</span>
                               </p>
-                              <p className="text-lg text-[#E8E9EA] pe-30 font-sora mb-8">
+                              <p className="text-lg text-[#E8E9EA] pe-30 font-sora mb-8 text-shadow-md/90">
                                  Responda a perguntas desafiadoras sobre ciência, geografia, história, desporto e a nossa rica cultura
                                  moçambicana. Suba nos rankings de liderança e{" "}
                                  <span className="font-bold">concorra a recompensas reais todas as épocas!</span>
