@@ -52,10 +52,9 @@ export default function Page() {
          <Link href="" className="text-end text-tema font-semibold mt-3 mb-8">
             Esqueceu sua senha?
          </Link>
-         <Button className="py-4">
+         <Button className="py-4" type="submit">
             Entrar <ArrowRight />
          </Button>
-
          <AuthCta modo="login" />
          {/* TODO: Amanhã cedo finalizar esta seção */}
       </>

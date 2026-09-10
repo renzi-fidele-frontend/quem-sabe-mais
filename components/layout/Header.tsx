@@ -43,7 +43,7 @@ const Header = async () => {
             </nav>
 
             {/* Botão de login */}
-            <Link href="/login" className="flex items-center gap-2.5 bg-tema text-black rounded-xl px-3.5 py-1.5 text-lg font-bold">
+            <Link href="/entrar" className="flex items-center gap-2.5 bg-tema text-black rounded-xl px-3.5 py-1.5 text-lg font-bold">
                <LogIn className="size-5" /> Entrar
             </Link>
          </Container>
