@@ -1,35 +1,15 @@
 import Container from "@/components/layout/Container";
 import { Check } from "lucide-react";
-import { headers } from "next/headers";
 import Image from "next/image";
+import FundoAuth from "./_components/FundoAuth";
 
 export default async function AuthLayout({ children }: { children: React.ReactNode }) {
-   const headersList = await headers();
-   const pathname = headersList.get("x-pathname") || "";
-
-   function analisarBg() {
-      switch (pathname) {
-         case "/entrar":
-            return "/img/fundo-palco-login.webp";
-         case "/cadastro":
-            return "/img/fundo-palco-cadastro.webp";
-         default:
-            return "/img/fundo-palco-cadastro.webp";
-      }
-   }
-
    return (
       <div className="py-6">
          <Container className="[&_span]:text-tema flex flex-nowrap gap-18 ">
             {/* Esquerda */}
             <div className="relative flex flex-col justify-between p-16 basis-[55%] gap-18 overflow-hidden">
-               <Image
-                  className="absolute inset-0 object-cover -z-2"
-                  width={1920}
-                  height={1500}
-                  src={analisarBg()}
-                  alt="Palco do quem sabe mais"
-               />
+               <FundoAuth />
                {/* Overlay */}
                <div className="size-full inset-0 absolute bg-fundo/65 -z-1"></div>
                {/* Logo do site */}

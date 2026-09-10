@@ -6,8 +6,9 @@ import { verificarForcaSenha } from "@/lib/verificarForcaSenha";
 import { ArrowRight, AtSign, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { criarConta } from "../_actions";
 
-const LoginForm = () => {
+const SignUpForm = () => {
    const [senha, setSenha] = useState("");
    const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
    const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -36,12 +37,15 @@ const LoginForm = () => {
    }
 
    return (
-      <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold">
+      <form
+         action={criarConta}
+         className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold"
+      >
          {/* Nome completo */}
          <fieldset>
             <label htmlFor="nome_real">Nome completo</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
-               <InputGroupInput name="nome_real" placeholder="Digite seu nome completo" />
+               <InputGroupInput required name="nome_real" placeholder="Digite seu nome completo" />
                <InputGroupAddon>
                   <User />
                </InputGroupAddon>
@@ -51,7 +55,7 @@ const LoginForm = () => {
          <fieldset>
             <label htmlFor="username">Nome de usuário</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
-               <InputGroupInput name="username" placeholder="Escolha seu nome de usuário" />
+               <InputGroupInput required name="username" placeholder="Escolha seu nome de usuário" />
                <InputGroupAddon>
                   <AtSign />
                </InputGroupAddon>
@@ -61,7 +65,7 @@ const LoginForm = () => {
          <fieldset>
             <label htmlFor="email">Email</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
-               <InputGroupInput name="email" placeholder="Digite seu email" />
+               <InputGroupInput required type="email" name="email" placeholder="Digite seu email" />
                <InputGroupAddon>
                   <Mail />
                </InputGroupAddon>
@@ -74,6 +78,7 @@ const LoginForm = () => {
                <InputGroupInput
                   type={mostrarSenha ? "text" : "password"}
                   name="senha"
+                  required
                   placeholder="Crie uma senha"
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
@@ -117,7 +122,7 @@ const LoginForm = () => {
          <fieldset>
             <label htmlFor="confirmacao_senha">Confirmar senha</label>
             <InputGroup className="bg-azul-escuro2 border-cor-borda">
-               <InputGroupInput type="password" name="confirmacao_senha" placeholder="Digite a senha novamente" />
+               <InputGroupInput required type="password" name="confirmacao_senha" placeholder="Digite a senha novamente" />
                <InputGroupAddon>
                   <Lock />
                </InputGroupAddon>
@@ -126,18 +131,18 @@ const LoginForm = () => {
          {/* Termos e condições */}
          <fieldset className="my-6">
             <div className="flex gap-2">
-               <Checkbox id="termos_condicoes" className="size-4.5 mt-0.5" />
-               <label htmlFor="termos_condicoes" className="[&_a]:text-tema text-sm!">
+               <Checkbox required id="termos_condicoes" className="size-4.5 mt-0.5" />
+               <label htmlFor="termos_condicoes" className="[&_a]:text-tema text-sm! cursor-pointer">
                   Li e concordo com os <Link href="/termos_e_condicoes">Termos e Condições</Link> e a{" "}
                   <Link href="/politica_de_privacidade">Política de Privacidade</Link>.
                </label>
             </div>
          </fieldset>
-         {/* Confirmação da política do site */}
-         <Button className="w-full py-4">
+         {/* Botão de submit */}
+         <Button type="submit" className="w-full py-4">
             CRIAR CONTA <ArrowRight className="stroke-3" />
          </Button>
       </form>
    );
 };
-export default LoginForm;
+export default SignUpForm;

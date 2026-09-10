@@ -3,7 +3,7 @@
 import { Document, model, models, Schema } from "mongoose";
 
 export interface IUsuario extends Document {
-   nome_real: string; // Para validação com mpesa
+   nomeCompleto: string; // Para validação com mpesa
    nickname: string; // Ex: @renzifidele (exibido na liderança e perfil)
    email: string;
    passwordHash: string;
@@ -43,14 +43,14 @@ export interface IUsuario extends Document {
 
 const schemaDoUsuario = new Schema<IUsuario>(
    {
-      nome_real: { type: String, required: true, trim: true },
+      nomeCompleto: { type: String, required: true, trim: true },
       nickname: { type: String, required: true, unique: true, lowercase: true, trim: true },
       email: { type: String, required: true, unique: true, lowercase: true, trim: true },
       passwordHash: { type: String, required: true, select: false },
       role: { type: String, enum: ["player", "admin"], default: "player" },
       phoneMpesa: { type: String, trim: true },
       avatarUrl: { type: String },
-      
+
       xp: { type: Number, default: 0 },
       nivel: { type: Number, default: 1 },
       title: { type: String, default: "Iniciante" },
@@ -74,7 +74,7 @@ const schemaDoUsuario = new Schema<IUsuario>(
       },
       ativo: { type: Boolean, default: true },
    },
-   { timestamps: true },
+   { timestamps: true, collection: "Usuarios" },
 );
 
 export const Usuario = models.Usuario || model<IUsuario>("Usuario", schemaDoUsuario);
