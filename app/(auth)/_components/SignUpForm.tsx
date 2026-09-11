@@ -138,9 +138,9 @@ const SignUpForm = () => {
          </fieldset>
          {/* Termos e condições */}
          <fieldset className="my-6">
-            <div className="flex gap-2">
-               <Checkbox required id="termos_condicoes" className="size-4.5 mt-0.5" />
-               <label htmlFor="termos_condicoes" className="[&_a]:text-tema text-sm! cursor-pointer">
+            <div className="flex gap-2 ">
+               <Checkbox required id="termos_condicoes" className="size-4 mt-0.5" />
+               <label htmlFor="termos_condicoes" className="[&_a]:text-tema [&_a]:hover:underline text-[13px]! cursor-pointer w-[85%]">
                   Li e concordo com os <Link href="/termos_e_condicoes">Termos e Condições</Link> e a{" "}
                   <Link href="/politica_de_privacidade">Política de Privacidade</Link>.
                </label>
