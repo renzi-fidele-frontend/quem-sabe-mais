@@ -24,11 +24,11 @@ export interface IUsuario extends Document {
    };
 
    // Estatísticas Globais (Tela "Meu Progresso")
-   stats: {
+   estatisticas: {
       totalDePartidas: number;
-      nrVitorias: number; // Finalizou as 15 perguntas
+      nrVitorias: number; // Venceu a final
       vezesDesistidas: number; // Abandonadas/Paradas com valor
-      nrEliminacoes: number; // Errou e caiu no seguro
+      nrEliminacoes: number;
       totalGanho: number;
       totalAcertos: number;
       totalDePerguntasPuladas: number;
@@ -36,7 +36,7 @@ export interface IUsuario extends Document {
       melhorSequenciaDeAcertos: number; // Ex: 12 acertos seguidos
    };
 
-   ativo: boolean;
+   ativo: boolean; // Banir ou não
    createdAt: Date;
    updatedAt: Date;
 }
@@ -48,7 +48,7 @@ const schemaDoUsuario = new Schema<IUsuario>(
       email: { type: String, required: true, unique: true, lowercase: true, trim: true },
       passwordHash: { type: String, required: true, select: false },
       role: { type: String, enum: ["player", "admin"], default: "player" },
-      phoneMpesa: { type: String, trim: true },
+      phoneMpesa: { type: String, trim: true, unique: true },
       avatarUrl: { type: String },
 
       xp: { type: Number, default: 0 },
@@ -61,7 +61,7 @@ const schemaDoUsuario = new Schema<IUsuario>(
          tema: { type: String, enum: ["dark", "light", "system"], default: "dark" },
       },
 
-      stats: {
+      estatisticas: {
          totalDePartidas: { type: Number, default: 0 },
          nrVitorias: { type: Number, default: 0 },
          vezesDesistidas: { type: Number, default: 0 },
