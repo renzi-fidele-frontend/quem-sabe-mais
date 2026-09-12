@@ -3,10 +3,13 @@ import Container from "./Container";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { LogIn } from "lucide-react";
+import { obterSessaoComUsuario } from "@/lib/auth/session";
 
 const Header = async () => {
    const headersList = await headers();
    const pathname = headersList.get("x-pathname") || "";
+
+   const user = await obterSessaoComUsuario();
 
    const links = [
       {
@@ -42,10 +45,21 @@ const Header = async () => {
                ))}
             </nav>
 
-            {/* Botão de login */}
-            <Link href="/entrar" className="flex items-center gap-2.5 bg-tema text-black rounded-xl px-3.5 py-1.5 text-lg font-bold">
-               <LogIn className="size-5" /> Entrar
-            </Link>
+            <>
+               {user ? (
+                  <div className="flex items-center gap-3">
+                     <div className="flex flex-col justify-center">
+                        <p className="capitalize text-sm font-sora text-white">{user.usuario.nickname}</p>
+                        <span className="text-[11px] text-tema">{user.usuario.estatisticas.totalGanho} MT acumulados</span>
+                     </div>
+                     <Image className="rounded-full" width={42} height={42} alt="Foto de perfil" src={user.usuario.avatarUrl} />
+                  </div>
+               ) : (
+                  <Link href="/entrar" className="flex items-center gap-2.5 bg-tema text-black rounded-xl px-3.5 py-1.5 text-lg font-bold">
+                     <LogIn className="size-5" /> Entrar
+                  </Link>
+               )}
+            </>
          </Container>
       </header>
    );

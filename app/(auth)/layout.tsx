@@ -31,7 +31,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
                <p className="text-[12px]">O maior quiz de Moçambique • Jogue no telemóvel ou computador</p>
             </div>
             {/* Direita */}
-            <div className="grow flex flex-col justify-center font-sora py-12 min-h-185">{children}</div>
+            <div className="basis-[45%] flex flex-col justify-center font-sora py-12 min-h-185">{children}</div>
          </Container>
       </div>
    );

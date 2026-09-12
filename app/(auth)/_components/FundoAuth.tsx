@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 export default function FundoAuth() {
    const pathname = usePathname();
 
-   const fundo = pathname === "/entrar" ? "/img/fundo-palco-login.webp" : pathname === "/cadastro" ? "/img/fundo-palco-cadastro.webp" : "";
+   const fundo = pathname === "/entrar" ? "/img/fundo-palco-login.webp" : "/img/fundo-palco-cadastro.webp";
 
    if (!fundo) return null;
 

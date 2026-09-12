@@ -9,7 +9,7 @@ export interface IUsuario extends Document {
    passwordHash: string;
    phoneMpesa?: string;
    role: "player" | "admin";
-   avatarUrl?: string;
+   avatarUrl: string;
 
    // Gamificação / Progressão
    xp: number;

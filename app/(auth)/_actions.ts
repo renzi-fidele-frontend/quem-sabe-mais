@@ -3,6 +3,7 @@ import { criarSessao } from "@/lib/auth/session";
 import { criptografarSenha } from "@/lib/auth/password";
 import { IUsuario, Usuario } from "@/models/Usuario";
 import { dbConnect } from "@/lib/dbConnect";
+import { redirect } from "next/navigation";
 
 // TODO: Adicionando a funcionalidade de criar uma conta
 export async function criarConta(formData: FormData) {
@@ -29,6 +30,8 @@ export async function criarConta(formData: FormData) {
       await usuario.save();
 
       await criarSessao(usuario._id.toString());
+
+      redirect("/cadastro/escoher-avatar");
 
       // TODO: Implementar autenticação
    } catch (error) {
