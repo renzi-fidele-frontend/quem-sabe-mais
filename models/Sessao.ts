@@ -35,6 +35,7 @@ const schemaDaSessao = new Schema<ISessao>(
 );
 
 // O índice TTL faz o MongoDB remover automaticamente as sessões expiradas.
+// Isso permite que o MongoDB elimine sessões expiradas automaticamente.
 schemaDaSessao.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export const Sessao = models.Sessao || model<ISessao>("Sessao", schemaDaSessao);
