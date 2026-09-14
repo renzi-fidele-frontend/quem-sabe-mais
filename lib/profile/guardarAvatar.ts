@@ -1,5 +1,4 @@
 "use server";
-
 import { Usuario } from "@/models/Usuario";
 import { obterSessaoComUsuario } from "../auth/session";
 import { dbConnect } from "../dbConnect";

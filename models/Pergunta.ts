@@ -1,4 +1,4 @@
-import { Document, model, models, Schema } from "mongoose";
+import { Document, model, models, Schema, Types } from "mongoose";
 
 export type DificuldadePergunta = "fácil" | "média" | "difícil";
 
@@ -12,7 +12,7 @@ export interface IPergunta extends Document {
    imagem: string;
    alternativas: IAlternativa[];
    respostaCorreta: string;
-   categoria: string; // Projeção
+   categoria: Types.ObjectId; // Projeção
    dificuldade: DificuldadePergunta;
    ativa: boolean;
    createdAt: Date;
@@ -62,8 +62,10 @@ const perguntaSchema = new Schema<IPergunta>(
       },
 
       categoria: {
-         type: String,
+         type: Schema.Types.ObjectId,
          required: true,
+         ref: "Categoria",
+         index: true,
       },
 
       dificuldade: {
@@ -79,6 +81,7 @@ const perguntaSchema = new Schema<IPergunta>(
    },
    {
       timestamps: true,
+      collection: "Perguntas",
    },
 );
 
