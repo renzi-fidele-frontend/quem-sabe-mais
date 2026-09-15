@@ -31,6 +31,9 @@ export interface IPartida extends Document {
 
    dataInicio: Date;
    dataFim?: Date;
+
+   createdAt: Date;
+   updatedAt: Date;
 }
 
 const respostaPartidaSchema = new Schema<IRespostaPartida>(
@@ -145,10 +148,10 @@ const partidaSchema = new Schema<IPartida>(
          type: Date,
       },
    },
-   { collection: "Partidas" },
+   { collection: "Partidas", timestamps: true },
 );
 
-partidaSchema.index({ usuarioId: 1 });
+partidaSchema.index({ usuarioId: 1, createdAt: -1 });
 
 const Partida = models.Partida || model<IPartida>("Partida", partidaSchema);
 
