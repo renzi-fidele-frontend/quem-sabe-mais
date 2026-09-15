@@ -6,6 +6,7 @@ import { Info, Play, Quote, Shield, Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
+import { iniciarPartida } from "./partida/_actions";
 
 export default function Home() {
    return (
@@ -42,11 +43,11 @@ export default function Home() {
                                  moçambicana. Suba nos rankings de liderança e{" "}
                                  <span className="font-bold">concorra a recompensas reais todas as épocas!</span>
                               </p>
-                              <Link href="/jogar">
-                                 <Button className="px-9 py-4.5 gap-3.5 font-black!">
+                              <form action={iniciarPartida}>
+                                 <Button className="px-9 py-4.5 gap-3.5 font-black!" type="submit">
                                     <Play className="stroke-3" /> COMEÇAR A JOGAR
                                  </Button>
-                              </Link>
+                              </form>
                            </div>
                            <p className="text-sm text-[#E9EBEE] mt-4.5 font-sora opacity-80">
                               É grátis para começar • Jogue diretamente do navegador
