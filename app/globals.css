@@ -8,6 +8,7 @@
    --fundo: #05070f;
    --azul-escuro: #0a0d1d;
    --azul-escuro2: #0D1127;
+   --azul-leve: #161C3C;
    --texto-1: #aebacf;
    --texto-1-backup: #8e9bb4;
    --texto-2: #ffffff;
@@ -59,8 +60,9 @@
    --color-azul-escuro: var(--azul-escuro);
    --color-azul-escuro2: var(--azul-escuro2);
    --color-cor-borda: var(--cor-borda);
+   --color-azul-leve: var(--azul-leve);
 
-   /*  */
+   /* ShadCN */
    --font-heading: var(--font-sans);
    --font-sans: var(--font-sans);
    --color-sidebar-ring: var(--sidebar-ring);
