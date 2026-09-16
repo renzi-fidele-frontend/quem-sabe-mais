@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Lock, Star } from "lucide-react";
 
 type Props = {
    perguntaAtual: number;
@@ -26,7 +26,8 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) 
                      >
                         {/* Nivel */}
                         <span className="flex items-center gap-1.5 font-bold text-[#4D5975]">
-                           {nivel < 10 ? `0${nivel}` : nivel} {checkpoints.includes(valor) && <Star className="stroke-tema size-2.5 fill-tema" />}
+                           {nivel < 10 ? `0${nivel}` : nivel}{" "}
+                           {checkpoints.includes(valor) && <Star className="stroke-tema size-2.5 fill-tema" />}
                         </span>
                         {/* Valor */}
                         <span className={`${checkpoints.includes(valor) ? "font-bold text-tema" : "text-white"}`}>
@@ -38,7 +39,18 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) 
             </div>
          </div>
          {/* Acumulado garantido */}
-         <div className="p-6 border border-cor-borda rounded-[20px] bg-azul-escuro2"></div>
+         <div className="p-6 border border-cor-borda rounded-[20px] bg-azul-escuro2">
+            <h3 className="text-xs font-sora font-bold">SEU SALDO ATUAL</h3>
+            <div className="flex justify-between items-center mt-4">
+               <div>
+                  <p className="text-tema font-extrabold text-3xl mb-1.75">{valorGarantido.toLocaleString("pt-MZ")} MT</p>
+                  <p className="font-sora text-xs">Acumulado Garantido</p>
+               </div>
+               <p className="flex items-center bg-[#4D5975]/13 rounded-[20px] text-xs gap-1.5 py-1.5 px-3 font-sora font-semibold">
+                  <Lock className="size-3.5" /> Nível {perguntaAtual}
+               </p>
+            </div>
+         </div>
       </>
    );
 }

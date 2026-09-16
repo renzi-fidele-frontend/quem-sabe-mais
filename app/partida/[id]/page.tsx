@@ -28,7 +28,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                </span>
             </div>
             {/* Pergunta */}
-            <h6 className="text-center text-2xl font-bold my-8">{pergunta.enunciado}</h6>
+            <h6 className="text-center text-2xl font-bold my-7">{pergunta.enunciado}</h6>
             {/* Alternativas */}
             <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
                {pergunta.alternativas.map((alternativa) => (
