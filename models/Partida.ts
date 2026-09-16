@@ -18,9 +18,11 @@ export interface IPartida extends Document {
 
    respondidas: IRespostaPartida[];
 
+   // Deverei incrementar aqui quando uma pergunta for acertada
    perguntaAtual: number;
-
    valorAtual: number;
+
+   // Deverei incrementar aqui quando um checkpoint for alcançado
    valorGarantido: number;
 
    status: StatusPartida;
@@ -29,6 +31,7 @@ export interface IPartida extends Document {
    pularPerguntaUsado: boolean;
    ajudaPublicaUsada: boolean;
 
+   // Investigar como tornar inválido após ultrapassar o intervalo de 5 minutos
    dataInicio: Date;
    dataFim?: Date;
 

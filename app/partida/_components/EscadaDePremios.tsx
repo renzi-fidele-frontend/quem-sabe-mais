@@ -18,10 +18,9 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) 
             <div>
                {[...valoresPremios].reverse().map((valor, index) => {
                   const nivel = valoresPremios.length - index;
-
                   return (
                      <div
-                        className={`flex justify-between px-4 py-2 rounded-[6px] text-sm ${checkpoints.includes(valor) ? "border border-tema/36 my-1" : ""}`}
+                        className={`flex justify-between px-4 py-2 rounded-[6px] text-sm ${checkpoints.includes(valor) ? "border border-tema/36 my-1" : ""} ${nivel === perguntaAtual ? "bg-tema **:text-black **:font-bold my-1" : ""}`}
                         key={nivel}
                      >
                         {/* Nivel */}
@@ -46,8 +45,8 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) 
                   <p className="text-tema font-extrabold text-3xl mb-1.75">{valorGarantido.toLocaleString("pt-MZ")} MT</p>
                   <p className="font-sora text-xs">Acumulado Garantido</p>
                </div>
-               <p className="flex items-center bg-[#4D5975]/13 rounded-[20px] text-xs gap-1.5 py-1.5 px-3 font-sora font-semibold">
-                  <Lock className="size-3.5" /> Nível {perguntaAtual}
+               <p className="flex items-center bg-[#4D5975]/13 rounded-[20px] text-xs gap-1.5 py-2 px-3 font-sora font-semibold">
+                  <Lock className="size-3.5 stroke-3" /> Nível {perguntaAtual}
                </p>
             </div>
          </div>

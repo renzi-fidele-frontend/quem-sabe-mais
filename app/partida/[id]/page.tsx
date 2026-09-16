@@ -14,10 +14,10 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
    const pergunta = (await Pergunta.findById(perguntaId)) as IPergunta;
 
-   console.log(pergunta);
+   console.log(partida);
 
    return (
-      <Container className="flex pt-10 pb-20 gap-8">
+      <Container className="flex pt-10 pb-20 gap-8 items-start">
          {/* Esquerda */}
          <div className="p-10.5 bg-azul-escuro2/90 border border-cor-borda rounded-[24px] basis-[68%] text-white">
             {/* Imagem e temporizador */}
@@ -28,15 +28,15 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                </span>
             </div>
             {/* Pergunta */}
-            <h6 className="text-center text-2xl font-bold my-7">{pergunta.enunciado}</h6>
+            <h6 className="text-center text-2xl font-bold mb-7 mt-5">{pergunta.enunciado}</h6>
             {/* Alternativas */}
             <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
                {pergunta.alternativas.map((alternativa) => (
                   <button
-                     className="border border-cor-borda bg-azul-leve px-6 py-5.5 rounded-[12px] font-sora cursor-pointer transition hover:text-black hover:bg-tema group"
+                     className="border border-cor-borda bg-azul-leve px-6 py-5.5 rounded-[12px] font-sora cursor-pointer transition  hover:bg-tema/7 hover:border-tema group"
                      key={alternativa.id}
                   >
-                     <span className="uppercase font-outfit font-black px-3 py-1.5 rounded-[6px] bg-tema/13 me-4 text-tema group-hover:text-white group-hover:bg-black transition">
+                     <span className="uppercase font-outfit font-black px-3 py-1.5 rounded-[6px] bg-tema/13 me-4 text-tema group-hover:text-black group-hover:bg-tema transition">
                         {alternativa.id}
                      </span>{" "}
                      {alternativa.texto}
@@ -63,9 +63,9 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
          </div>
          {/* Direita */}
          <div className="flex flex-col grow gap-6">
-            <EscadaPremios perguntaAtual={1} valorGarantido={0} />
+            <EscadaPremios perguntaAtual={partida.perguntaAtual} valorGarantido={partida.valorGarantido} />
             <button className="px-2.5 py-3.75 text-white bg-[#D32F2F] text-2xl font-semibold rounded-[12px] cursor-pointer">
-               Terminar partida
+               Abandonar partida
             </button>
          </div>
       </Container>
