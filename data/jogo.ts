@@ -5,3 +5,5 @@ export const NIVEIS_SEGURANCA = [5, 10] as const;
 export const TOTAL_PERGUNTAS = 15;
 
 export const MAX_PARTIDAS_DIARIAS = 5;
+
+export const CHECKPOINTS = [1000, 7500, 100000];

@@ -1,6 +1,6 @@
 "use server";
 
-import { MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS } from "@/data/jogo";
+import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { dbConnect } from "@/lib/dbConnect";
 import Partida from "@/models/Partida";
@@ -68,5 +68,80 @@ export async function iniciarPartida() {
       console.log(error);
    } finally {
       redirect("/partida/" + partida._id.toString());
+   }
+}
+
+export async function responderPergunta(partidaId: string, resposta: string) {
+   await dbConnect();
+
+   try {
+      const usuario = await obterSessaoComUsuario();
+      if (!usuario) {
+         throw new Error("Usuário não encontrado");
+      }
+
+      const partida = await Partida.findOne({ _id: partidaId, usuarioId: usuario.usuario._id });
+      if (!partida) {
+         throw new Error("Partida não encontrada");
+      }
+
+      // Caso não esteja em andamento
+      if (partida.status !== "em_andamento") {
+         throw new Error("Partida encerrada");
+      }
+
+      // Verificar se tempo excede 5 minutos
+      if (new Date().getTime() - partida.dataInicio.getTime() > 300000) {
+         throw new Error("Tempo excedido");
+      }
+
+      // TODO: Mais tarde verificar se cada pergunta foi respondida no intervalo de 20 seguntos
+
+      // Encontrando a pergunta sendo respondida
+      const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
+      const pergunta = await Pergunta.findById(perguntaId);
+      if (!pergunta) {
+         throw new Error("Pergunta não encontrada");
+      }
+
+      // Descobrir se a resposta está correta
+      const correta = resposta === pergunta.respostaCorreta;
+
+      const valorAtual = VALORES_PARTIDA[partida.perguntaAtual - 1];
+
+      // Adicionar a resposta a partida
+      await Partida.updateOne(
+         { _id: partidaId, usuarioId: usuario.usuario._id },
+         {
+            $push: {
+               respondidas: { perguntaId, numero: partida.perguntaAtual, respostaEscolhida: resposta, correta, valor: valorAtual },
+            },
+         },
+      );
+
+      if (correta) {
+         // Caso acerte, atualizar o valor atual
+         await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { valorAtual } });
+
+         // Caso esteja na última pergunta, encerrar a partida
+         if (partida.perguntaAtual === TOTAL_PERGUNTAS) {
+            await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "vitoria", dataFim: new Date() } });
+         } else {
+            // Avançar para a próxima pergunta caso acerte
+            await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $inc: { perguntaAtual: 1 } });
+         }
+
+         // Verificar se é um checkpoint para atualizar o valor garantido
+         const eCheckpoint = CHECKPOINTS.includes(valorAtual);
+         if (eCheckpoint) {
+            await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { valorGarantido: valorAtual } });
+         }
+      } else {
+         //  Se o jogador erra
+         await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "eliminado", dataFim: new Date() } });
+      }
+   } catch (error) {
+      console.log("Erro ao responder a pergunta!");
+      console.log(error);
    }
 }
