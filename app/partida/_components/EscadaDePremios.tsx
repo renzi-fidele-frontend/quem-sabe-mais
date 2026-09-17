@@ -7,8 +7,6 @@ type Props = {
 };
 
 export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) {
-   
-
    return (
       <>
          {/* Escala de premios */}

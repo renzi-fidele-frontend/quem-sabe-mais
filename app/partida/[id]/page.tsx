@@ -4,6 +4,7 @@ import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { ArrowRight, Percent, Users } from "lucide-react";
 import Image from "next/image";
 import EscadaPremios from "../_components/EscadaDePremios";
+import CardAlternativa from "../_components/CardAlternativa";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
    const { id } = await params;
@@ -42,16 +43,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                <h6 className="text-center text-2xl font-bold mb-7 mt-5">{pergunta.enunciado}</h6>
                {/* Alternativas */}
                <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
-                  {pergunta.alternativas.map((alternativa) => (
-                     <button
-                        className="border border-cor-borda bg-azul-leve px-6 py-5.5 rounded-[12px] font-sora cursor-pointer transition  hover:bg-tema/7 hover:border-tema group"
-                        key={alternativa.id}
-                     >
-                        <span className="uppercase font-outfit font-black px-3 py-1.5 rounded-[6px] bg-tema/13 me-4 text-tema group-hover:text-black group-hover:bg-tema transition">
-                           {alternativa.id}
-                        </span>{" "}
-                        {alternativa.texto}
-                     </button>
+                  {pergunta.alternativas.map((alternativa, k) => (
+                     <CardAlternativa alternativa={alternativa} partidaId={id} key={k} />
                   ))}
                </div>
                {/* Separador */}
