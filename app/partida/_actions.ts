@@ -140,6 +140,10 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          //  Se o jogador erra
          await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "eliminado", dataFim: new Date() } });
       }
+
+      return {
+         correta,
+      };
    } catch (error) {
       console.log("Erro ao responder a pergunta!");
       console.log(error);

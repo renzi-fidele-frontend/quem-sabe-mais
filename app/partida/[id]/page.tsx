@@ -15,8 +15,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
 
    const pergunta = (await Pergunta.findById(perguntaId)) as IPergunta;
 
-   console.log(partida);
-
    return (
       <div className="relative">
          {/* Fundo com overlay */}
@@ -44,7 +42,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                {/* Alternativas */}
                <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
                   {pergunta.alternativas.map((alternativa, k) => (
-                     <CardAlternativa alternativa={alternativa} partidaId={id} key={k} />
+                     <CardAlternativa idAlternativa={alternativa.id} textoAlternativa={alternativa.texto} partidaId={id} key={k} />
                   ))}
                </div>
                {/* Separador */}
