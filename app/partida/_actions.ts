@@ -142,7 +142,7 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "eliminado", dataFim: new Date() } });
       }
 
-      // Atualizando o cache
+      // Atualizando o cache e automaticamente atualiza a tela do client side
       revalidatePath(`/partida/${partidaId}`);
 
       return {

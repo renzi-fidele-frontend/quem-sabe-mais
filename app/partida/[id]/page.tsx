@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
          />
          <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-70"></div>
          {/* Conteúdo principal */}
-         <Container className="flex pt-10 pb-20 gap-8 items-start relative">
+         <Container className="flex pt-10 pb-20 gap-8 items-start relative flex-nowrap">
             {/* Esquerda */}
             <div className="p-10.5 bg-azul-escuro2/90 border border-cor-borda rounded-[24px] basis-[68%] text-white">
                {/* Imagem e temporizador */}
@@ -42,7 +42,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                {/* Alternativas */}
                <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
                   {pergunta.alternativas.map((alternativa, k) => (
-                     <CardAlternativa idAlternativa={alternativa.id} textoAlternativa={alternativa.texto} partidaId={id} key={`${pergunta._id}-${alternativa.id}`} />
+                     <CardAlternativa
+                        idAlternativa={alternativa.id}
+                        textoAlternativa={alternativa.texto}
+                        partidaId={id}
+                        key={`${pergunta._id}-${alternativa.id}`}
+                     />
                   ))}
                </div>
                {/* Separador */}
@@ -64,9 +69,9 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                </div>
             </div>
             {/* Direita */}
-            <div className="flex flex-col grow gap-6">
-               <EscadaPremios perguntaAtual={partida.perguntaAtual} valorGarantido={partida.valorGarantido} />
-               <button className="px-2.5 py-3.75 text-white bg-[#D32F2F] text-2xl font-semibold rounded-[12px] cursor-pointer">
+            <div className="flex flex-col grow gap-6 basis-[32%]">
+               <EscadaPremios perguntaAtual={partida.perguntaAtual} valorGarantido={partida.valorGarantido} valorAtual={partida.valorAtual} />
+               <button className="px-2.5 py-3.75 text-white bg-[#D32F2F] text-2xl font-semibold rounded-[12px] cursor-pointer ">
                   Abandonar partida
                </button>
             </div>

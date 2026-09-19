@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { responderPergunta } from "../_actions";
-import { useRouter } from "next/navigation";
 
 type Props = {
    idAlternativa: string;
@@ -12,22 +11,17 @@ type Props = {
 const CardAlternativa = ({ idAlternativa, textoAlternativa, partidaId }: Props) => {
    const [loading, setLoading] = useState(false);
    const [acertou, setAcertou] = useState<boolean | undefined>(undefined);
-   const router = useRouter();
 
    async function handleClick() {
       setLoading(true);
       try {
-         const responder = await responderPergunta(partidaId, idAlternativa);
-         if (!responder) return;
+         const resposta = await responderPergunta(partidaId, idAlternativa);
+         if (!resposta) return;
          setLoading(false);
-         setAcertou(responder.correta);
-         // Atualizar a tela após 2 segundos
-         if (responder.correta) {
-            setTimeout(() => {
-               router.refresh();
-            }, 2000);
-         } else {
-            // TODO: Redirecionar para a página de resultado final da partida
+         setAcertou(resposta.correta);
+
+         // TODO: Redirecionar para a página de resultado final da partida
+         if (resposta.correta === false) {
          }
       } catch (error) {
          setLoading(false);

@@ -4,9 +4,10 @@ import { Lock, Star } from "lucide-react";
 type Props = {
    perguntaAtual: number;
    valorGarantido: number;
+   valorAtual: number;
 };
 
-export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) {
+export default function EscadaPremios({ perguntaAtual, valorGarantido, valorAtual }: Props) {
    return (
       <>
          {/* Escala de premios */}
@@ -40,10 +41,13 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido }: Props) 
             <h3 className="text-xs font-sora font-bold">SEU SALDO ATUAL</h3>
             <div className="flex justify-between items-center mt-4">
                <div>
-                  <p className="text-tema font-extrabold text-3xl mb-1.75">{valorGarantido.toLocaleString("pt-MZ")} MT</p>
-                  <p className="font-sora text-xs">Acumulado Garantido</p>
+                  <p className="text-tema font-extrabold text-3xl mb-3">{valorAtual.toLocaleString("pt-MZ")} MT</p>
+                  <p className="font-sora text-xs">
+                     Saldo Garantido: <span className="text-tema font-semibold">{valorGarantido.toLocaleString("pt-MZ")}MT</span>
+                  </p>
+                  <p className="text-xs w-[80%] mt-3 opacity-60">* Se você for eliminado ficas com o saldo garantido.</p>
                </div>
-               <p className="flex items-center bg-[#4D5975]/13 rounded-[20px] text-xs gap-1.5 py-2 px-3 font-sora font-semibold">
+               <p className="flex items-center bg-[#4D5975]/13 rounded-[20px] text-xs gap-1.5 py-2.5 px-4 font-sora font-semibold whitespace-nowrap">
                   <Lock className="size-3.5 stroke-3" /> Nível {perguntaAtual}
                </p>
             </div>
