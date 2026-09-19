@@ -6,6 +6,7 @@ import { dbConnect } from "@/lib/dbConnect";
 import Partida from "@/models/Partida";
 import { Pergunta } from "@/models/Pergunta";
 import { Types } from "mongoose";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function iniciarPartida() {
@@ -67,7 +68,7 @@ export async function iniciarPartida() {
       console.log("Erro ao inicializar uma partida!");
       console.log(error);
    } finally {
-      redirect("/partida/" + partida._id.toString());
+      if (partida) redirect("/partida/" + partida._id.toString());
    }
 }
 
@@ -90,9 +91,9 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          throw new Error("Partida encerrada");
       }
 
-      // Verificar se tempo excede 5 minutos
-      if (new Date().getTime() - partida.dataInicio.getTime() > 300000) {
-         throw new Error("Tempo excedido");
+      // Verificar se tempo excede 9 minutos
+      if (new Date().getTime() - partida.dataInicio.getTime() > 9 * 60 * 1000) {
+         throw new Error("Tempo de gameplay expirado");
       }
 
       // TODO: Mais tarde verificar se cada pergunta foi respondida no intervalo de 20 seguntos
@@ -140,6 +141,9 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          //  Se o jogador erra
          await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "eliminado", dataFim: new Date() } });
       }
+
+      // Atualizando o cache
+      revalidatePath(`/partida/${partidaId}`);
 
       return {
          correta,

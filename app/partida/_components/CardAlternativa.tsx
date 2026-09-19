@@ -1,11 +1,8 @@
 "use client";
-
 import { useState } from "react";
 import { responderPergunta } from "../_actions";
+import { useRouter } from "next/navigation";
 
-// TODO: Adicionar efeito de loading ao responder a pergunta
-// TODO: Adicionar a funcionalidade de responder ao clicar no botão
-// TODO: Destacar o estado final do botão dependendo se a pergunta foi acertada
 type Props = {
    idAlternativa: string;
    textoAlternativa: string;
@@ -15,25 +12,33 @@ type Props = {
 const CardAlternativa = ({ idAlternativa, textoAlternativa, partidaId }: Props) => {
    const [loading, setLoading] = useState(false);
    const [acertou, setAcertou] = useState<boolean | undefined>(undefined);
+   const router = useRouter();
 
    async function handleClick() {
       setLoading(true);
       try {
          const responder = await responderPergunta(partidaId, idAlternativa);
          if (!responder) return;
-         setAcertou(responder.correta);
-      } catch (error) {
-         // TODO: Mais tarde lidar com o problema do erro
-      } finally {
          setLoading(false);
+         setAcertou(responder.correta);
+         // Atualizar a tela após 2 segundos
+         if (responder.correta) {
+            setTimeout(() => {
+               router.refresh();
+            }, 2000);
+         } else {
+            // TODO: Redirecionar para a página de resultado final da partida
+         }
+      } catch (error) {
+         setLoading(false);
+         // TODO: Mais tarde lidar com o problema do erro
       }
-
-      setLoading(false);
    }
 
    return (
       <button
          onClick={handleClick}
+         disabled={loading || acertou !== undefined}
          className={`border border-cor-borda bg-azul-leve px-6 py-5.5 rounded-[12px] font-sora  transition ${acertou === undefined ? "hover:bg-tema/7 hover:border-tema cursor-pointer" : ""} group relative ${acertou ? "bg-green-600" : ""} ${acertou === false ? "bg-red-500" : ""}`}
       >
          <span

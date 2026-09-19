@@ -42,7 +42,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                {/* Alternativas */}
                <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
                   {pergunta.alternativas.map((alternativa, k) => (
-                     <CardAlternativa idAlternativa={alternativa.id} textoAlternativa={alternativa.texto} partidaId={id} key={k} />
+                     <CardAlternativa idAlternativa={alternativa.id} textoAlternativa={alternativa.texto} partidaId={id} key={`${pergunta._id}-${alternativa.id}`} />
                   ))}
                </div>
                {/* Separador */}
