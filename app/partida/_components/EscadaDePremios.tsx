@@ -19,7 +19,7 @@ export default function EscadaPremios({ perguntaAtual, valorGarantido, valorAtua
                   const nivel = VALORES_PARTIDA.length - index;
                   return (
                      <div
-                        className={`flex justify-between px-4 py-2 rounded-[6px] text-sm ${CHECKPOINTS.includes(valor) ? "border border-tema/36 my-1" : ""} ${nivel === perguntaAtual ? "bg-tema **:text-black **:font-bold my-1" : ""}`}
+                        className={`flex justify-between px-4 py-2 rounded-[6px] text-sm ${valor <= valorAtual ? "opacity-40" : ""} ${CHECKPOINTS.includes(valor) ? "border border-tema/36 my-1" : ""} ${nivel === perguntaAtual ? "bg-tema **:text-black **:font-bold my-1" : ""}`}
                         key={nivel}
                      >
                         {/* Nivel */}
