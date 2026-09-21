@@ -24,7 +24,6 @@ const CardAlternativa = ({ idAlternativa, textoAlternativa, partidaId }: Props) 
          if (resposta.correta === false) {
          }
       } catch (error) {
-         setLoading(false);
          // TODO: Mais tarde lidar com o problema do erro
       }
    }
