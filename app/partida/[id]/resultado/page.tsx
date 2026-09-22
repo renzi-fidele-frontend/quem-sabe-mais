@@ -1,8 +1,10 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
-import { Award, TrendingUp } from "lucide-react";
+import { Award, Check, Minus, TrendingUp, X } from "lucide-react";
+import ChartDesempenho from "../../_components/ChartDesempenho";
 
 export default async function ResultadoPage() {
+   const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
    return (
       <Container>
          {/* TODO: Adicionar a seção do hero a página  */}
@@ -43,7 +45,36 @@ export default async function ResultadoPage() {
             {/* Esquerda */}
             <div>
                {/* Desempenho */}
-               <div></div>
+               <div className={`${cardStyle}`}>
+                  <h6>Seu desempenho</h6>
+                  <div className="flex items-center">
+                     {/* TODO: Implementar o pie-chart demonstrando o percentual de acerto */}
+                     <div className="basis-62.5">
+                        <ChartDesempenho />
+                     </div>
+                     {/* Número de acertos */}
+                     <div className="text-white basis-auto [&_i]:p-1.5 [&_i]:rounded-[6px] *:flex *:gap-3 *:items-center [&_svg]:size-5 [&_svg]:stroke-4 font-sora space-y-4 text-sm">
+                        <div>
+                           <i className="bg-[#177D2D]/13">
+                              <Check className="stroke-green-600" />
+                           </i>
+                           7 respostas corretas
+                        </div>
+                        <div>
+                           <i className="bg-destructive/13">
+                              <X className="stroke-destructive" />
+                           </i>
+                           2 respostas erradas
+                        </div>
+                        <div>
+                           <i className="bg-texto-1/13">
+                              <Minus className="stroke-texto-1" />
+                           </i>
+                           1 não respondida
+                        </div>
+                     </div>
+                  </div>
+               </div>
                {/* Resumo das perguntas */}
                <div></div>
                {/* Progresso e evolução */}
