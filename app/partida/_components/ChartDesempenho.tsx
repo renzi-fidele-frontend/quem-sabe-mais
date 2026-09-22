@@ -28,7 +28,7 @@ const ChartDesempenho = () => {
    } satisfies ChartConfig;
 
    return (
-      <ChartContainer config={chartConfig} className="aspect-square max-h-62.5">
+      <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-58 -ms-6">
          <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie data={chartData} dataKey="quantidade" nameKey="tipo" innerRadius={60} strokeWidth={5}>

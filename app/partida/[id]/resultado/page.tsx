@@ -1,6 +1,6 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
-import { Award, Check, Minus, TrendingUp, X } from "lucide-react";
+import { ArrowUp, Award, Check, Minus, TrendingUp, X } from "lucide-react";
 import ChartDesempenho from "../../_components/ChartDesempenho";
 
 export default async function ResultadoPage() {
@@ -46,10 +46,10 @@ export default async function ResultadoPage() {
             <div>
                {/* Desempenho */}
                <div className={`${cardStyle}`}>
-                  <h6>Seu desempenho</h6>
+                  <h6 className="text-white font-bold text-xl">Seu desempenho</h6>
                   <div className="flex items-center">
-                     {/* TODO: Implementar o pie-chart demonstrando o percentual de acerto */}
-                     <div className="basis-62.5">
+                     {/* Gráfico de percentagem dos acertos */}
+                     <div className="basis-54">
                         <ChartDesempenho />
                      </div>
                      {/* Número de acertos */}
@@ -73,6 +73,18 @@ export default async function ResultadoPage() {
                            1 não respondida
                         </div>
                      </div>
+                  </div>
+                  <hr className="mb-6 border-cor-borda" />
+                  <div className="p-4 rounded-[12px] font-sora bg-azul-leve flex items-center justify-between">
+                     <div>
+                        <p className="text-xs font-semibold mb-2.5 uppercase">Sua taxa vs Média global</p>
+                        <p className="text-sm">
+                           <span className="font-outfit me-3 text-xl font-bold text-tema">70%</span> vs 61% média
+                        </p>
+                     </div>
+                     <p className="flex items-center text-tema text-[14px] px-3 py-1.5 bg-tema/13 rounded-[8px] font-bold font-outfit">
+                        <TrendingUp className="stroke-3 me-2" /> <ArrowUp className="size-5" /> 9% acima da média
+                     </p>
                   </div>
                </div>
                {/* Resumo das perguntas */}
