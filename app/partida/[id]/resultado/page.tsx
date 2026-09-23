@@ -24,9 +24,6 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       return notFound();
    }
 
-   console.log(partida.respondidas);
-   console.log(partida.respondidas[0].perguntaId);
-
    return (
       <Container>
          {/* TODO: Adicionar a seção do hero a página  */}
@@ -110,14 +107,8 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                   </div>
                </div>
                {/* Resumo das perguntas */}
-               <div className={`${cardStyle}`}>
-                  <div className="flex items-center justify-between mb-6">
-                     <h6 className={`${headingStyle}`}>Resumo das perguntas</h6>
-                     <p className="text-sm">Mostrando 5 de 10</p>
-                  </div>
-                  {/* TODO: Apanhar o resumo das perguntas e mapear por aqui */}
-                  <ListaResumoPerguntas lista={JSON.parse(JSON.stringify(partida.respondidas))} />
-               </div>
+               <ListaResumoPerguntas lista={JSON.parse(JSON.stringify(partida.respondidas))} cardStyle={cardStyle} headingStyle={headingStyle} />
+
                {/* Progresso e evolução */}
                <div></div>
             </div>
