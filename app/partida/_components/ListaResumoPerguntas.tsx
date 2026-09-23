@@ -1,13 +1,25 @@
+"use client";
 import { IRespostaPartida } from "@/models/Partida";
-import { Check, X } from "lucide-react";
+import { Check, ChevronDown, ChevronUp, X } from "lucide-react";
+import { useState } from "react";
 
 const ListaResumoPerguntas = ({ lista }: { lista: IRespostaPartida[] }) => {
+   const [mostrarTodas, setMostrarTodas] = useState(false);
+
+   function analisarArray() {
+      if (mostrarTodas) {
+         return lista;
+      } else {
+         return lista.slice(0, 5);
+      }
+   }
+
    return (
       <div className="space-y-3">
-         {lista.map((item, k) => {
+         {analisarArray().map((item, k) => {
             const escolhida = item.perguntaId.alternativas.find((a) => a.id === item.respostaEscolhida).texto;
             return (
-               <div className="p-4 rounded-[12px] bg-azul-leve/90 border-cor-borda flex justify-between items-center" key={k}>
+               <div className="p-4 rounded-[12px] bg-azul-leve/90 border border-cor-borda flex justify-between items-center" key={k}>
                   {/* Esquerda */}
                   <div className="flex items-center gap-3 text-sm">
                      <span className="font-bold">
@@ -18,19 +30,33 @@ const ListaResumoPerguntas = ({ lista }: { lista: IRespostaPartida[] }) => {
                         {item.correta ? <Check className="stroke-green-600" /> : <X className="stroke-red-600" />}
                      </i>
                      <div className="font-sora">
-                        <p className="text-white font-semibold">{item.perguntaId.enunciado}</p>
+                        <p className="text-white font-semibold line-clamp-1">{item.perguntaId.enunciado}</p>
                         <span className="text-xs">{escolhida}</span>
                      </div>
                   </div>
                   {/* Direita */}
                   <p
-                     className={`px-3 py-1.5 rounded-[6px] text-sm font-bold ${item.correta ? "bg-tema/10 text-tema" : "bg-destructive/10 text-destructive"}`}
+                     className={`px-3 py-1.5 rounded-[6px] text-sm font-bold whitespace-nowrap ${item.correta ? "bg-tema/10 text-tema" : "bg-destructive/10 text-destructive"}`}
                   >
                      {item.correta ? ` + ${item.valor} MT` : "Eliminado"}
                   </p>
                </div>
             );
          })}
+         <button
+            onClick={() => setMostrarTodas(!mostrarTodas)}
+            className="mt-6 flex items-center gap-2 font-sora font-semibold text-white px-5 py-2.5 border border-cor-borda rounded-[10px] w-full justify-center bg-azul-leve/90 cursor-pointer"
+         >
+            {!mostrarTodas ? (
+               <>
+                  Ver todas as respostas <ChevronDown />
+               </>
+            ) : (
+               <>
+                  Ver menos respostas <ChevronUp />
+               </>
+            )}
+         </button>
       </div>
    );
 };

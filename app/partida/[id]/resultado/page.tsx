@@ -116,7 +116,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                      <p className="text-sm">Mostrando 5 de 10</p>
                   </div>
                   {/* TODO: Apanhar o resumo das perguntas e mapear por aqui */}
-                  <ListaResumoPerguntas lista={partida.respondidas} />
+                  <ListaResumoPerguntas lista={JSON.parse(JSON.stringify(partida.respondidas))} />
                </div>
                {/* Progresso e evolução */}
                <div></div>
