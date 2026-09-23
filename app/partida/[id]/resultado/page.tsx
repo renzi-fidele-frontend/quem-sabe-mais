@@ -2,9 +2,31 @@ import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
 import { ArrowUp, Award, Check, Minus, TrendingUp, X } from "lucide-react";
 import ChartDesempenho from "../../_components/ChartDesempenho";
+import { dbConnect } from "@/lib/dbConnect";
+import { obterSessaoComUsuario } from "@/lib/auth/session";
+import Partida, { IPartida } from "@/models/Partida";
+import { notFound } from "next/navigation";
+import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
 
-export default async function ResultadoPage() {
-   const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
+const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
+const headingStyle = "text-white font-bold text-xl";
+
+export default async function ResultadoPage({ params }: { params: Promise<{ id: string }> }) {
+   await dbConnect();
+   const { id } = await params;
+   const usuario = await obterSessaoComUsuario();
+   const partida = await Partida.findOne({ _id: id, usuarioId: usuario?.usuario._id })
+      .lean<IPartida>()
+      .populate({ path: "respondidas.perguntaId", select: "enunciado alternativas" });
+
+   // Caso a partida ainda esteja em andamento
+   if (!partida || partida.status === "em_andamento") {
+      return notFound();
+   }
+
+   console.log(partida.respondidas);
+   console.log(partida.respondidas[0].perguntaId);
+
    return (
       <Container>
          {/* TODO: Adicionar a seção do hero a página  */}
@@ -41,12 +63,12 @@ export default async function ResultadoPage() {
             </div>
          </div>
          {/* Estatísticas */}
-         <div className="pt-8">
+         <div className="pt-8 flex flex-nowrap">
             {/* Esquerda */}
-            <div>
+            <div className="space-y-8 basis-[66%]">
                {/* Desempenho */}
                <div className={`${cardStyle}`}>
-                  <h6 className="text-white font-bold text-xl">Seu desempenho</h6>
+                  <h6 className={`${headingStyle}`}>Seu desempenho</h6>
                   <div className="flex items-center">
                      {/* Gráfico de percentagem dos acertos */}
                      <div className="basis-54">
@@ -88,12 +110,19 @@ export default async function ResultadoPage() {
                   </div>
                </div>
                {/* Resumo das perguntas */}
-               <div></div>
+               <div className={`${cardStyle}`}>
+                  <div className="flex items-center justify-between mb-6">
+                     <h6 className={`${headingStyle}`}>Resumo das perguntas</h6>
+                     <p className="text-sm">Mostrando 5 de 10</p>
+                  </div>
+                  {/* TODO: Apanhar o resumo das perguntas e mapear por aqui */}
+                  <ListaResumoPerguntas lista={partida.respondidas} />
+               </div>
                {/* Progresso e evolução */}
                <div></div>
             </div>
             {/* Direita */}
-            <div>
+            <div className="basis-[34%]">
                {/* Caminho até o prêmio */}
                <div></div>
                {/* Tempo de gameplay */}
