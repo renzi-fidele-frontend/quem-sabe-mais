@@ -8,8 +8,10 @@ import Partida, { IPartida } from "@/models/Partida";
 import { notFound } from "next/navigation";
 import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
 import CaminhoAoPremio from "../../_components/CaminhoAoPremio";
+import CardTempoDeGameplay from "../../_components/CardTempoDeGameplay";
 
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
+const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
 
 export default async function ResultadoPage({ params }: { params: Promise<{ id: string }> }) {
@@ -114,13 +116,15 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                <div></div>
             </div>
             {/* Direita */}
-            <div className="basis-[32%]">
+            <div className="basis-[32%] space-y-8">
                {/* Caminho até o prêmio */}
                <div>
-                  <CaminhoAoPremio respondidas={partida.respondidas} cardStyle={cardStyle} />
+                  <CaminhoAoPremio respondidas={partida.respondidas} cardStyle={cardStyle2} />
                </div>
                {/* Tempo de gameplay */}
-               <div></div>
+               <div>
+                  <CardTempoDeGameplay cardStyle={cardStyle2} />
+               </div>
                {/* Linhas de apoio utilizadas */}
                {/* Conquistas alcançadas */}
             </div>
