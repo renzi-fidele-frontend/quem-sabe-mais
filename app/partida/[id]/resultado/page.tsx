@@ -7,6 +7,7 @@ import { obterSessaoComUsuario } from "@/lib/auth/session";
 import Partida, { IPartida } from "@/models/Partida";
 import { notFound } from "next/navigation";
 import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
+import CaminhoAoPremio from "../../_components/CaminhoAoPremio";
 
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const headingStyle = "text-white font-bold text-xl";
@@ -60,9 +61,9 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
             </div>
          </div>
          {/* Estatísticas */}
-         <div className="pt-8 flex flex-nowrap">
+         <div className="pt-8 flex flex-nowrap gap-8">
             {/* Esquerda */}
-            <div className="space-y-8 basis-[66%]">
+            <div className="space-y-8 basis-[68%]">
                {/* Desempenho */}
                <div className={`${cardStyle}`}>
                   <h6 className={`${headingStyle}`}>Seu desempenho</h6>
@@ -113,9 +114,11 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                <div></div>
             </div>
             {/* Direita */}
-            <div className="basis-[34%]">
+            <div className="basis-[32%]">
                {/* Caminho até o prêmio */}
-               <div></div>
+               <div>
+                  <CaminhoAoPremio respondidas={partida.respondidas} cardStyle={cardStyle} />
+               </div>
                {/* Tempo de gameplay */}
                <div></div>
                {/* Linhas de apoio utilizadas */}
