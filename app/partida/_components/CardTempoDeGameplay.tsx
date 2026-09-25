@@ -1,10 +1,15 @@
 import { Clock } from "lucide-react";
+import calcularDuracao from "../[id]/resultado/_lib/calcularDuracao";
 
 type Props = {
    cardStyle: string;
+   dataInicio: Date;
+   dataFim?: Date;
 };
 
-const CardTempoDeGameplay = ({ cardStyle }: Props) => {
+const CardTempoDeGameplay = ({ cardStyle, dataInicio, dataFim }: Props) => {
+   // TODO: Calcular o tempo total de gameplay
+
    return (
       <div className={cardStyle}>
          <h6 className="flex items-center gap-2 font-bold text-white">
@@ -13,11 +18,11 @@ const CardTempoDeGameplay = ({ cardStyle }: Props) => {
          <div className="my-4 flex items-center justify-between">
             {/* Tempo total */}
             <div>
-               <p className="text-tema font-extrabold text-2xl mb-0.5">02:47</p>
+               <p className="text-tema font-extrabold text-2xl mb-0.5 tracking-wider">{calcularDuracao(dataInicio, dataFim!)}</p>
                <p className="text-xs font-sora">Tempo total</p>
             </div>
             {/* Média / pergunta */}
-            <div>
+            <div className="text-end">
                <p className="text-white font-extrabold text-2xl mb-0.5">16.7s</p>
                <p className="text-xs font-sora">Média / pergunta</p>
             </div>
