@@ -123,7 +123,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                </div>
                {/* Tempo de gameplay */}
                <div>
-                  <CardTempoDeGameplay dataInicio={partida.dataInicio} dataFim={partida.dataFim} cardStyle={cardStyle2} />
+                  <CardTempoDeGameplay respondidas={partida.respondidas} dataInicio={partida.dataInicio} dataFim={partida.dataFim} cardStyle={cardStyle2} />
                </div>
                {/* Linhas de apoio utilizadas */}
                {/* Conquistas alcançadas */}
