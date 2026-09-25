@@ -2,11 +2,18 @@
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart";
 import { Label, Pie, PieChart } from "recharts";
 
-const ChartDesempenho = () => {
+type Props = {
+   respostasCorretas: number;
+   respostasErradas: number;
+   respostasNaoRespondidas: number;
+   porcentagemAcertos: number;
+};
+
+const ChartDesempenho = ({ respostasCorretas, respostasErradas, respostasNaoRespondidas, porcentagemAcertos }: Props) => {
    const chartData = [
-      { tipo: "correto", quantidade: 13, fill: "var(--tema)" },
-      { tipo: "errado", quantidade: 1, fill: "var(--destructive)" },
-      { tipo: "nao_respondida", quantidade: 1, fill: "var(--cor-borda)" },
+      { tipo: "correto", quantidade: respostasCorretas, fill: "var(--tema)" },
+      { tipo: "errado", quantidade: respostasErradas, fill: "var(--destructive)" },
+      { tipo: "nao_respondida", quantidade: respostasNaoRespondidas, fill: "var(--cor-borda)" },
    ];
 
    const chartConfig = {
@@ -38,7 +45,7 @@ const ChartDesempenho = () => {
                         return (
                            <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
                               <tspan x={viewBox.cx} y={viewBox.cy} className="fill-tema text-3xl font-bold">
-                                 85%
+                                 {porcentagemAcertos}%
                               </tspan>
                               <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-texto-1">
                                  ACERTO

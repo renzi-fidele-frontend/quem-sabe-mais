@@ -1,7 +1,6 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
-import { ArrowUp, Award, Check, Minus, TrendingUp, X } from "lucide-react";
-import ChartDesempenho from "../../_components/ChartDesempenho";
+import { Award, TrendingUp } from "lucide-react";
 import { dbConnect } from "@/lib/dbConnect";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import Partida, { IPartida } from "@/models/Partida";
@@ -9,6 +8,7 @@ import { notFound } from "next/navigation";
 import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
 import CaminhoAoPremio from "../../_components/CaminhoAoPremio";
 import CardTempoDeGameplay from "../../_components/CardTempoDeGameplay";
+import CardDesempenho from "../../_components/CardDesempenho";
 
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
@@ -29,7 +29,6 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
 
    return (
       <Container>
-         {/* TODO: Adicionar a seção do hero a página  */}
          {/* Hero */}
          <div className="pb-12">
             <SectionIntro
@@ -67,48 +66,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
             {/* Esquerda */}
             <div className="space-y-8 basis-[68%]">
                {/* Desempenho */}
-               <div className={`${cardStyle}`}>
-                  <h6 className={`${headingStyle}`}>Seu desempenho</h6>
-                  <div className="flex items-center">
-                     {/* Gráfico de percentagem dos acertos */}
-                     <div className="basis-54">
-                        <ChartDesempenho />
-                     </div>
-                     {/* Número de acertos */}
-                     <div className="text-white basis-auto [&_i]:p-1.5 [&_i]:rounded-[6px] *:flex *:gap-3 *:items-center [&_svg]:size-5 [&_svg]:stroke-4 font-sora space-y-4 text-sm">
-                        <div>
-                           <i className="bg-[#177D2D]/13">
-                              <Check className="stroke-green-600" />
-                           </i>
-                           7 respostas corretas
-                        </div>
-                        <div>
-                           <i className="bg-destructive/13">
-                              <X className="stroke-destructive" />
-                           </i>
-                           2 respostas erradas
-                        </div>
-                        <div>
-                           <i className="bg-texto-1/13">
-                              <Minus className="stroke-texto-1" />
-                           </i>
-                           1 não respondida
-                        </div>
-                     </div>
-                  </div>
-                  <hr className="mb-6 border-cor-borda" />
-                  <div className="p-4 rounded-[12px] font-sora bg-azul-leve flex items-center justify-between">
-                     <div>
-                        <p className="text-xs font-semibold mb-2.5 uppercase">Sua taxa vs Média global</p>
-                        <p className="text-sm">
-                           <span className="font-outfit me-3 text-xl font-bold text-tema">70%</span> vs 61% média
-                        </p>
-                     </div>
-                     <p className="flex items-center text-tema text-[14px] px-3 py-1.5 bg-tema/13 rounded-[8px] font-bold font-outfit">
-                        <TrendingUp className="stroke-3 me-2" /> <ArrowUp className="size-5" /> 9% acima da média
-                     </p>
-                  </div>
-               </div>
+               <CardDesempenho respondidas={partida.respondidas} cardStyle={cardStyle} headingStyle={headingStyle} />
                {/* Resumo das perguntas */}
                <ListaResumoPerguntas lista={JSON.parse(JSON.stringify(partida.respondidas))} cardStyle={cardStyle} headingStyle={headingStyle} />
 
@@ -123,7 +81,12 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                </div>
                {/* Tempo de gameplay */}
                <div>
-                  <CardTempoDeGameplay respondidas={partida.respondidas} dataInicio={partida.dataInicio} dataFim={partida.dataFim} cardStyle={cardStyle2} />
+                  <CardTempoDeGameplay
+                     respondidas={partida.respondidas}
+                     dataInicio={partida.dataInicio}
+                     dataFim={partida.dataFim}
+                     cardStyle={cardStyle2}
+                  />
                </div>
                {/* Linhas de apoio utilizadas */}
                {/* Conquistas alcançadas */}

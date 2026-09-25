@@ -10,7 +10,6 @@ type Props = {
 };
 
 const CardTempoDeGameplay = ({ cardStyle, dataInicio, dataFim, respondidas }: Props) => {
-   // TODO: Calcular a média de tempo por pergunta
    const mediaTempoPorPerguntaMs = (dataFim!.getTime() - dataInicio.getTime()) / respondidas.length;
    const mediaTempoPorPergunta = mediaTempoPorPerguntaMs / 1000;
 
