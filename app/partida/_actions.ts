@@ -1,5 +1,4 @@
 "use server";
-
 import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { dbConnect } from "@/lib/dbConnect";
@@ -74,6 +73,7 @@ export async function iniciarPartida() {
 
 export async function responderPergunta(partidaId: string, resposta: string) {
    await dbConnect();
+   let redirecionar = false;
 
    try {
       const usuario = await obterSessaoComUsuario();
@@ -127,6 +127,8 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          // Caso esteja na última pergunta, encerrar a partida
          if (partida.perguntaAtual === TOTAL_PERGUNTAS) {
             await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "vitoria", dataFim: new Date() } });
+            // Redirecionar para a página de resultado final da partida
+            redirecionar = true;
          } else {
             // Avançar para a próxima pergunta caso acerte
             await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $inc: { perguntaAtual: 1 } });
@@ -139,7 +141,13 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          }
       } else {
          //  Se o jogador erra
-         await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { status: "eliminado", dataFim: new Date() } });
+         await Partida.updateOne(
+            { _id: partidaId, usuarioId: usuario.usuario._id },
+            { $set: { status: "eliminado", dataFim: new Date(), valorAtual: partida.valorGarantido } },
+         );
+
+         // Redirecionar para a página de resultado final da partida
+         redirecionar = true;
       }
 
       // Atualizando o cache e automaticamente atualiza a tela do client side
@@ -151,5 +159,10 @@ export async function responderPergunta(partidaId: string, resposta: string) {
    } catch (error) {
       console.log("Erro ao responder a pergunta!");
       console.log(error);
+   } finally {
+      // Redirecionar
+      if (redirecionar) {
+         redirect(`/partida/${partidaId}/resultado`);
+      }
    }
 }

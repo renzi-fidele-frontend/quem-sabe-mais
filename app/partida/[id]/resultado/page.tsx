@@ -38,11 +38,12 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                      <Award className="size-4.5 me-1.5" /> Partida Concluída!
                   </>
                }
-               descricao={`Você chegou até a pergunta 10 e terminou a partida com um ótimo desempenho.`}
+               descricao={`Você chegou até a pergunta ${partida.respondidas.length} e terminou a partida com um ótimo desempenho.`}
                titulo={`Excelente trabalho, Renzi!`}
             />
+            {/* TODO: Renderizar caso o usuário tenha subido de nível */}
             <div className="text-center space-y-2">
-               <p className="font-black text-[80px] text-tema leading-tight">7.500 MT</p>
+               <p className="font-black text-[80px] text-tema leading-tight">{new Intl.NumberFormat("pt-MZ").format(partida.valorAtual)} MT</p>
                {/* Caso o usuário suba de nivel */}
                <p className="uppercase font-sora font-semibold">Prêmio conquistado</p>
                <span className="flex items-center gap-2 px-3 py-1 rounded-[6px] bg-green-700 text-white w-fit mx-auto font-bold text-sm">
