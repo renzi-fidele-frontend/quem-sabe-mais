@@ -19,6 +19,8 @@ const CardDesempenho = ({ cardStyle, headingStyle, respondidas }: Props) => {
 
    const porcentagemAcertos = Math.round((respostasCorretas / TOTAL_PERGUNTAS) * 100);
 
+   const mediaGlobalDosUsuarios = 61;
+
    return (
       <div className={`${cardStyle}`}>
          <h6 className={`${headingStyle}`}>Seu desempenho</h6>
@@ -59,7 +61,7 @@ const CardDesempenho = ({ cardStyle, headingStyle, respondidas }: Props) => {
             <div>
                <p className="text-xs font-semibold mb-2.5 uppercase">Sua taxa vs Média global</p>
                <p className="text-sm">
-                  <span className="font-outfit me-3 text-xl font-bold text-tema">70%</span> vs 61% média
+                  <span className="font-outfit me-3 text-xl font-bold text-tema">{porcentagemAcertos}%</span> vs {mediaGlobalDosUsuarios}% média
                </p>
             </div>
             <p className="flex items-center text-tema text-[14px] px-3 py-1.5 bg-tema/13 rounded-[8px] font-bold font-outfit">
