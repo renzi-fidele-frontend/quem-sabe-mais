@@ -5,7 +5,7 @@ import { Check, Lock } from "lucide-react";
 type Props = { respondidas: IRespostaPartida[]; cardStyle: string };
 
 const CaminhoAoPremio = ({ respondidas, cardStyle }: Props) => {
-   const ultimoAcertado = respondidas.filter((v, k) => v.correta).slice(-1)[0].numero;
+   const ultimoAcertado = respondidas?.filter((v, k) => v.correta).slice(-1)[0]?.numero ?? 0;
 
    return (
       <div className={cardStyle}>

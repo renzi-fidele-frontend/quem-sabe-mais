@@ -5,6 +5,7 @@ import { ArrowRight, Percent, Users } from "lucide-react";
 import Image from "next/image";
 import EscadaPremios from "../_components/EscadaDePremios";
 import CardAlternativa from "../_components/CardAlternativa";
+import { abandonarPartida } from "../_actions";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
    const { id } = await params;
@@ -71,9 +72,16 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             {/* Direita */}
             <div className="flex flex-col grow gap-6 basis-[32%]">
                <EscadaPremios perguntaAtual={partida.perguntaAtual} valorGarantido={partida.valorGarantido} valorAtual={partida.valorAtual} />
-               <button className="px-2.5 py-3.75 text-white bg-[#D32F2F] text-2xl font-semibold rounded-[12px] cursor-pointer ">
-                  Abandonar partida
-               </button>
+               <form
+                  action={async () => {
+                     "use server";
+                     await abandonarPartida(id);
+                  }}
+               >
+                  <button className="px-2.5 py-3.75 text-white bg-[#D32F2F] text-2xl font-semibold rounded-[12px] cursor-pointer w-full">
+                     Abandonar partida
+                  </button>
+               </form>
             </div>
          </Container>
       </div>

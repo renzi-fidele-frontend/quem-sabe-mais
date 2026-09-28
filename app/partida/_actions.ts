@@ -166,3 +166,21 @@ export async function responderPergunta(partidaId: string, resposta: string) {
       }
    }
 }
+
+export async function abandonarPartida(partidaId: string) {
+   await dbConnect();
+
+   try {
+      const usuario = await obterSessaoComUsuario();
+      if (!usuario) {
+         throw new Error("Usuário não encontrado");
+      }
+
+      await Partida.updateOne({ _id: partidaId, usuarioId: usuario?.usuario._id }, { $set: { status: "abandonada", dataFim: new Date() } });
+   } catch (error) {
+      console.log("Erro ao abandonar a partida!");
+      console.log(error);
+   } finally {
+      redirect(`/partida/${partidaId}/resultado`);
+   }
+}
