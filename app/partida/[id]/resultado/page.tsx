@@ -40,6 +40,22 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       }
    }
 
+   function analisarDesempenho() {
+      if (partida?.perguntaAtual! < 2) {
+         return "desempenho péssimo";
+      } else if (partida?.perguntaAtual! >= 2 && partida?.perguntaAtual! < 4) {
+         return "desempenho ruim";
+      } else if (partida?.perguntaAtual! >= 4 && partida?.perguntaAtual! < 7) {
+         return "desempenho normal";
+      } else if (partida?.perguntaAtual! >= 7 && partida?.perguntaAtual! < 10) {
+         return "bom desempenho";
+      } else if (partida?.perguntaAtual! >= 10) {
+         return "excelente desempenho";
+      } else if (partida?.perguntaAtual! >= 15) {
+         return "desempenho de mestre";
+      }
+   }
+
    return (
       <div className="relative">
          {/* Fundo com overlay */}
@@ -61,7 +77,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                         <Award className="size-4.5 me-1.5" /> Partida Concluída!
                      </>
                   }
-                  descricao={`Você chegou até a pergunta ${partida.respondidas.length} e terminou a partida com um ótimo desempenho.`}
+                  descricao={`Você chegou até a pergunta ${partida.respondidas.length} e terminou a partida com um ${analisarDesempenho()}.`}
                   titulo={`${analisarValorGanho()}, ${usuario?.usuario.nickname}!`}
                />
                {/* TODO: Renderizar caso o usuário tenha subido de nível */}
