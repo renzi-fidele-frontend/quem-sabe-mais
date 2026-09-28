@@ -28,6 +28,18 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       return notFound();
    }
 
+   function analisarValorGanho() {
+      if (partida?.valorAtual! < 1000) {
+         return "Partida azarada";
+      } else if (partida?.valorAtual! >= 1000 && partida?.valorAtual! < 7500) {
+         return "Boa tentativa";
+      } else if (partida?.valorAtual! >= 7500 && partida?.valorAtual! < 100000) {
+         return "Excelente partida";
+      } else if (partida?.valorAtual! >= 100000) {
+         return "Partida extraordinária";
+      }
+   }
+
    return (
       <div className="relative">
          {/* Fundo com overlay */}
@@ -50,7 +62,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                      </>
                   }
                   descricao={`Você chegou até a pergunta ${partida.respondidas.length} e terminou a partida com um ótimo desempenho.`}
-                  titulo={`Excelente trabalho, ${usuario?.usuario.nickname}!`}
+                  titulo={`${analisarValorGanho()}, ${usuario?.usuario.nickname}!`}
                />
                {/* TODO: Renderizar caso o usuário tenha subido de nível */}
                <div className="text-center space-y-2">
