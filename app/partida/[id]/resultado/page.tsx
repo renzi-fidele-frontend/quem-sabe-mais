@@ -10,6 +10,7 @@ import CaminhoAoPremio from "../../_components/CaminhoAoPremio";
 import CardTempoDeGameplay from "../../_components/CardTempoDeGameplay";
 import CardDesempenho from "../../_components/CardDesempenho";
 import Image from "next/image";
+import CardLinhasDeApoioUsadas from "../../_components/CardLinhasDeApoioUsadas";
 
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
@@ -57,13 +58,13 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
    }
 
    return (
-      <div className="relative">
+      <div className="relative pb-20">
          {/* Fundo com overlay */}
          <Image
             width={1920}
             height={1087}
             src="/img/fundo-palco-gameplay.webp"
-            className="inset-0 size-full object-cover -z-2 absolute"
+            className="inset-0 size-full object-top  -z-2 absolute"
             alt="Fundo ilustrando um palco competitivo do Quem sabe mais"
          />
          <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-75"></div>
@@ -135,6 +136,14 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                      />
                   </div>
                   {/* Linhas de apoio utilizadas */}
+                  <div>
+                     <CardLinhasDeApoioUsadas
+                        ajuda50Usada={partida.ajuda50Usada}
+                        pularPerguntaUsado={partida.pularPerguntaUsado}
+                        ajudaPublicaUsada={partida.ajudaPublicaUsada}
+                        cardStyle={cardStyle2}
+                     />
+                  </div>
                   {/* Conquistas alcançadas */}
                </div>
             </div>
