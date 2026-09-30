@@ -1,46 +1,16 @@
 import Container from "@/components/layout/Container";
 import Partida, { IPartida } from "@/models/Partida";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
-import { ArrowRight, Percent, Users } from "lucide-react";
 import Image from "next/image";
 import EscadaPremios from "../_components/EscadaDePremios";
-import CardAlternativa from "../_components/CardAlternativa";
-import { abandonarPartida, usarAjuda50 } from "../_actions";
+import { abandonarPartida } from "../_actions";
+import GameplayClient from "../_components/GameplayClient";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
    const { id } = await params;
-
    const partida = (await Partida.findOne({ _id: id })) as IPartida;
-
    const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
-
    const pergunta = (await Pergunta.findById(perguntaId)) as IPergunta;
-
-   const linhasDeApoio = [
-      {
-         Icone: Percent,
-         texto: "50/50",
-         acao: async () => {
-            "use server";
-            const alternativasIncorretas = await usarAjuda50(id);
-            console.log(alternativasIncorretas);
-         },
-      },
-      {
-         Icone: ArrowRight,
-         texto: "Pular Pergunta",
-         acao: async () => {
-            "use server";
-         },
-      },
-      {
-         Icone: Users,
-         texto: "Ajuda Pública",
-         acao: async () => {
-            "use server";
-         },
-      },
-   ];
 
    return (
       <div className="relative">
@@ -66,33 +36,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                </div>
                {/* Pergunta */}
                <h6 className="text-center text-2xl font-bold mb-7 mt-5">{pergunta.enunciado}</h6>
-               {/* Alternativas */}
-               <div className="grid grid-cols-2 gap-5 *:text-start text-lg">
-                  {pergunta.alternativas.map((alternativa, k) => (
-                     <CardAlternativa
-                        idAlternativa={alternativa.id}
-                        textoAlternativa={alternativa.texto}
-                        partidaId={id}
-                        key={`${pergunta._id}-${alternativa.id}`}
-                     />
-                  ))}
-               </div>
-               {/* Separador */}
-               <hr className="border-cor-borda my-9" />
-               {/* Linhas de Apoio */}
-               <div className="flex justify-between items-center text-sm font-sora">
-                  <p className="uppercase text-[12px] text-texto-1 font-semibold">* Linhas de Apoio Disponíveis:</p>
-                  <div className="flex gap-3.5 font-semibold">
-                     {linhasDeApoio.map((linha, k) => (
-                        <form action={linha.acao} key={k}>
-                           <button className="flex gap-2 items-center bg-azul-leve/90 px-4 py-3 rounded-[8px] cursor-pointer">
-                              <linha.Icone className="stroke-tema size-5" />
-                              {linha.texto}
-                           </button>
-                        </form>
-                     ))}
-                  </div>
-               </div>
+               <GameplayClient
+                  alternativas={pergunta.alternativas.map((item, k) => ({ id: item.id, texto: item.texto }))}
+                  partidaId={id}
+                  perguntaId={pergunta._id.toString()}
+               />
             </div>
             {/* Direita */}
             <div className="flex flex-col grow gap-6 basis-[32%]">
