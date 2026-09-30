@@ -39,7 +39,11 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado }: Props) =>
          <p className="uppercase text-[12px] text-texto-1 font-semibold">* Linhas de Apoio Disponíveis:</p>
          <div className="flex gap-3.5 font-semibold">
             {linhasDeApoio.map((linha, k) => (
-               <button onClick={linha.acao} className="flex gap-2 items-center bg-azul-leve/90 px-4 py-3 rounded-[8px] cursor-pointer">
+               <button
+                  disabled={linha.utilizado || loading}
+                  onClick={linha.acao}
+                  className={`flex gap-2 items-center bg-azul-leve/90 px-4 py-3 rounded-[8px] cursor-pointer ${linha.utilizado ? "opacity-50 cursor-not-allowed! outline-2 outline-destructive" : ""}`}
+               >
                   <linha.Icone className="stroke-tema size-5" />
                   {linha.texto}
                </button>

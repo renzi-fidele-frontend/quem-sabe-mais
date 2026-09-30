@@ -224,6 +224,9 @@ export async function usarAjuda50(partidaId: string) {
 
    await Partida.updateOne({ _id: partidaId, usuarioId: sessao.usuario._id, status: "em_andamento" }, { $set: { ajuda50Usada: true } });
 
+   // Atualizando o cache e automaticamente atualiza a tela do client side
+   revalidatePath(`/partida/${partidaId}`);
+
    
 
    return alternativasIncorretas;
