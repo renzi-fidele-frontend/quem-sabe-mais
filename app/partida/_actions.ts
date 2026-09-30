@@ -2,8 +2,8 @@
 import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { dbConnect } from "@/lib/dbConnect";
-import Partida from "@/models/Partida";
-import { Pergunta } from "@/models/Pergunta";
+import Partida, { IPartida } from "@/models/Partida";
+import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -184,3 +184,51 @@ export async function abandonarPartida(partidaId: string) {
       redirect(`/partida/${partidaId}/resultado`);
    }
 }
+
+// ---- Funcionalidades Auxiliares ---- //
+export async function usarAjuda50(partidaId: string) {
+   const sessao = await obterSessaoComUsuario();
+
+   if (!sessao) {
+      throw new Error("Não autenticado");
+   }
+
+   const partida = await Partida.findOne({
+      _id: partidaId,
+      usuarioId: sessao.usuario._id,
+      status: "em_andamento",
+   }).lean<IPartida>();
+
+   if (!partida) {
+      throw new Error("Partida não encontrada");
+   }
+
+   if (partida.ajuda50Usada) {
+      throw new Error("A ajuda 50/50 já foi utilizada");
+   }
+
+   const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
+
+   const pergunta = await Pergunta.findById(perguntaId).lean<IPergunta>();
+
+   if (!pergunta) {
+      throw new Error("Pergunta não encontrada");
+   }
+
+   // Descobrir alternativas incorretas
+   const alternativasIncorretas = pergunta.alternativas
+      .filter((alternativa) => alternativa.id !== pergunta.respostaCorreta)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 2)
+      .map((alternativa) => alternativa.id);
+
+   await Partida.updateOne({ _id: partidaId, usuarioId: sessao.usuario._id, status: "em_andamento" }, { $set: { ajuda50Usada: true } });
+
+   
+
+   return alternativasIncorretas;
+}
+
+export async function usarPularPergunta(partidaId: string) {}
+
+export async function usarAjudaPublica(partidaId: string) {}

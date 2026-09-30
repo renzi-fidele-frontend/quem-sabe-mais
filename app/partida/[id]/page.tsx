@@ -5,7 +5,7 @@ import { ArrowRight, Percent, Users } from "lucide-react";
 import Image from "next/image";
 import EscadaPremios from "../_components/EscadaDePremios";
 import CardAlternativa from "../_components/CardAlternativa";
-import { abandonarPartida } from "../_actions";
+import { abandonarPartida, usarAjuda50 } from "../_actions";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
    const { id } = await params;
@@ -15,6 +15,32 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
    const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
 
    const pergunta = (await Pergunta.findById(perguntaId)) as IPergunta;
+
+   const linhasDeApoio = [
+      {
+         Icone: Percent,
+         texto: "50/50",
+         acao: async () => {
+            "use server";
+            const alternativasIncorretas = await usarAjuda50(id);
+            console.log(alternativasIncorretas);
+         },
+      },
+      {
+         Icone: ArrowRight,
+         texto: "Pular Pergunta",
+         acao: async () => {
+            "use server";
+         },
+      },
+      {
+         Icone: Users,
+         texto: "Ajuda Pública",
+         acao: async () => {
+            "use server";
+         },
+      },
+   ];
 
    return (
       <div className="relative">
@@ -56,16 +82,15 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                {/* Linhas de Apoio */}
                <div className="flex justify-between items-center text-sm font-sora">
                   <p className="uppercase text-[12px] text-texto-1 font-semibold">* Linhas de Apoio Disponíveis:</p>
-                  <div className="flex gap-3.5 [&_button]:flex [&_button]:gap-2 [&_button]:items-center [&_button]:bg-azul-leve/90 [&_button]:px-4 [&_button]:py-3 [&_button]:rounded-[8px] [&_svg]:stroke-tema [&_svg]:size-5 font-semibold">
-                     <button>
-                        <Percent /> 50/50
-                     </button>
-                     <button>
-                        <ArrowRight /> Pular pergunta
-                     </button>
-                     <button>
-                        <Users /> Ajuda pública
-                     </button>
+                  <div className="flex gap-3.5 font-semibold">
+                     {linhasDeApoio.map((linha, k) => (
+                        <form action={linha.acao} key={k}>
+                           <button className="flex gap-2 items-center bg-azul-leve/90 px-4 py-3 rounded-[8px] cursor-pointer">
+                              <linha.Icone className="stroke-tema size-5" />
+                              {linha.texto}
+                           </button>
+                        </form>
+                     ))}
                   </div>
                </div>
             </div>
