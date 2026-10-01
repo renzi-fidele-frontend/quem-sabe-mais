@@ -187,6 +187,7 @@ export async function abandonarPartida(partidaId: string) {
 
 // ---- Funcionalidades Auxiliares ---- //
 export async function usarAjuda50(partidaId: string) {
+   await dbConnect();
    const sessao = await obterSessaoComUsuario();
 
    if (!sessao) {
@@ -227,11 +228,65 @@ export async function usarAjuda50(partidaId: string) {
    // Atualizando o cache e automaticamente atualiza a tela do client side
    revalidatePath(`/partida/${partidaId}`);
 
-   
-
    return alternativasIncorretas;
 }
 
-export async function usarPularPergunta(partidaId: string) {}
+export async function usarPularPergunta(partidaId: string) {
+   await dbConnect();
+   let redirecionar = false;
+   try {
+      const sessao = await obterSessaoComUsuario();
+
+      if (!sessao) {
+         throw new Error("Não autenticado");
+      }
+
+      const partida = await Partida.findOne({
+         _id: partidaId,
+         usuarioId: sessao.usuario._id,
+      }).lean<IPartida>();
+
+      if (!partida) {
+         throw new Error("Partida não encontrada");
+      }
+
+      if (partida.pularPerguntaUsado) {
+         throw new Error("A ajuda para pular já foi utilizada");
+      }
+
+      if (partida.status !== "em_andamento") {
+         throw new Error("A partida já partida encerrada!");
+      }
+
+      const valorAtual = VALORES_PARTIDA[partida.perguntaAtual - 1];
+
+      if (partida.perguntaAtual === TOTAL_PERGUNTAS) {
+         await Partida.updateOne(
+            { _id: partidaId, usuarioId: sessao.usuario._id },
+            { $set: { status: "vitória", dataFim: new Date(), pularPerguntaUsado: true, valorAtual } },
+         );
+         redirecionar = true;
+      } else {
+         await Partida.updateOne(
+            { _id: partidaId, usuarioId: sessao.usuario._id },
+            { $set: { pularPerguntaUsado: true, perguntaAtual: partida.perguntaAtual + 1, valorAtual } },
+         );
+      }
+
+      // Verificar se é um checkpoint para atualizar o valor garantido
+      if (CHECKPOINTS.includes(partida.valorAtual)) {
+         await Partida.updateOne({ _id: partidaId, usuarioId: sessao.usuario._id }, { $set: { valorGarantido: partida.valorAtual } });
+      }
+
+      revalidatePath(`/partida/${partidaId}`);
+   } catch (error) {
+      console.log("Erro ao pular a pergunta!");
+      console.log(error);
+   } finally {
+      if (redirecionar) {
+         redirect(`/partida/${partidaId}/resultado`);
+      }
+   }
+}
 
 export async function usarAjudaPublica(partidaId: string) {}

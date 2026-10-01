@@ -1,6 +1,6 @@
 "use client";
 import { ArrowRight, Percent, Users } from "lucide-react";
-import { usarAjuda50 } from "../_actions";
+import { usarAjuda50, usarPularPergunta } from "../_actions";
 import { useState } from "react";
 
 type Props = { partidaId: string; aoUsarAjuda50: (alternativas: string[]) => void; ajuda50utilizado: boolean };
@@ -23,7 +23,11 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado }: Props) =>
       {
          Icone: ArrowRight,
          texto: "Pular Pergunta",
-         acao: async () => {},
+         acao: async () => {
+            setLoading(true);
+            await usarPularPergunta(partidaId);
+            setLoading(false);
+         },
          utilizado: false,
       },
       {
@@ -42,6 +46,7 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado }: Props) =>
                <button
                   disabled={linha.utilizado || loading}
                   onClick={linha.acao}
+                  key={k}
                   className={`flex gap-2 items-center bg-azul-leve/90 px-4 py-3 rounded-[8px] cursor-pointer ${linha.utilizado ? "opacity-50 cursor-not-allowed! outline-2 outline-destructive" : ""}`}
                >
                   <linha.Icone className="stroke-tema size-5" />
