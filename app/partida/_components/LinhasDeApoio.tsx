@@ -3,9 +3,14 @@ import { ArrowRight, Percent, Users } from "lucide-react";
 import { usarAjuda50, usarPularPergunta } from "../_actions";
 import { useState } from "react";
 
-type Props = { partidaId: string; aoUsarAjuda50: (alternativas: string[]) => void; ajuda50utilizado: boolean };
+type Props = {
+   partidaId: string;
+   aoUsarAjuda50: (alternativas: string[]) => void;
+   ajuda50utilizado: boolean;
+   ajudaPularPerguntaUtilizado: boolean;
+};
 
-const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado }: Props) => {
+const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularPerguntaUtilizado }: Props) => {
    const [loading, setLoading] = useState(false);
 
    const linhasDeApoio = [
@@ -28,7 +33,7 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado }: Props) =>
             await usarPularPergunta(partidaId);
             setLoading(false);
          },
-         utilizado: false,
+         utilizado: ajudaPularPerguntaUtilizado,
       },
       {
          Icone: Users,

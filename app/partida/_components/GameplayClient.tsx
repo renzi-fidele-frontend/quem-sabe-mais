@@ -4,9 +4,15 @@ import CardAlternativa from "./CardAlternativa";
 import LinhasDeApoio from "./LinhasDeApoio";
 import { IAlternativa } from "@/models/Pergunta";
 
-type Props = { perguntaId: string; alternativas: IAlternativa[]; partidaId: string; ajuda50Usada: boolean };
+type Props = {
+   perguntaId: string;
+   alternativas: IAlternativa[];
+   partidaId: string;
+   ajuda50Usada: boolean;
+   ajudaPularPerguntaUtilizado: boolean;
+};
 
-const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada }: Props) => {
+const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, ajudaPularPerguntaUtilizado }: Props) => {
    const [alternativasIncorretas5050, setAlternativasIncorretas5050] = useState<string[] | null>(null);
 
    // Limpa alternativas incorretas 50/50 ao mudar de pergunta
@@ -31,7 +37,12 @@ const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada }: P
          {/* Separador */}
          <hr className="border-cor-borda my-9" />
          {/* Linhas de Apoio */}
-         <LinhasDeApoio ajuda50utilizado={ajuda50Usada} aoUsarAjuda50={(alternativas) => setAlternativasIncorretas5050(alternativas)} partidaId={partidaId} />
+         <LinhasDeApoio
+            ajudaPularPerguntaUtilizado={ajudaPularPerguntaUtilizado}
+            ajuda50utilizado={ajuda50Usada}
+            aoUsarAjuda50={(alternativas) => setAlternativasIncorretas5050(alternativas)}
+            partidaId={partidaId}
+         />
       </>
    );
 };
