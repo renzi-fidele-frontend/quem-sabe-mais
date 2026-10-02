@@ -1,6 +1,6 @@
 import { IPergunta } from "@/models/Pergunta";
 
-type ResultadoAjudaPublica = {
+export type ResultadoAjudaPublica = {
    alternativaId: string;
    porcentagem: number;
 }[];

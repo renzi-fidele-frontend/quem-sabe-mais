@@ -2,15 +2,17 @@
 import { ArrowRight, Percent, Users } from "lucide-react";
 import { usarAjuda50, usarAjudaPublica, usarPularPergunta } from "../_actions";
 import { useState } from "react";
+import { ResultadoAjudaPublica } from "@/lib/game/gerarVotosSimulados";
 
 type Props = {
    partidaId: string;
    aoUsarAjuda50: (alternativas: string[]) => void;
+   aoUsarAjudaPublica: (alternativas: ResultadoAjudaPublica) => void;
    ajuda50utilizado: boolean;
    ajudaPularPerguntaUtilizado: boolean;
 };
 
-const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularPerguntaUtilizado }: Props) => {
+const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularPerguntaUtilizado, aoUsarAjudaPublica }: Props) => {
    const [loading, setLoading] = useState(false);
 
    const linhasDeApoio = [
@@ -41,7 +43,7 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularP
          acao: async () => {
             setLoading(true);
             const res = await usarAjudaPublica(partidaId);
-            console.log(res);
+            aoUsarAjudaPublica(res);
             setLoading(false);
          },
          utilizado: false,

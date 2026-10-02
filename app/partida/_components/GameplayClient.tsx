@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import CardAlternativa from "./CardAlternativa";
 import LinhasDeApoio from "./LinhasDeApoio";
 import { IAlternativa } from "@/models/Pergunta";
+import { ResultadoAjudaPublica } from "@/lib/game/gerarVotosSimulados";
 
 type Props = {
    perguntaId: string;
@@ -14,10 +15,12 @@ type Props = {
 
 const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, ajudaPularPerguntaUtilizado }: Props) => {
    const [alternativasIncorretas5050, setAlternativasIncorretas5050] = useState<string[] | null>(null);
+   const [ajudaPublica, setAjudaPublica] = useState<ResultadoAjudaPublica | null>(null);
 
    // Limpa alternativas incorretas 50/50 ao mudar de pergunta
    useEffect(() => {
       setAlternativasIncorretas5050(null);
+      setAjudaPublica(null);
    }, [perguntaId]);
 
    return (
@@ -27,6 +30,7 @@ const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, aju
             {alternativas.map((alternativa, k) => (
                <CardAlternativa
                   efeitoAjuda50={alternativasIncorretas5050?.includes(alternativa.id)!}
+                  percentualAjudaPublica={ajudaPublica?.find((a) => a.alternativaId === alternativa.id)?.porcentagem || 0}
                   idAlternativa={alternativa.id}
                   textoAlternativa={alternativa.texto}
                   partidaId={partidaId}
@@ -38,6 +42,7 @@ const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, aju
          <hr className="border-cor-borda my-9" />
          {/* Linhas de Apoio */}
          <LinhasDeApoio
+            aoUsarAjudaPublica={(alternativas) => setAjudaPublica(alternativas)}
             ajudaPularPerguntaUtilizado={ajudaPularPerguntaUtilizado}
             ajuda50utilizado={ajuda50Usada}
             aoUsarAjuda50={(alternativas) => setAlternativasIncorretas5050(alternativas)}
