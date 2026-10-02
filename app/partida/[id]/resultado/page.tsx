@@ -64,7 +64,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
             width={1920}
             height={1087}
             src="/img/fundo-palco-gameplay.webp"
-            className="inset-0 size-full object-top  -z-2 absolute"
+            className="inset-0 size-full object-top -z-2 absolute"
             alt="Fundo ilustrando um palco competitivo do Quem sabe mais"
          />
          <div className="bg-fundo absolute -z-1 size-full inset-0 opacity-75"></div>
@@ -78,7 +78,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                         <Award className="size-4.5 me-1.5" /> Partida Concluída!
                      </>
                   }
-                  descricao={`Você chegou até a pergunta ${partida.respondidas.length} e terminou a partida com um ${analisarDesempenho()}.`}
+                  descricao={`Você chegou até a pergunta ${partida.perguntaAtual} e terminou a partida com um ${analisarDesempenho()}.`}
                   titulo={`${analisarValorGanho()}, ${usuario?.usuario.nickname}!`}
                />
                {/* TODO: Renderizar caso o usuário tenha subido de nível */}

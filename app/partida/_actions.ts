@@ -2,6 +2,7 @@
 import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { dbConnect } from "@/lib/dbConnect";
+import gerarVotosSimulados from "@/lib/game/gerarVotosSimulados";
 import Partida, { IPartida } from "@/models/Partida";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { Types } from "mongoose";
@@ -289,4 +290,44 @@ export async function usarPularPergunta(partidaId: string) {
    }
 }
 
-export async function usarAjudaPublica(partidaId: string) {}
+export async function usarAjudaPublica(partidaId: string) {
+   await dbConnect();
+   const sessao = await obterSessaoComUsuario();
+
+   if (!sessao) {
+      throw new Error("Não autenticado");
+   }
+
+   const partida = await Partida.findOne({
+      _id: partidaId,
+      usuarioId: sessao.usuario._id,
+   }).lean<IPartida>();
+
+   if (!partida) {
+      throw new Error("Partida não encontrada");
+   }
+
+   if (partida.status !== "em_andamento") {
+      throw new Error("A partida já partida encerrada!");
+   }
+
+   if (partida.ajudaPublicaUsada) {
+      throw new Error("A ajuda pública já foi utilizada");
+   }
+
+   const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
+
+   const pergunta = await Pergunta.findById(perguntaId).lean<IPergunta>();
+
+   if (!pergunta) {
+      throw new Error("Pergunta não encontrada");
+   }
+
+   const resultado = gerarVotosSimulados(pergunta.alternativas, pergunta.respostaCorreta);
+
+   await Partida.updateOne({ _id: partidaId, usuarioId: sessao.usuario._id }, { $set: { ajudaPublicaUsada: true } });
+
+   return resultado;
+
+   // TODO: Implementar ajuda pública
+}

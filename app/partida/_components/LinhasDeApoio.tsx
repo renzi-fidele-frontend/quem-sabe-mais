@@ -1,6 +1,6 @@
 "use client";
 import { ArrowRight, Percent, Users } from "lucide-react";
-import { usarAjuda50, usarPularPergunta } from "../_actions";
+import { usarAjuda50, usarAjudaPublica, usarPularPergunta } from "../_actions";
 import { useState } from "react";
 
 type Props = {
@@ -38,7 +38,12 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularP
       {
          Icone: Users,
          texto: "Ajuda Pública",
-         acao: async () => {},
+         acao: async () => {
+            setLoading(true);
+            const res = await usarAjudaPublica(partidaId);
+            console.log(res);
+            setLoading(false);
+         },
          utilizado: false,
       },
    ];
