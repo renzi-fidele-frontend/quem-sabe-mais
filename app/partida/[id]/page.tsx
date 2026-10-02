@@ -39,6 +39,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                <GameplayClient
                   ajudaPularPerguntaUtilizado={partida.pularPerguntaUsado}
                   ajuda50Usada={partida.ajuda50Usada}
+                  ajudaPublicaUsado={partida.ajudaPublicaUsada}
                   alternativas={pergunta.alternativas.map((item, k) => ({ id: item.id, texto: item.texto }))}
                   partidaId={id}
                   perguntaId={pergunta._id.toString()}

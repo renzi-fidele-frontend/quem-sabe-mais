@@ -10,9 +10,10 @@ type Props = {
    aoUsarAjudaPublica: (alternativas: ResultadoAjudaPublica) => void;
    ajuda50utilizado: boolean;
    ajudaPularPerguntaUtilizado: boolean;
+   ajudaPublicaUtilizado: boolean;
 };
 
-const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularPerguntaUtilizado, aoUsarAjudaPublica }: Props) => {
+const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, aoUsarAjudaPublica, ajuda50utilizado, ajudaPularPerguntaUtilizado, ajudaPublicaUtilizado  }: Props) => {
    const [loading, setLoading] = useState(false);
 
    const linhasDeApoio = [
@@ -46,7 +47,7 @@ const LinhasDeApoio = ({ partidaId, aoUsarAjuda50, ajuda50utilizado, ajudaPularP
             aoUsarAjudaPublica(res);
             setLoading(false);
          },
-         utilizado: false,
+         utilizado: ajudaPublicaUtilizado,
       },
    ];
 

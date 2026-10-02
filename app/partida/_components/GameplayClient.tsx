@@ -11,9 +11,10 @@ type Props = {
    partidaId: string;
    ajuda50Usada: boolean;
    ajudaPularPerguntaUtilizado: boolean;
+   ajudaPublicaUsado: boolean;
 };
 
-const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, ajudaPularPerguntaUtilizado }: Props) => {
+const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, ajudaPularPerguntaUtilizado, ajudaPublicaUsado }: Props) => {
    const [alternativasIncorretas5050, setAlternativasIncorretas5050] = useState<string[] | null>(null);
    const [ajudaPublica, setAjudaPublica] = useState<ResultadoAjudaPublica | null>(null);
 
@@ -42,6 +43,7 @@ const GameplayClient = ({ perguntaId, partidaId, alternativas, ajuda50Usada, aju
          <hr className="border-cor-borda my-9" />
          {/* Linhas de Apoio */}
          <LinhasDeApoio
+            ajudaPublicaUtilizado={ajudaPublicaUsado}
             aoUsarAjudaPublica={(alternativas) => setAjudaPublica(alternativas)}
             ajudaPularPerguntaUtilizado={ajudaPularPerguntaUtilizado}
             ajuda50utilizado={ajuda50Usada}

@@ -329,5 +329,7 @@ export async function usarAjudaPublica(partidaId: string) {
 
    return resultado;
 
+   revalidatePath(`/partida/${partidaId}`);
+
    // TODO: Implementar ajuda pública
 }
