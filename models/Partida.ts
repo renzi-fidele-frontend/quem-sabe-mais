@@ -18,12 +18,10 @@ export interface IPartida extends Document {
 
    respondidas: IRespostaPartida[];
 
-   // Deverei incrementar aqui quando uma pergunta for acertada
    /** Número da pergunta que o jogador está respondendo atualmente */
    perguntaAtual: number;
    valorAtual: number;
 
-   // Deverei incrementar aqui quando um checkpoint for alcançado
    /** Último valor de checkpoint alcançado pelo jogador */
    valorGarantido: number;
 
@@ -33,10 +31,8 @@ export interface IPartida extends Document {
    pularPerguntaUsado: boolean;
    ajudaPublicaUsada: boolean;
 
-   // Investigar como tornar inválido após ultrapassar o intervalo de 5 minutos
    dataInicio: Date;
    dataFim?: Date;
-
    createdAt: Date;
    updatedAt: Date;
 }

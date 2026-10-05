@@ -11,12 +11,9 @@ export interface IUsuario extends Document {
    role: "player" | "admin";
    avatarUrl: string;
 
-   // Gamificação / Progressão
+   // Progressão
    xp: number;
-   nivel: number;
-   title: string; // "Iniciante" | "Curioso" | "Conhecedor" | "Especialista" | "Mestre" | "Lenda"
 
-   // Preferências (Tela de Perfil)
    preferencias: {
       notificacoes: boolean;
       efeitosDeSom: boolean;
@@ -52,8 +49,6 @@ const schemaDoUsuario = new Schema<IUsuario>(
       avatarUrl: { type: String },
 
       xp: { type: Number, default: 0 },
-      nivel: { type: Number, default: 1 },
-      title: { type: String, default: "Iniciante" },
 
       preferencias: {
          notificacoes: { type: Boolean, default: true },
