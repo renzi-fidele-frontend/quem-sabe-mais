@@ -174,13 +174,18 @@ export async function responderPergunta(partidaId: string, resposta: string) {
       if (redirecionar) {
          // Adicionando o xp ganho
          const xpGanho = calcularXPGanhoNaPartida(respostasCorretas);
+         console.log("Xp ganho: ", xpGanho);
          const res = await Partida.updateOne({ _id: partidaId, usuarioId: userId, xpConcedido: false }, { $set: { xpConcedido: true } });
-         if (res.modifiedCount === 1) await Usuario.updateOne({ _id: userId }, { $inc: { xp: xpGanho } });
+         if (res.modifiedCount === 1) {
+            console.log("Xp concedido!");
+            await Usuario.updateOne({ _id: userId }, { $inc: { xp: xpGanho } });
+         }
          redirect(`/partida/${partidaId}/resultado`);
       }
    }
 }
 
+// TODO: Finalizar adicionando o xp ganho
 export async function abandonarPartida(partidaId: string) {
    await dbConnect();
    let respostasCorretas = 0;

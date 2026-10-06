@@ -11,6 +11,9 @@ import CardTempoDeGameplay from "../../_components/CardTempoDeGameplay";
 import CardDesempenho from "../../_components/CardDesempenho";
 import Image from "next/image";
 import CardLinhasDeApoioUsadas from "../../_components/CardLinhasDeApoioUsadas";
+import obterProgressoXpUsuario from "@/lib/game/obterProgresso";
+import { calcularXPGanhoNaPartida } from "@/lib/game/calcularXpGanhoNaPartida";
+import CardProgressoEvolucao from "../../_components/CardProgressoEvolucao";
 
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
@@ -28,6 +31,12 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
    if (!partida || partida.status === "em_andamento") {
       return notFound();
    }
+
+   let totalAcertos = 0;
+   // Calculando o número de respostas corretas
+   partida?.respondidas.forEach((resposta) => {
+      if (resposta.correta) totalAcertos++;
+   });
 
    function analisarValorGanho() {
       if (partida?.valorAtual! < 1000) {
@@ -56,6 +65,16 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
          return "desempenho de mestre";
       }
    }
+
+   // Isso também nos permite detectar subida de nível
+   // const progressoAnterior = obterProgressoXpUsuario(xpAnterior);
+   // const progressoAtual = obterProgressoXpUsuario(xpAtual);
+   // const subiuDeNivel = progressoAtual.nivel > progressoAnterior.nivel;
+
+   const xpGanho = calcularXPGanhoNaPartida(totalAcertos);
+   const progresso = obterProgressoXpUsuario(usuario?.usuario.xp ?? 0);
+
+   console.log({ progresso });
 
    return (
       <div className="relative pb-20">
@@ -116,9 +135,10 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                      cardStyle={cardStyle}
                      headingStyle={headingStyle}
                   />
-
                   {/* Progresso e evolução */}
-                  <div></div>
+                  <div>
+                     <CardProgressoEvolucao xpGanho={xpGanho} progresso={progresso} cardStyle={cardStyle} headingStyle={headingStyle} />
+                  </div>
                </div>
                {/* Direita */}
                <div className="basis-[32%] space-y-8">
