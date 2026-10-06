@@ -59,7 +59,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
          return "desempenho normal";
       } else if (partida?.perguntaAtual! >= 7 && partida?.perguntaAtual! < 10) {
          return "bom desempenho";
-      } else if (partida?.perguntaAtual! >= 10) {
+      } else if (partida?.perguntaAtual! >= 10 && partida?.perguntaAtual! < 15) {
          return "excelente desempenho";
       } else if (partida?.perguntaAtual! >= 15) {
          return "desempenho de mestre";

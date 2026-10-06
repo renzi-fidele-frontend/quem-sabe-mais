@@ -304,7 +304,18 @@ export async function usarPularPergunta(partidaId: string) {
       } else {
          await Partida.updateOne(
             { _id: partidaId, usuarioId: sessao.usuario._id },
-            { $set: { pularPerguntaUsado: true, perguntaAtual: partida.perguntaAtual + 1, valorAtual } },
+            {
+               $set: { pularPerguntaUsado: true, perguntaAtual: partida.perguntaAtual + 1, valorAtual },
+               // Tentar adicionar a pergunta respondida para contar como correta
+               $push: {
+                  respondidas: {
+                     perguntaId: partida.perguntas[partida.perguntaAtual],
+                     correta: true,
+                     valor: VALORES_PARTIDA[partida.perguntaAtual],
+                     numero: partida.perguntaAtual,
+                  },
+               },
+            },
          );
       }
 

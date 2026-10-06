@@ -11,11 +11,10 @@ const CardProgressoEvolucao = ({ cardStyle, headingStyle, progresso, xpGanho }: 
          <div className="font-sora">
             <div className="flex justify-between items-center">
                <p className="text-[13px]">
-                  XP Atual: {progresso.xpAtual} / {progresso.xpProximoNivel} XP
+                  XP Atual: <span className="text-tema">{progresso.xpAtual}</span> / {progresso.xpProximoNivel} XP
                </p>
                <span className="text-tema text-xs font-bold font-outfit">+{xpGanho} XP nesta partida</span>
             </div>
-            {/* TODO: Renderizar o progressbar */}
             <div className="relative h-2.5 w-full bg-cor-borda my-2" style={{ borderRadius: "5px" }}>
                <div style={{width: `${progresso.percentual}%`}} className="absolute top-0 left-0 bottom-0 bg-tema rounded-[inherit]"></div>
             </div>

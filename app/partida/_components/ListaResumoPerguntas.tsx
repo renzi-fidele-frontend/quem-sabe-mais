@@ -25,7 +25,7 @@ const ListaResumoPerguntas = ({ lista, headingStyle, cardStyle }: Props) => {
          </div>
          <div className="space-y-3">
             {analisarArray().map((item, k) => {
-               const escolhida = item.perguntaId.alternativas.find((a) => a.id === item.respostaEscolhida).texto;
+               const escolhida = item.perguntaId.alternativas.find((a) => a.id === item.respostaEscolhida)?.texto;
                return (
                   <div className="p-4 rounded-[12px] bg-azul-leve/90 border border-cor-borda flex justify-between items-center" key={k}>
                      {/* Esquerda */}
@@ -39,7 +39,7 @@ const ListaResumoPerguntas = ({ lista, headingStyle, cardStyle }: Props) => {
                         </i>
                         <div className="font-sora">
                            <p className="text-white font-semibold line-clamp-1">{item.perguntaId.enunciado}</p>
-                           <span className="text-xs">{escolhida}</span>
+                           {escolhida ? (<span className="text-xs">{escolhida}</span>) : (<span className="text-xs text-green-500 font-semibold">** Pulado **</span>)}
                         </div>
                      </div>
                      {/* Direita */}
