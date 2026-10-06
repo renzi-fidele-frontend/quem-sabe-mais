@@ -2,9 +2,11 @@
 import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { dbConnect } from "@/lib/dbConnect";
+import { calcularXPGanhoNaPartida } from "@/lib/game/calcularXpGanhoNaPartida";
 import gerarVotosSimulados from "@/lib/game/gerarVotosSimulados";
 import Partida, { IPartida } from "@/models/Partida";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
+import { Usuario } from "@/models/Usuario";
 import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -75,6 +77,8 @@ export async function iniciarPartida() {
 export async function responderPergunta(partidaId: string, resposta: string) {
    await dbConnect();
    let redirecionar = false;
+   let respostasCorretas = 0;
+   let userId = "";
 
    try {
       const usuario = await obterSessaoComUsuario();
@@ -82,7 +86,9 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          throw new Error("Usuário não encontrado");
       }
 
-      const partida = await Partida.findOne({ _id: partidaId, usuarioId: usuario.usuario._id });
+      userId = usuario.usuario._id.toString();
+
+      const partida = await Partida.findOne({ _id: partidaId, usuarioId: usuario.usuario._id }).lean<IPartida>();
       if (!partida) {
          throw new Error("Partida não encontrada");
       }
@@ -97,7 +103,10 @@ export async function responderPergunta(partidaId: string, resposta: string) {
          throw new Error("Tempo de gameplay expirado");
       }
 
-      // TODO: Mais tarde verificar se cada pergunta foi respondida no intervalo de 20 seguntos
+      // Calculando o número de respostas corretas
+      partida?.respondidas.forEach((resposta) => {
+         if (resposta.correta) respostasCorretas++;
+      });
 
       // Encontrando a pergunta sendo respondida
       const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
@@ -122,6 +131,7 @@ export async function responderPergunta(partidaId: string, resposta: string) {
       );
 
       if (correta) {
+         respostasCorretas++;
          // Caso acerte, atualizar o valor atual
          await Partida.updateOne({ _id: partidaId, usuarioId: usuario.usuario._id }, { $set: { valorAtual } });
 
@@ -146,7 +156,6 @@ export async function responderPergunta(partidaId: string, resposta: string) {
             { _id: partidaId, usuarioId: usuario.usuario._id },
             { $set: { status: "eliminado", dataFim: new Date(), valorAtual: partida.valorGarantido } },
          );
-
          // Redirecionar para a página de resultado final da partida
          redirecionar = true;
       }
@@ -161,8 +170,12 @@ export async function responderPergunta(partidaId: string, resposta: string) {
       console.log("Erro ao responder a pergunta!");
       console.log(error);
    } finally {
-      // Redirecionar
+      // Redirecionar ao finalizar a partida
       if (redirecionar) {
+         // Adicionando o xp ganho
+         const xpGanho = calcularXPGanhoNaPartida(respostasCorretas);
+         const res = await Partida.updateOne({ _id: partidaId, usuarioId: userId, xpConcedido: false }, { $set: { xpConcedido: true } });
+         if (res.modifiedCount === 1) await Usuario.updateOne({ _id: userId }, { $inc: { xp: xpGanho } });
          redirect(`/partida/${partidaId}/resultado`);
       }
    }
@@ -170,6 +183,7 @@ export async function responderPergunta(partidaId: string, resposta: string) {
 
 export async function abandonarPartida(partidaId: string) {
    await dbConnect();
+   let respostasCorretas = 0;
 
    try {
       const usuario = await obterSessaoComUsuario();
@@ -177,7 +191,22 @@ export async function abandonarPartida(partidaId: string) {
          throw new Error("Usuário não encontrado");
       }
 
-      await Partida.updateOne({ _id: partidaId, usuarioId: usuario?.usuario._id }, { $set: { status: "abandonada", dataFim: new Date() } });
+      const partida = await Partida.findOne({ _id: partidaId, usuarioId: usuario?.usuario._id, status: "em_andamento" }).lean<IPartida>();
+
+      if (!partida) {
+         throw new Error("Partida não encontrada");
+      }
+
+      // Calculando o número de respostas corretas
+      partida?.respondidas.forEach((resposta) => {
+         if (resposta.correta) respostasCorretas++;
+      });
+      const xpGanho = calcularXPGanhoNaPartida(respostasCorretas);
+
+      await Partida.updateOne(
+         { _id: partidaId, usuarioId: usuario?.usuario._id },
+         { $set: { status: "abandonada", dataFim: new Date() }, $inc: { xp: xpGanho } },
+      );
    } catch (error) {
       console.log("Erro ao abandonar a partida!");
       console.log(error);

@@ -1,6 +1,6 @@
 import { NIVEIS } from "@/data/jogo";
 
-export default function obterProgresso(xp: number) {
+export default function obterProgressoXpUsuario(xp: number) {
    const nivelAtual = [...NIVEIS].reverse().find((nivel) => xp >= nivel.xpMinimo) ?? NIVEIS[0];
 
    const proximoNivel = NIVEIS.find((nivel) => nivel.xpMinimo > xp);
@@ -32,5 +32,6 @@ export default function obterProgresso(xp: number) {
       xpProximoNivel: proximoNivel.xpMinimo,
       xpRestante: proximoNivel.xpMinimo - xp,
       percentual,
+      proximoNivel,
    };
 }

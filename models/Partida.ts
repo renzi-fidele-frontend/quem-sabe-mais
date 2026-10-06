@@ -27,6 +27,8 @@ export interface IPartida extends Document {
 
    status: StatusPartida;
 
+   xpConcedido: boolean;
+
    ajuda50Usada: boolean;
    pularPerguntaUsado: boolean;
    ajudaPublicaUsada: boolean;
@@ -123,6 +125,11 @@ const partidaSchema = new Schema<IPartida>(
          enum: ["em_andamento", "vitoria", "eliminado", "abandonado"],
          default: "em_andamento",
          index: true,
+      },
+
+      xpConcedido: {
+         type: Boolean,
+         default: false,
       },
 
       ajuda50Usada: {
