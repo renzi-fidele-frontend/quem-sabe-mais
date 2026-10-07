@@ -1,9 +1,17 @@
 "use client";
 import { IRespostaPartida } from "@/models/Partida";
+import { IAlternativa } from "@/models/Pergunta";
 import { Check, ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState } from "react";
 
-type Props = { lista: IRespostaPartida[]; headingStyle: string; cardStyle: string };
+interface IResposta extends Omit<IRespostaPartida, "perguntaId" | "enunciado"> {
+   perguntaId: {
+      alternativas: IAlternativa[];
+      enunciado: string;
+   };
+}
+
+type Props = { lista: IResposta[]; headingStyle: string; cardStyle: string };
 const ListaResumoPerguntas = ({ lista, headingStyle, cardStyle }: Props) => {
    const [mostrarTodas, setMostrarTodas] = useState(false);
 
@@ -39,7 +47,11 @@ const ListaResumoPerguntas = ({ lista, headingStyle, cardStyle }: Props) => {
                         </i>
                         <div className="font-sora">
                            <p className="text-white font-semibold line-clamp-1">{item.perguntaId.enunciado}</p>
-                           {escolhida ? (<span className="text-xs">{escolhida}</span>) : (<span className="text-xs text-green-500 font-semibold">** Pulado **</span>)}
+                           {escolhida ? (
+                              <span className="text-xs">{escolhida}</span>
+                           ) : (
+                              <span className="text-xs text-green-500 font-semibold">** Pulado **</span>
+                           )}
                         </div>
                      </div>
                      {/* Direita */}

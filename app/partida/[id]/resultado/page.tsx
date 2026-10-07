@@ -14,10 +14,12 @@ import CardLinhasDeApoioUsadas from "../../_components/CardLinhasDeApoioUsadas";
 import obterProgressoXpUsuario from "@/lib/game/obterProgresso";
 import { calcularXPGanhoNaPartida } from "@/lib/game/calcularXpGanhoNaPartida";
 import CardProgressoEvolucao from "../../_components/CardProgressoEvolucao";
-
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
+import { Pergunta } from "@/models/Pergunta";
+
+// FIXME: Mais tarde resolver o erro Schema hasn't been registered for model "Pergunta".
 
 export default async function ResultadoPage({ params }: { params: Promise<{ id: string }> }) {
    await dbConnect();
