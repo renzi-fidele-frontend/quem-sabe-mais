@@ -4,7 +4,7 @@ import { IAlternativa } from "@/models/Pergunta";
 import { Check, ChevronDown, ChevronUp, X } from "lucide-react";
 import { useState } from "react";
 
-interface IResposta extends Omit<IRespostaPartida, "perguntaId" | "enunciado"> {
+interface IResposta extends Omit<IRespostaPartida, "perguntaId"> {
    perguntaId: {
       alternativas: IAlternativa[];
       enunciado: string;

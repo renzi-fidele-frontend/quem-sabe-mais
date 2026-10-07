@@ -3,6 +3,7 @@ import SectionIntro from "@/components/layout/SectionIntro";
 import { Award, TrendingUp } from "lucide-react";
 import { dbConnect } from "@/lib/dbConnect";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
+import { Pergunta } from "@/models/Pergunta";
 import Partida, { IPartida } from "@/models/Partida";
 import { notFound } from "next/navigation";
 import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
@@ -17,7 +18,6 @@ import CardProgressoEvolucao from "../../_components/CardProgressoEvolucao";
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
-import { Pergunta } from "@/models/Pergunta";
 
 // FIXME: Mais tarde resolver o erro Schema hasn't been registered for model "Pergunta".
 
@@ -28,6 +28,9 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
    const partida = await Partida.findOne({ _id: id, usuarioId: usuario?.usuario._id })
       .lean<IPartida>()
       .populate({ path: "respondidas.perguntaId", select: "enunciado alternativas" });
+
+   // Apanhar última partida
+   // Calcular taxa de acerto, prêmio ganho e acertos
 
    // Caso a partida ainda esteja em andamento
    if (!partida || partida.status === "em_andamento") {
