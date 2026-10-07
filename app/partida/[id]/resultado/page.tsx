@@ -19,8 +19,6 @@ const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
 
-// FIXME: Mais tarde resolver o erro Schema hasn't been registered for model "Pergunta".
-
 export default async function ResultadoPage({ params }: { params: Promise<{ id: string }> }) {
    await dbConnect();
    const { id } = await params;
@@ -29,19 +27,51 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       .lean<IPartida>()
       .populate({ path: "respondidas.perguntaId", select: "enunciado alternativas" });
 
-   // Apanhar última partida
-   // Calcular taxa de acerto, prêmio ganho e acertos
-
    // Caso a partida ainda esteja em andamento
    if (!partida || partida.status === "em_andamento") {
       return notFound();
    }
 
-   let totalAcertos = 0;
+   // Apanhar última partida
+   const ultimaPartida = await Partida.findOne({
+      usuarioId: usuario?.usuario._id,
+      // Excluir a partida atual da busca
+      _id: { $ne: partida._id },
+      status: { $in: ["vitoria", "eliminado", "abandonado"] },
+   })
+      .sort({ dataFim: -1 })
+      .lean<IPartida>();
+
    // Calculando o número de respostas corretas
+   let totalAcertosAtual = 0;
    partida?.respondidas.forEach((resposta) => {
-      if (resposta.correta) totalAcertos++;
+      if (resposta.correta) totalAcertosAtual++;
    });
+   let totalAcertosAnterior = 0;
+   ultimaPartida?.respondidas.forEach((resposta) => {
+      if (resposta.correta) {
+         totalAcertosAnterior++;
+      }
+   });
+
+   // Calculando a taxa de acerto
+   const taxaAcertoAtual = partida.respondidas.length > 0 ? (totalAcertosAtual / partida.respondidas.length) * 100 : 0;
+   const taxaAcertoAnterior =
+      ultimaPartida && ultimaPartida.respondidas.length > 0 ? (totalAcertosAnterior / ultimaPartida.respondidas.length) * 100 : 0;
+
+   // Calculando as diferenças
+   const diferencaTaxaAcerto = taxaAcertoAtual - taxaAcertoAnterior;
+   const diferencaPremio = partida.valorAtual - (ultimaPartida?.valorAtual ?? 0);
+   const diferencaAcertos = totalAcertosAtual - totalAcertosAnterior;
+
+   const comparacaoUltimaPartida = {
+      taxaAcerto: taxaAcertoAtual,
+      diferencaTaxaAcerto,
+      premio: partida.valorAtual,
+      diferencaPremio,
+      acertos: totalAcertosAtual,
+      diferencaAcertos,
+   };
 
    function analisarValorGanho() {
       if (partida?.valorAtual! < 1000) {
@@ -76,7 +106,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
    // const progressoAtual = obterProgressoXpUsuario(xpAtual);
    // const subiuDeNivel = progressoAtual.nivel > progressoAnterior.nivel;
 
-   const xpGanho = calcularXPGanhoNaPartida(totalAcertos);
+   const xpGanho = calcularXPGanhoNaPartida(totalAcertosAtual);
    const progresso = obterProgressoXpUsuario(usuario?.usuario.xp ?? 0);
 
    console.log({ progresso });
@@ -142,7 +172,13 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                   />
                   {/* Progresso e evolução */}
                   <div>
-                     <CardProgressoEvolucao xpGanho={xpGanho} progresso={progresso} cardStyle={cardStyle} headingStyle={headingStyle} />
+                     <CardProgressoEvolucao
+                        comparacaoUltimaPartida={comparacaoUltimaPartida}
+                        xpGanho={xpGanho}
+                        progresso={progresso}
+                        cardStyle={cardStyle}
+                        headingStyle={headingStyle}
+                     />
                   </div>
                </div>
                {/* Direita */}
