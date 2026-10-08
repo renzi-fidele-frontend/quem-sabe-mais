@@ -40,7 +40,9 @@ const CardProgressoEvolucao = ({ cardStyle, headingStyle, progresso, xpGanho, co
       <div className={cardStyle}>
          <div className="flex justify-between items-center mb-6">
             <h5 className={headingStyle}>Seu progresso & Evolução</h5>
-            <p className="text-tema font-sora text-sm font-semibold">Nível {progresso.nivel}</p>
+            <p className="text-tema font-sora text-sm font-semibold">
+               Nível {progresso.nivel} <span className="mx-1">•</span> {progresso.titulo}{" "}
+            </p>
          </div>
          <div className="font-sora">
             <div className="flex justify-between items-center">
@@ -67,7 +69,8 @@ const CardProgressoEvolucao = ({ cardStyle, headingStyle, progresso, xpGanho, co
                   <h6>Taxa de acerto</h6>
                   <p>{comparacaoUltimaPartida.taxaAcerto.toFixed(2)}%</p>
                   <span className={retornarCorAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)}>
-                     {retornarIconeAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)} {comparacaoUltimaPartida.diferencaTaxaAcerto.toFixed(2)}%
+                     {retornarIconeAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)}{" "}
+                     {comparacaoUltimaPartida.diferencaTaxaAcerto.toFixed(2)}%
                   </span>
                </div>
                <div>

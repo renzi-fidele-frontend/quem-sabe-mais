@@ -198,10 +198,10 @@ export async function abandonarPartida(partidaId: string) {
       });
       const xpGanho = calcularXPGanhoNaPartida(respostasCorretas);
 
-      await Partida.updateOne(
-         { _id: partidaId, usuarioId: usuario?.usuario._id },
-         { $set: { status: "abandonada", dataFim: new Date() }, $inc: { xp: xpGanho } },
-      );
+      console.log(xpGanho, respostasCorretas);
+
+      await Partida.updateOne({ _id: partidaId, usuarioId: usuario?.usuario._id }, { $set: { status: "abandonada", dataFim: new Date() } });
+      await Usuario.updateOne({ _id: usuario?.usuario._id }, { $inc: { xp: xpGanho } });
    } catch (error) {
       console.log("Erro ao abandonar a partida!");
       console.log(error);
