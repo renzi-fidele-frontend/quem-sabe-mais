@@ -5,7 +5,6 @@ import { IUsuario, Usuario } from "@/models/Usuario";
 import { dbConnect } from "@/lib/dbConnect";
 import { redirect } from "next/navigation";
 
-// TODO: Adicionando a funcionalidade de criar uma conta
 export async function criarConta(formData: FormData) {
    await dbConnect();
 
@@ -32,8 +31,6 @@ export async function criarConta(formData: FormData) {
       await criarSessao(usuario._id.toString());
 
       redirect("/cadastro/escoher-avatar");
-
-      // TODO: Implementar autenticação
    } catch (error) {
       console.log(error);
    }
@@ -44,6 +41,3 @@ export async function login(formData: FormData) {}
 
 // TODO: Adicionar a funcionalidade de deslogar
 export async function logout(formData: FormData) {}
-
-// TODO: Adicionar a funcionalidade de verificar se o usuário está logado
-export async function isLoggedIn() {}

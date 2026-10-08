@@ -1,6 +1,6 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
-import { Award, TrendingUp } from "lucide-react";
+import { Award, BluetoothConnectedIcon, Calendar, Home, Play, TrendingUp } from "lucide-react";
 import { dbConnect } from "@/lib/dbConnect";
 import { obterSessaoComUsuario } from "@/lib/auth/session";
 import { Pergunta } from "@/models/Pergunta";
@@ -15,6 +15,9 @@ import CardLinhasDeApoioUsadas from "../../_components/CardLinhasDeApoioUsadas";
 import obterProgressoXpUsuario from "@/lib/game/obterProgresso";
 import { calcularXPGanhoNaPartida } from "@/lib/game/calcularXpGanhoNaPartida";
 import CardProgressoEvolucao from "../../_components/CardProgressoEvolucao";
+import Button from "@/components/shared/Button";
+import Link from "next/link";
+import { iniciarPartida } from "../../_actions";
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
@@ -110,6 +113,9 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
    const progresso = obterProgressoXpUsuario(usuario?.usuario.xp ?? 0);
 
    console.log({ progresso });
+
+   const buttonStyle =
+      "flex gap-2.5 items-center px-6 py-4 rounded-[12px] border border-cor-borda text-white font-semibold bg-azul-leve/90 cursor-pointer";
 
    return (
       <div className="relative pb-20">
@@ -207,6 +213,19 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                   </div>
                   {/* Conquistas alcançadas */}
                </div>
+            </div>
+            <div className="pt-12 flex gap-5 justify-center  font-sora ">
+               <form action={iniciarPartida}>
+                  <button className={buttonStyle + " bg-tema! text-black! font-extrabold! border-0!"}>
+                     <Play className="stroke-3" /> Jogar novamente
+                  </button>
+               </form>
+               <Link href="/historico" className={buttonStyle}>
+                  <Calendar /> Ver histórico
+               </Link>
+               <Link href="/" className={buttonStyle}>
+                  <Home /> Voltar ao início
+               </Link>
             </div>
          </Container>
       </div>

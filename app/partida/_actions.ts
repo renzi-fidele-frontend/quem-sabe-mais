@@ -45,13 +45,6 @@ export async function iniciarPartida() {
       //    TODO: Mais tarde buscar as perguntas por dificuldade para melhoria da experiência
       const perguntas = await Pergunta.aggregate([{ $sample: { size: TOTAL_PERGUNTAS } }, { $project: { respostaCorreta: -1 } }]);
 
-      //    Caso não se ache o total de 15 perguntas
-      //   TODO: Após testes bloqueiar cas de perguntas insuficientes
-      /* if (perguntas.length < TOTAL_PERGUNTAS) {
-         console.log(perguntas.length, TOTAL_PERGUNTAS);
-         throw new Error("Não foram encontradas perguntas suficientes");
-      } */
-
       //    Criando a partida
       partida = await Partida.create({
          usuarioId: new Types.ObjectId(usuario.usuario._id),
@@ -174,10 +167,8 @@ export async function responderPergunta(partidaId: string, resposta: string) {
       if (redirecionar) {
          // Adicionando o xp ganho
          const xpGanho = calcularXPGanhoNaPartida(respostasCorretas);
-         console.log("Xp ganho: ", xpGanho);
          const res = await Partida.updateOne({ _id: partidaId, usuarioId: userId, xpConcedido: false }, { $set: { xpConcedido: true } });
          if (res.modifiedCount === 1) {
-            console.log("Xp concedido!");
             await Usuario.updateOne({ _id: userId }, { $inc: { xp: xpGanho } });
          }
          redirect(`/partida/${partidaId}/resultado`);
@@ -185,7 +176,6 @@ export async function responderPergunta(partidaId: string, resposta: string) {
    }
 }
 
-// TODO: Finalizar adicionando o xp ganho
 export async function abandonarPartida(partidaId: string) {
    await dbConnect();
    let respostasCorretas = 0;
@@ -373,8 +363,4 @@ export async function usarAjudaPublica(partidaId: string) {
    await Partida.updateOne({ _id: partidaId, usuarioId: sessao.usuario._id }, { $set: { ajudaPublicaUsada: true } });
 
    return resultado;
-
-   revalidatePath(`/partida/${partidaId}`);
-
-   // TODO: Implementar ajuda pública
 }

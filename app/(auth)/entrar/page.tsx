@@ -56,7 +56,6 @@ export default function Page() {
             Entrar <ArrowRight />
          </Button>
          <AuthCta modo="login" />
-         {/* TODO: Amanhã cedo finalizar esta seção */}
       </>
    );
 }
