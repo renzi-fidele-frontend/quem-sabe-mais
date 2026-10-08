@@ -16,13 +16,23 @@ type Props = {
    };
 };
 const CardProgressoEvolucao = ({ cardStyle, headingStyle, progresso, xpGanho, comparacaoUltimaPartida }: Props) => {
-   function retornarAltoOuBaixo(diferenca: number) {
+   function retornarIconeAltoOuBaixo(diferenca: number) {
       if (diferenca < 0) {
          return <ArrowDown />;
       } else if (diferenca > 0) {
          return <ArrowUp />;
       } else {
          return null;
+      }
+   }
+
+   function retornarCorAltoOuBaixo(diferenca: number) {
+      if (diferenca < 0) {
+         return "text-red-600";
+      } else if (diferenca > 0) {
+         return "text-green-600";
+      } else {
+         return "text-tema";
       }
    }
 
@@ -47,30 +57,32 @@ const CardProgressoEvolucao = ({ cardStyle, headingStyle, progresso, xpGanho, co
             </p>
          </div>
          <hr className="my-6 border-cor-borda" />
-         {/* TODO: Adicionar a seção da comparação com a última partida */}
+         {/* Seção da comparação com a última partida */}
          <div>
             <h5 className="font-sora text-[13px] font-bold mb-3 uppercase">Comparado à sua última partida</h5>
-            <div className="flex flex-nowrap gap-4 *:grow *:bg-azul-leve/90 *:p-3 *:rounded-[8px] *:space-y-1.5 [&_p]:text-white [&_p]:text-lg [&_p]:font-bold [&_span]:text-tema [&_span]:font-bold [&_span]:text-xs [&_span]:flex [&_span]:items-center [&_span]:gap-0.5 [&_svg]:size-3.5 [&_h6]:text-xs [&_h6]:font-sora">
+            <div
+               className={`flex flex-nowrap gap-4 *:grow *:bg-azul-leve/90 *:p-3 *:rounded-[8px] *:space-y-1.5 [&_p]:text-white [&_p]:text-lg [&_p]:font-bold [&_span]:font-bold [&_span]:text-xs [&_span]:flex [&_span]:items-center [&_span]:gap-0.5 [&_svg]:size-3.5 [&_h6]:text-xs [&_h6]:font-sora`}
+            >
                <div>
                   <h6>Taxa de acerto</h6>
-                  <p>{comparacaoUltimaPartida.taxaAcerto}%</p>
-                  <span>
-                     {retornarAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)} {comparacaoUltimaPartida.diferencaTaxaAcerto}%
+                  <p>{comparacaoUltimaPartida.taxaAcerto.toFixed(2)}%</p>
+                  <span className={retornarCorAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)}>
+                     {retornarIconeAltoOuBaixo(comparacaoUltimaPartida.diferencaTaxaAcerto)} {comparacaoUltimaPartida.diferencaTaxaAcerto.toFixed(2)}%
                   </span>
                </div>
                <div>
                   <h6>Prêmio ganho</h6>
                   <p>{new Intl.NumberFormat("pt-MZ").format(comparacaoUltimaPartida.premio)} MT</p>
-                  <span>
-                     {retornarAltoOuBaixo(comparacaoUltimaPartida.diferencaPremio)}{" "}
+                  <span className={retornarCorAltoOuBaixo(comparacaoUltimaPartida.diferencaPremio)}>
+                     {retornarIconeAltoOuBaixo(comparacaoUltimaPartida.diferencaPremio)}{" "}
                      {new Intl.NumberFormat("pt-MZ").format(comparacaoUltimaPartida.diferencaPremio)} MT
                   </span>
                </div>
                <div>
                   <h6>Acertos</h6>
                   <p>{comparacaoUltimaPartida.acertos} corretas</p>
-                  <span>
-                     {retornarAltoOuBaixo(comparacaoUltimaPartida.diferencaAcertos)} {comparacaoUltimaPartida.diferencaAcertos}
+                  <span className={retornarCorAltoOuBaixo(comparacaoUltimaPartida.diferencaAcertos)}>
+                     {retornarIconeAltoOuBaixo(comparacaoUltimaPartida.diferencaAcertos)} {comparacaoUltimaPartida.diferencaAcertos}
                   </span>
                </div>
             </div>
