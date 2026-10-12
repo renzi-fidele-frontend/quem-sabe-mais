@@ -5,6 +5,7 @@ import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import AuthCta from "../_components/AuthCta";
+import { login } from "../_actions";
 
 export default function Page() {
    const [mostrarSenha, setMostrarSenha] = useState(false);
@@ -14,12 +15,16 @@ export default function Page() {
       <>
          <h6 className="text-3xl font-black text-white font-outfit">Bem-vindo de volta!</h6>
          <p className="text-sm mb-6">Entre na sua conta e continue sua jornada.</p>
-         <form className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold">
+         <form
+            id="login-form"
+            className="space-y-3.5 [&_fieldset]:flex [&_fieldset]:flex-col [&_fieldset]:gap-1.5 [&_label]:text-[13px] [&_label]:font-semibold"
+            action={login}
+         >
             {/* E-mail */}
             <fieldset>
                <label htmlFor="email">Email</label>
                <InputGroup className="bg-azul-escuro2 border-cor-borda">
-                  <InputGroupInput name="email" placeholder="Digite seu email" />
+                  <InputGroupInput name="email" placeholder="Digite seu email" required />
                   <InputGroupAddon>
                      <Mail />
                   </InputGroupAddon>
@@ -35,6 +40,7 @@ export default function Page() {
                      placeholder="Digite sua senha"
                      value={senha}
                      onChange={(e) => setSenha(e.target.value)}
+                     required
                   />
                   <InputGroupAddon>
                      <Lock />
@@ -52,7 +58,7 @@ export default function Page() {
          <Link href="" className="text-end text-tema font-semibold mt-3 mb-8">
             Esqueceu sua senha?
          </Link>
-         <Button className="py-4" type="submit">
+         <Button className="py-4" type="submit" form="login-form">
             Entrar <ArrowRight />
          </Button>
          <AuthCta modo="login" />
