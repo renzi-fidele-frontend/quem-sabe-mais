@@ -39,7 +39,7 @@ export async function buscarHistoricoPartidas({ paginaAtual = 1, limitePorPagina
    ]);
 
    // Preparar os dados para a interface
-   const partidasFormatadas = partidas.map((partida) => {
+   const partidasFormatadas = partidas.map((partida, index) => {
       const acertos = partida.respondidas.filter((resposta) => resposta.correta === true).length;
 
       return {
@@ -49,6 +49,8 @@ export async function buscarHistoricoPartidas({ paginaAtual = 1, limitePorPagina
          acertos,
          totalRespondidas: partida.respondidas.length,
          valorAtual: partida.valorAtual,
+         // Nr da partida
+         numero: total - (paginaAtual - 1) * limitePorPagina - index,
       };
    });
 

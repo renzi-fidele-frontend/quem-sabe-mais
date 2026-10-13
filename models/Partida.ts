@@ -1,6 +1,6 @@
 import { Document, model, models, Schema, Types } from "mongoose";
 
-export type StatusPartida = "em_andamento" | "vitoria" | "eliminado" | "abandonado";
+export type StatusPartida = "em_andamento" | "vitoria" | "eliminado" | "abandonada";
 
 export interface IRespostaPartida {
    perguntaId: Types.ObjectId;

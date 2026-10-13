@@ -40,7 +40,7 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       usuarioId: usuario?.usuario._id,
       // Excluir a partida atual da busca
       _id: { $ne: partida._id },
-      status: { $in: ["vitoria", "eliminado", "abandonado"] },
+      status: { $in: ["vitoria", "eliminado", "abandonada"] },
    })
       .sort({ dataFim: -1 })
       .lean<IPartida>();
