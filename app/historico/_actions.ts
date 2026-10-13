@@ -1,7 +1,7 @@
 "use server";
-import { obterSessaoComUsuario } from "@/lib/auth/session";
-import { dbConnect } from "@/lib/dbConnect";
+import { dbConnect } from "@/lib/db/dbConnect";
 import Partida, { IPartida } from "@/models/Partida";
+import { obterSessaoComUsuario } from "../(auth)/_lib/session";
 
 type BuscarHistoricoParams = {
    paginaAtual?: number;

@@ -2,7 +2,7 @@
 import { ArrowRight, Percent, Users } from "lucide-react";
 import { usarAjuda50, usarAjudaPublica, usarPularPergunta } from "../_actions";
 import { useState } from "react";
-import { ResultadoAjudaPublica } from "@/lib/game/gerarVotosSimulados";
+import { ResultadoAjudaPublica } from "@/app/partida/_lib/gerarVotosSimulados";
 
 type Props = {
    partidaId: string;

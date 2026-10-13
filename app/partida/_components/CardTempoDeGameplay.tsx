@@ -1,5 +1,5 @@
 import { Clock } from "lucide-react";
-import calcularDuracao from "../[id]/resultado/_lib/calcularDuracao";
+import calcularDuracao from "../_lib/calcularDuracao";
 import { IRespostaPartida } from "@/models/Partida";
 
 type Props = {

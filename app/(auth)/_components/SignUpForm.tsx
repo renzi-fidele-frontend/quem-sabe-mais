@@ -2,7 +2,7 @@
 import Button from "@/components/shared/Button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { verificarForcaSenha } from "@/lib/verificarForcaSenha";
+import { verificarForcaSenha } from "@/app/(auth)/_lib/verificarForcaSenha";
 import { ArrowRight, AtSign, Eye, EyeOff, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";

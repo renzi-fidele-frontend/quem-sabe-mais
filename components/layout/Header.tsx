@@ -3,7 +3,7 @@ import Container from "./Container";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { LogIn } from "lucide-react";
-import { obterSessaoComUsuario } from "@/lib/auth/session";
+import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
 
 const Header = async () => {
    const headersList = await headers();

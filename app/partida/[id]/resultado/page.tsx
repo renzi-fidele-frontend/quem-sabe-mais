@@ -1,9 +1,7 @@
 import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
-import { Award, BluetoothConnectedIcon, Calendar, Home, Play, TrendingUp } from "lucide-react";
-import { dbConnect } from "@/lib/dbConnect";
-import { obterSessaoComUsuario } from "@/lib/auth/session";
-import { Pergunta } from "@/models/Pergunta";
+import { Award, Calendar, Home, Play, TrendingUp } from "lucide-react";
+import { dbConnect } from "@/lib/db/dbConnect";
 import Partida, { IPartida } from "@/models/Partida";
 import { notFound } from "next/navigation";
 import ListaResumoPerguntas from "../../_components/ListaResumoPerguntas";
@@ -12,12 +10,14 @@ import CardTempoDeGameplay from "../../_components/CardTempoDeGameplay";
 import CardDesempenho from "../../_components/CardDesempenho";
 import Image from "next/image";
 import CardLinhasDeApoioUsadas from "../../_components/CardLinhasDeApoioUsadas";
-import obterProgressoXpUsuario from "@/lib/game/obterProgresso";
-import { calcularXPGanhoNaPartida } from "@/lib/game/calcularXpGanhoNaPartida";
+import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
+import { calcularXPGanhoNaPartida } from "@/app/partida/_lib/calcularXpGanhoNaPartida";
 import CardProgressoEvolucao from "../../_components/CardProgressoEvolucao";
-import Button from "@/components/shared/Button";
 import Link from "next/link";
 import { iniciarPartida } from "../../_actions";
+import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
+import analisarDesempenho from "../../_lib/analisarDesempenho";
+import analisarValorGanho from "../../_lib/analisarValorGanho";
 const cardStyle = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-6";
 const cardStyle2 = "bg-azul-escuro2/90 border border-cor-borda rounded-[20px] p-5";
 const headingStyle = "text-white font-bold text-xl";
@@ -76,34 +76,6 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
       diferencaAcertos,
    };
 
-   function analisarValorGanho() {
-      if (partida?.valorAtual! < 1000) {
-         return "Partida azarada";
-      } else if (partida?.valorAtual! >= 1000 && partida?.valorAtual! < 7500) {
-         return "Boa tentativa";
-      } else if (partida?.valorAtual! >= 7500 && partida?.valorAtual! < 100000) {
-         return "Excelente partida";
-      } else if (partida?.valorAtual! >= 100000) {
-         return "Partida extraordinária";
-      }
-   }
-
-   function analisarDesempenho() {
-      if (partida?.perguntaAtual! < 2) {
-         return "desempenho péssimo";
-      } else if (partida?.perguntaAtual! >= 2 && partida?.perguntaAtual! < 4) {
-         return "desempenho ruim";
-      } else if (partida?.perguntaAtual! >= 4 && partida?.perguntaAtual! < 7) {
-         return "desempenho normal";
-      } else if (partida?.perguntaAtual! >= 7 && partida?.perguntaAtual! < 10) {
-         return "bom desempenho";
-      } else if (partida?.perguntaAtual! >= 10 && partida?.perguntaAtual! < 15) {
-         return "excelente desempenho";
-      } else if (partida?.perguntaAtual! >= 15) {
-         return "desempenho de mestre";
-      }
-   }
-
    // Isso também nos permite detectar subida de nível
    // const progressoAnterior = obterProgressoXpUsuario(xpAnterior);
    // const progressoAtual = obterProgressoXpUsuario(xpAtual);
@@ -138,8 +110,8 @@ export default async function ResultadoPage({ params }: { params: Promise<{ id: 
                         <Award className="size-4.5 me-1.5" /> Partida Concluída!
                      </>
                   }
-                  descricao={`Você chegou até a pergunta ${partida.perguntaAtual} e terminou a partida com um ${analisarDesempenho()}.`}
-                  titulo={`${analisarValorGanho()}, ${usuario?.usuario.nickname}!`}
+                  descricao={`Você chegou até a pergunta ${partida.perguntaAtual} e terminou a partida com um ${analisarDesempenho(partida.perguntaAtual)}.`}
+                  titulo={`${analisarValorGanho(partida.valorAtual)}, ${usuario?.usuario.nickname}!`}
                />
                {/* TODO: Renderizar caso o usuário tenha subido de nível */}
                <div className="text-center space-y-2">

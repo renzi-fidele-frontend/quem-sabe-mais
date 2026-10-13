@@ -8,6 +8,8 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { iniciarPartida } from "./partida/_actions";
 
+// TODO: No futuro deverei melhorar estupidamente o design dos cards, e investigar sobre border-image para deixar mais único e bonito
+
 export default function Home() {
    return (
       <div>

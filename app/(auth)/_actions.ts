@@ -1,10 +1,10 @@
 "use server";
-import { criarSessao } from "@/lib/auth/session";
-import { criptografarSenha } from "@/lib/auth/password";
 import { IUsuario, Usuario } from "@/models/Usuario";
-import { dbConnect } from "@/lib/dbConnect";
+import { dbConnect } from "@/lib/db/dbConnect";
 import { redirect } from "next/navigation";
 import * as argon2 from "argon2";
+import { criarSessao, obterSessaoComUsuario } from "./_lib/session";
+import { criptografarSenha } from "./_lib/password";
 
 export async function criarConta(formData: FormData) {
    await dbConnect();
@@ -72,3 +72,14 @@ export async function login(formData: FormData) {
 
 // TODO: Adicionar a funcionalidade de deslogar
 export async function logout(formData: FormData) {}
+
+export async function guardarAvatar(path: string) {
+   await dbConnect();
+
+   try {
+      const user = await obterSessaoComUsuario();
+      await Usuario.updateOne({ _id: user?.usuario._id }, { avatarUrl: path });
+   } catch (error) {
+      console.log("Erro ao salvar o avatar:", error);
+   }
+}

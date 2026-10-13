@@ -1,4 +1,4 @@
-import { IProgressoXp } from "@/lib/game/obterProgresso";
+import { IProgressoXp } from "@/app/partida/_lib/obterProgresso";
 import { ArrowDown, ArrowUp } from "lucide-react";
 
 type Props = {

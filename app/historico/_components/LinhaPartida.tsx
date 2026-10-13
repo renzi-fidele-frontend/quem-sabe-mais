@@ -4,7 +4,7 @@ import { Eye } from "lucide-react";
 import formatarData from "../_lib/formatarData";
 import { TOTAL_PERGUNTAS } from "@/data/jogo";
 import { formatarPremio } from "../_lib/formatarPremio";
-import { estilosStatus } from "../_lib/estiiloStatus";
+import { estilosStatus } from "../_lib/estiloStatus";
 import Link from "next/link";
 
 type Props = {

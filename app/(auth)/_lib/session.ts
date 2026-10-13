@@ -1,9 +1,9 @@
 import crypto from "crypto";
-import { dbConnect } from "../dbConnect";
 import { ISessao, Sessao } from "@/models/Sessao";
 import { cookies } from "next/headers";
 import { IUsuario, Usuario } from "@/models/Usuario";
 import { cache } from "react";
+import { dbConnect } from "@/lib/db/dbConnect";
 
 const SESSION_COOKIE = "quiz_session";
 const SESSION_DURATION = 1000 * 60 * 60 * 24 * 30; // 30 dias
