@@ -37,7 +37,6 @@ export async function criarConta(formData: FormData) {
    }
 }
 
-// TODO: Adicionar a funcionalidade de logar
 export async function login(formData: FormData) {
    await dbConnect();
 

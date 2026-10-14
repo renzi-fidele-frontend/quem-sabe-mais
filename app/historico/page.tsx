@@ -2,10 +2,15 @@ import Container from "@/components/layout/Container";
 import Image from "next/image";
 import ListagemDasPartidas from "./_components/ListagemDasPartidas";
 import { buscarHistoricoPartidas } from "./_actions";
+import Paginacao from "@/components/shared/Paginacao";
 
-export default async function HistoricoPage() {
-   const partidas = await buscarHistoricoPartidas({ paginaAtual: 1, limitePorPagina: 8 });
-   console.log(partidas);
+type Props = {
+   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function HistoricoPage({ searchParams }: Props) {
+   const page = (await searchParams).page || 1;
+   const partidas = await buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 8 });
 
    return (
       <div className="relative">
@@ -29,7 +34,13 @@ export default async function HistoricoPage() {
                {/* Esquerda */}
                <div className="basis-[69%]">
                   {/* Listagem das partidas */}
-                  <ListagemDasPartidas total={partidas.paginacao.total} partidas={partidas.partidas} />
+                  <ListagemDasPartidas
+                     paginaAtual={partidas.paginacao.paginaAtual}
+                     totalPaginas={partidas.paginacao.totalPaginas}
+                     total={partidas.paginacao.total}
+                     partidas={partidas.partidas}
+                  />
+                  <div className=""></div>
                </div>
                {/* Direita */}
                <div className="basis-[31%]">

@@ -1,6 +1,7 @@
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { StatusPartida } from "@/models/Partida";
 import LinhaPartida from "./LinhaPartida";
+import Paginacao from "@/components/shared/Paginacao";
 
 type Props = {
    partidas: {
@@ -13,9 +14,11 @@ type Props = {
       numero: number;
    }[];
    total: number;
+   paginaAtual: number;
+   totalPaginas: number;
 };
 
-const ListagemDasPartidas = ({ partidas, total }: Props) => {
+const ListagemDasPartidas = ({ partidas, total, paginaAtual, totalPaginas }: Props) => {
    return (
       <div className="p-8 bg-azul-escuro2/90 rounded-[24px] border border-cor-borda">
          {/* Heading */}
@@ -26,9 +29,9 @@ const ListagemDasPartidas = ({ partidas, total }: Props) => {
             </span>
          </div>
          {/* Listagem */}
-         <Table className="**:font-sora">
+         <Table className="**:font-sora mb-3 **:border-cor-borda">
             <TableHeader className="**:text-texto-1 **:text-[11px] **:font-bold uppercase">
-               <TableRow className="hover:bg-cor-borda">
+               <TableRow className="hover:bg-cor-borda border-cor-borda">
                   <TableHead>Data</TableHead>
                   <TableHead>Partida</TableHead>
                   <TableHead>Acertos</TableHead>
@@ -45,6 +48,7 @@ const ListagemDasPartidas = ({ partidas, total }: Props) => {
                )}
             </TableBody>
          </Table>
+         <Paginacao paginaAtual={paginaAtual} totalPaginas={totalPaginas} />
       </div>
    );
 };
