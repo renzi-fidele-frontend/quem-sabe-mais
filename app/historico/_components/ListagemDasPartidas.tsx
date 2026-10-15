@@ -48,7 +48,7 @@ const ListagemDasPartidas = ({ partidas, total, paginaAtual, totalPaginas }: Pro
                )}
             </TableBody>
          </Table>
-         <Paginacao paginaAtual={paginaAtual} totalPaginas={totalPaginas} />
+         {totalPaginas > 1 && <Paginacao paginaAtual={paginaAtual} totalPaginas={totalPaginas} />}
       </div>
    );
 };

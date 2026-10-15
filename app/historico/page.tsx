@@ -3,6 +3,8 @@ import Image from "next/image";
 import ListagemDasPartidas from "./_components/ListagemDasPartidas";
 import { buscarHistoricoPartidas } from "./_actions";
 import Paginacao from "@/components/shared/Paginacao";
+import CardResumoDoDesempenho from "./_components/CardResumoDoDesempenho";
+import ChartResumoHistorico from "./_components/ChartResumoHistorico";
 
 type Props = {
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -30,7 +32,7 @@ export default async function HistoricoPage({ searchParams }: Props) {
             {/* TODO: Ao escalar adicionar a seção de filtragem */}
 
             {/* Conteúdo principal */}
-            <section className="flex">
+            <section className="flex flex-nowrap gap-8">
                {/* Esquerda */}
                <div className="basis-[69%]">
                   {/* Listagem das partidas */}
@@ -40,12 +42,13 @@ export default async function HistoricoPage({ searchParams }: Props) {
                      total={partidas.paginacao.total}
                      partidas={partidas.partidas}
                   />
-                  <div className=""></div>
                </div>
                {/* Direita */}
                <div className="basis-[31%]">
-                  {/* Resumo do período */}
-                  <div></div>
+                  {/* Resumo do desempenho */}
+                  <div>
+                     <CardResumoDoDesempenho />
+                  </div>
                   {/* Melhor partida de todos os tempos */}
                   <div></div>
                </div>
