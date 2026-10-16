@@ -64,3 +64,59 @@ export async function buscarHistoricoPartidas({ paginaAtual = 1, limitePorPagina
       },
    };
 }
+
+type ResultadoBuscarResumoHistorico = {
+   _id: null;
+   totalPartidas: number;
+   totalVitorias: number;
+   totalEliminado: number;
+   totalAbandonado: number;
+   totalEmAndamento: number;
+   totalGanho: number;
+};
+export async function buscarResumoHistorico(): Promise<[ResultadoBuscarResumoHistorico]> {
+   await dbConnect();
+
+   const sessao = await obterSessaoComUsuario();
+   if (!sessao) {
+      throw new Error("Usuário não autenticado");
+   }
+
+   const resultado = await Partida.aggregate([
+      { $match: { usuarioId: sessao.usuario._id } },
+      {
+         $group: {
+            _id: null,
+            totalPartidas: { $sum: 1 },
+            totalVitorias: {
+               $sum: {
+                  $cond: [{ $eq: ["$status", "vitoria"] }, 1, 0],
+               },
+            },
+            totalEliminado: {
+               $sum: {
+                  $cond: [{ $eq: ["$status", "eliminado"] }, 1, 0],
+               },
+            },
+            totalAbandonado: {
+               $sum: {
+                  $cond: [{ $eq: ["$status", "abandonada"] }, 1, 0],
+               },
+            },
+            totalEmAndamento: {
+               $sum: {
+                  $cond: [{ $eq: ["$status", "em_andamento"] }, 1, 0],
+               },
+            },
+            totalGanho: {
+               // Soma o valor atual das partidas que não estiverem em andamento
+               $sum: {
+                  $cond: [{ $ne: ["$status", "em_andamento"] }, "$valorAtual", 0],
+               },
+            },
+         },
+      },
+   ]);
+
+   return resultado as [ResultadoBuscarResumoHistorico];
+}
