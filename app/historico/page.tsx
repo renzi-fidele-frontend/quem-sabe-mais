@@ -2,9 +2,7 @@ import Container from "@/components/layout/Container";
 import Image from "next/image";
 import ListagemDasPartidas from "./_components/ListagemDasPartidas";
 import { buscarHistoricoPartidas } from "./_actions";
-import Paginacao from "@/components/shared/Paginacao";
 import CardResumoDoDesempenho from "./_components/CardResumoDoDesempenho";
-import ChartResumoHistorico from "./_components/ChartResumoHistorico";
 
 type Props = {
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;

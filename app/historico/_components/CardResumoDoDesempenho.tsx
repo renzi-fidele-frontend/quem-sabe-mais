@@ -1,8 +1,27 @@
+import ChartResumoHistorico from "./ChartResumoHistorico";
+
 const CardResumoDoDesempenho = () => {
+   // TODO: Apanhar
    return (
       <div className="p-6 bg-azul-escuro2/90 rounded-[24px] border border-cor-borda">
-         <h4 className="text-lg font-black mb-5 text-white">Resumo do desempenho</h4>
+         <h4 className="text-lg font-black mb-0 text-white">Resumo do desempenho</h4>
+
          {/* TODO: Renderizar o gráfico representando: Vitórias, Eliminado e Abandonado  */}
+         <div className="flex items-center">
+            <ChartResumoHistorico />
+            <div className="font-sora space-y-3.5 text-sm [&_span]:pe-2 relative right-6">
+               <div>
+                  <span className="text-green-500">●</span> Vitórias (11)
+               </div>
+               <div>
+                  <span className="text-destructive">●</span> Eliminado (12)
+               </div>
+               <div>
+                  <span className="text-cor-borda">●</span> Abandonado (2)
+               </div>
+            </div>
+         </div>
+
          <div className="*:border-b *:border-cor-borda *:py-2 *:flex *:items-center *:justify-between [&_p]:font-sora [&_p]:text-[13px] [&_span]:font-extrabold [&_span]:text-sm">
             {/* Partidas realizadas */}
             <div>
