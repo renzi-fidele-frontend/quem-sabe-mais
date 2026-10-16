@@ -3,18 +3,16 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 import { Pie, PieChart } from "recharts";
 
 export type ResumoDesempenhoProps = {
-   resumo: {
-      totalVitorias: number;
-      totalEliminado: number;
-      totalAbandonado: number;
-   };
+   totalVitorias: number;
+   totalEliminado: number;
+   totalAbandonado: number;
 };
 
-const ChartResumoHistorico = ({ resumo }: ResumoDesempenhoProps) => {
+const ChartResumoHistorico = ({ totalVitorias, totalEliminado, totalAbandonado }: ResumoDesempenhoProps) => {
    const chartData = [
-      { tipo: "Vitórias", quantidade: 2, fill: "var(--color-green-500)" },
-      { tipo: "Eliminado", quantidade: 6, fill: "var(--destructive)" },
-      { tipo: "Abandonado", quantidade: 3, fill: "var(--cor-borda)" },
+      { tipo: "Vitórias", quantidade: totalVitorias, fill: "var(--color-green-500)" },
+      { tipo: "Eliminado", quantidade: totalEliminado, fill: "var(--destructive)" },
+      { tipo: "Abandonado", quantidade: totalAbandonado, fill: "var(--cor-borda)" },
    ];
 
    const chartConfig = {
@@ -39,7 +37,7 @@ const ChartResumoHistorico = ({ resumo }: ResumoDesempenhoProps) => {
       <ChartContainer config={chartConfig} className="mx-auto aspect-square h-50 -ms-6">
          <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Pie data={chartData} dataKey="quantidade" nameKey="tipo" innerRadius={60}  />
+            <Pie data={chartData} dataKey="quantidade" nameKey="tipo" innerRadius={60} />
          </PieChart>
       </ChartContainer>
    );
