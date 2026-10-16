@@ -3,6 +3,7 @@ import Image from "next/image";
 import ListagemDasPartidas from "./_components/ListagemDasPartidas";
 import { buscarHistoricoPartidas } from "./_actions";
 import CardResumoDoDesempenho from "./_components/CardResumoDoDesempenho";
+import CardMelhorPartida from "./_components/CardMelhorPartida";
 
 type Props = {
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -42,13 +43,15 @@ export default async function HistoricoPage({ searchParams }: Props) {
                   />
                </div>
                {/* Direita */}
-               <div className="basis-[31%]">
+               <div className="basis-[31%] space-y-6">
                   {/* Resumo do desempenho */}
                   <div>
                      <CardResumoDoDesempenho />
                   </div>
                   {/* Melhor partida de todos os tempos */}
-                  <div></div>
+                  <div>
+                     <CardMelhorPartida />
+                  </div>
                </div>
             </section>
          </Container>
