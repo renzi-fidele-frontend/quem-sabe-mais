@@ -1,7 +1,7 @@
 import Container from "@/components/layout/Container";
 import Image from "next/image";
 import ListagemDasPartidas from "./_components/ListagemDasPartidas";
-import { buscarHistoricoPartidas } from "./_actions";
+import { buscarHistoricoPartidas, buscarMelhorPartida } from "./_actions";
 import CardResumoDoDesempenho from "./_components/CardResumoDoDesempenho";
 import CardMelhorPartida from "./_components/CardMelhorPartida";
 
@@ -11,7 +11,11 @@ type Props = {
 
 export default async function HistoricoPage({ searchParams }: Props) {
    const page = (await searchParams).page || 1;
-   const partidas = await buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 8 });
+
+   const [partidas, melhorPartida] = await Promise.all([
+      buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 8 }),
+      buscarMelhorPartida,
+   ]);
 
    return (
       <div className="relative">

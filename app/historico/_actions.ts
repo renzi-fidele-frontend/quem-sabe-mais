@@ -120,3 +120,25 @@ export async function buscarResumoHistorico(): Promise<[ResultadoBuscarResumoHis
 
    return resultado as [ResultadoBuscarResumoHistorico];
 }
+
+export async function buscarMelhorPartida() {
+   await dbConnect();
+
+   const sessao = await obterSessaoComUsuario();
+   if (!sessao) {
+      throw new Error("Usuário não autenticado");
+   }
+
+   const resultado = await Partida.aggregate([
+      { $match: { usuarioId: sessao.usuario._id } },
+      {
+         $sort: {
+            valorAtual: -1,
+            updatedAt: -1,
+         },
+      },
+      { $limit: 1 },
+   ]);
+
+   console.log(resultado);
+}
