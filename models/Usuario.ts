@@ -4,7 +4,7 @@ import { Document, model, models, Schema } from "mongoose";
 
 export interface IUsuario extends Document {
    nomeCompleto: string; // Para validação com mpesa
-   nickname: string; // Ex: @renzifidele (exibido na liderança e perfil)
+   nickname: string;
    email: string;
    passwordHash: string;
    phoneMpesa?: string;
