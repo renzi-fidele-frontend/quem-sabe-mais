@@ -29,7 +29,7 @@ const ListagemDasPartidas = ({ partidas, total, paginaAtual, totalPaginas }: Pro
             </span>
          </div>
          {/* Listagem */}
-         <Table className="**:font-sora mb-3 **:border-cor-borda">
+         <Table className="**:font-sora mb-6 **:border-cor-borda">
             <TableHeader className="**:text-texto-1 **:text-[11px] **:font-bold uppercase">
                <TableRow className="hover:bg-cor-borda border-cor-borda">
                   <TableHead>Data</TableHead>

@@ -13,7 +13,7 @@ export default async function HistoricoPage({ searchParams }: Props) {
    const page = (await searchParams).page || 1;
 
    const [partidas, melhorPartida] = await Promise.all([
-      buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 8 }),
+      buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 9 }),
       buscarMelhorPartida(),
    ]);
 

@@ -11,7 +11,7 @@ const CardResumoDoDesempenho = async () => {
          <h4 className="text-lg font-black mb-0 text-white">Resumo do desempenho</h4>
          <div className="flex items-center">
             <ChartResumoHistorico totalVitorias={res.totalVitorias} totalEliminado={res.totalEliminado} totalAbandonado={res.totalAbandonado} />
-            <div className="font-sora space-y-3 text-xs [&_span]:pe-2 basis-[60%] ">
+            <div className="font-sora space-y-2.5 text-xs [&_span]:pe-2 basis-[64%] ">
                <div>
                   <span className="text-green-500">●</span> Vitórias ({res.totalVitorias})
                </div>

@@ -34,10 +34,10 @@ const ChartResumoHistorico = ({ totalVitorias, totalEliminado, totalAbandonado }
    } satisfies ChartConfig;
 
    return (
-      <ChartContainer config={chartConfig} className="mx-auto aspect-square h-33 -ms-3">
+      <ChartContainer config={chartConfig} className="mx-auto aspect-square h-30 -ms-3">
          <PieChart>
             <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-            <Pie data={chartData} dataKey="quantidade" nameKey="tipo" innerRadius={33} />
+            <Pie data={chartData} dataKey="quantidade" nameKey="tipo" innerRadius={30} />
          </PieChart>
       </ChartContainer>
    );
