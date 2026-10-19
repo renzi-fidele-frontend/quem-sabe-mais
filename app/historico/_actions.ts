@@ -137,8 +137,15 @@ export async function buscarMelhorPartida() {
             updatedAt: -1,
          },
       },
+      {
+         $project: {
+            updatedAt: 1,
+            respondidas: 1,
+            valorAtual: 1,
+         },
+      },
       { $limit: 1 },
    ]);
 
-   console.log(resultado);
+   return resultado[0] as IPartida;
 }

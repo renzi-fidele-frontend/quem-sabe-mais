@@ -14,7 +14,7 @@ export default async function HistoricoPage({ searchParams }: Props) {
 
    const [partidas, melhorPartida] = await Promise.all([
       buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 8 }),
-      buscarMelhorPartida,
+      buscarMelhorPartida(),
    ]);
 
    return (
@@ -54,7 +54,7 @@ export default async function HistoricoPage({ searchParams }: Props) {
                   </div>
                   {/* Melhor partida de todos os tempos */}
                   <div>
-                     <CardMelhorPartida />
+                     <CardMelhorPartida partida={melhorPartida} />
                   </div>
                </div>
             </section>
