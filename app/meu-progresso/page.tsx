@@ -2,6 +2,7 @@ import Container from "@/components/layout/Container";
 import { CheckCheck, Coins, Gamepad, Target } from "lucide-react";
 import Image from "next/image";
 import CardEstatistica from "./_components/CardEstatistica";
+import CardGraficoDesempenho from "./_components/CardGraficoDesempenho";
 
 export default async function MeuProgresso() {
    return (
@@ -20,7 +21,7 @@ export default async function MeuProgresso() {
             <p className="font-sora text-[15px] mb-10">Acompanhe sua evolução, suas conquistas e seu desempenho no Quem Sabe Mais.</p>
             <main>
                {/* Primeira Linha */}
-               <section className="flex flex-nowrap gap-6 *:grow">
+               <section className="flex flex-nowrap gap-6 *:basis-1/4">
                   {/* TOTAL DE JOGOS */}
                   <CardEstatistica
                      titulo="TOTAL DE JOGOS"
@@ -45,7 +46,10 @@ export default async function MeuProgresso() {
                   />
                </section>
                {/* Segunda Linha */}
-               <section></section>
+               <section className="flex gap-8 flex-nowrap *:grow mt-10 font-sora">
+                  <CardGraficoDesempenho />
+                  <CardGraficoDesempenho />
+               </section>
                {/* Terceira Linha */}
                <section></section>
                {/* Quarta Linha */}
