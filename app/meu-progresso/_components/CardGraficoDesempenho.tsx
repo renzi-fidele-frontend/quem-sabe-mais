@@ -26,7 +26,7 @@ const CardGraficoDesempenho = () => {
    ];
 
    return (
-      <div className="p-7 bg-azul-escuro2 border border-cor-borda rounded-[24px]">
+      <div className="p-7 bg-azul-escuro2/90 border border-cor-borda rounded-[24px]">
          {/* Heading */}
          <div className="flex justify-between gap-6 ">
             <div>
