@@ -32,7 +32,6 @@ const CardGraficoDesempenho = () => {
             <div>
                <h6 className="text-white text-lg font-bold mb-1">Desempenho nas perguntas</h6>
                <p className="text-xs mb-5">Veja como sua taxa de acerto evoluiu ao longo do tempo.</p>
-               {/* TODO: Renderizar o gráfico */}
             </div>
             {/* Opções */}
             <div>
@@ -70,7 +69,15 @@ const CardGraficoDesempenho = () => {
                   </linearGradient>
 
                   <CartesianGrid strokeDasharray="5" className="stroke-cor-borda! stroke-2" vertical={false} />
-                  <XAxis colorRendering={"red"} color="red" fontStyle={"italic"}  dataKey="data" tickLine={true} axisLine={false} tickMargin={8} tickFormatter={(value) => value.slice(0, 3)} />
+                  <XAxis
+                     fontWeight={800}
+                     fontStyle={"italic"}
+                     dataKey="data"
+                     tickLine={true}
+                     axisLine={false}
+                     tickMargin={8}
+                     tickFormatter={(value) => value.slice(0, 3)}
+                  />
                   <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
                   <Area
                      dataKey="valorGanho"

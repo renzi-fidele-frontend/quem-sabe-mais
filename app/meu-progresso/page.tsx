@@ -4,6 +4,7 @@ import Image from "next/image";
 import CardEstatistica from "./_components/CardEstatistica";
 import CardGraficoDesempenho from "./_components/CardGraficoDesempenho";
 import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
+import CardNivelJogador from "./_components/CardNivelJogador";
 
 export default async function MeuProgresso() {
    return (
@@ -56,7 +57,9 @@ export default async function MeuProgresso() {
                   <CardResumoDaPerformace />
                </section>
                {/* Quarta Linha */}
-               <section></section>
+               <section>
+                  <CardNivelJogador />
+               </section>
                {/* Quinta Linha */}
                <section></section>
                {/* Sexta Linha */}
