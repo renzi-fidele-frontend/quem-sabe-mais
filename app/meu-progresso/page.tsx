@@ -6,6 +6,7 @@ import CardGraficoDesempenho from "./_components/CardGraficoDesempenho";
 import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
 
+// TODO: Após implementar o sistema de temporadas, deverei dar continuidade nesta página
 export default async function MeuProgresso() {
    const chartData = [
       { data: "Out", valor: 1000 },

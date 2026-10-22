@@ -33,6 +33,8 @@ export interface IPartida extends Document {
    pularPerguntaUsado: boolean;
    ajudaPublicaUsada: boolean;
 
+   temporadaId: Types.ObjectId;
+
    dataInicio: Date;
    dataFim?: Date;
    createdAt: Date;
@@ -155,6 +157,13 @@ const partidaSchema = new Schema<IPartida>(
 
       dataFim: {
          type: Date,
+      },
+
+      temporadaId: {
+         type: Schema.Types.ObjectId,
+         ref: "Temporada",
+         required: true,
+         index: true,
       },
    },
    { collection: "Partidas", timestamps: true },
