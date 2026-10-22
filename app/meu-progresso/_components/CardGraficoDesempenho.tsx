@@ -3,22 +3,18 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
-const chartData = [
-   { data: "Out", valorGanho: 1000 },
-   { data: "Nov", valorGanho: 500 },
-   { data: "Dez", valorGanho: 800 },
-   { data: "Jan", valorGanho: 500 },
-   { data: "Fev", valorGanho: 1000 },
-   { data: "Atual", valorGanho: 1300 },
-];
 const chartConfig = {
-   valorGanho: {
-      label: "Desktop",
-      color: "var(--chart-1)",
+   valor: {
+      label: "Ganho:",
+      color: "var(--tema)",
    },
 } satisfies ChartConfig;
 
-const CardGraficoDesempenho = () => {
+type Props = {
+   chartData: { data: string; valor: number }[];
+};
+
+const CardGraficoDesempenho = ({ chartData }: Props) => {
    const opcoes = [
       { label: "7 dias", value: 7 },
       { label: "30 dias", value: 30 },
@@ -80,7 +76,7 @@ const CardGraficoDesempenho = () => {
                   />
                   <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
                   <Area
-                     dataKey="valorGanho"
+                     dataKey="valor"
                      type="linear"
                      stackId="a"
                      fill="url(#fillDesktop)"

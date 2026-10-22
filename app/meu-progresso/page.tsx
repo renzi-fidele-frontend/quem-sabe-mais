@@ -7,6 +7,27 @@ import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
 
 export default async function MeuProgresso() {
+   const chartData = [
+      { data: "Out", valor: 1000 },
+      { data: "Nov", valor: 500 },
+      { data: "Dez", valor: 800 },
+      { data: "Jan", valor: 500 },
+      { data: "Fev", valor: 1000 },
+      { data: "Atual", valor: 1300 },
+   ];
+
+   // Dados da seção da primeira linha
+   const estatisticas = {
+      totalDeJogos: 128,
+      diferencaTotalDeJogos: 12,
+      totalGanhos: 10075,
+      diferencaTotalGanhos: 2300,
+      perguntasAcertadas: 842,
+      diferencaPerguntasAcertadas: 48,
+      taxaDeAcertos: 78.4,
+      diferencaTaxaDeAcertos: 3.2,
+   };
+
    return (
       <div className="relative">
          {/* Fundo com overlay */}
@@ -28,29 +49,41 @@ export default async function MeuProgresso() {
                   <CardEstatistica
                      titulo="TOTAL DE JOGOS"
                      Icone={Gamepad}
-                     valor={"128"}
-                     diferenca={12}
-                     textoDiferenca={String(12)}
+                     valor={`${estatisticas.totalDeJogos}`}
+                     diferenca={estatisticas.diferencaTotalDeJogos}
+                     textoDiferenca={String(estatisticas.diferencaTotalDeJogos)}
                      tipoPercentual={true}
                   />
                   {/* TOTAL DE GANHOS */}
-                  <CardEstatistica titulo="TOTAL DE GANHOS" Icone={Coins} valor={"18.750 MT"} diferenca={2300} textoDiferenca={"+2.300 MT"} />
+                  <CardEstatistica
+                     titulo="TOTAL DE GANHOS"
+                     Icone={Coins}
+                     valor={`${estatisticas.totalGanhos} MT`}
+                     diferenca={estatisticas.diferencaTotalGanhos}
+                     textoDiferenca={`+${estatisticas.diferencaTotalGanhos} MT`}
+                  />
                   {/* PERGUNTAS ACERTADAS */}
-                  <CardEstatistica titulo="PERGUNTAS ACERTADAS" Icone={CheckCheck} valor={"842"} diferenca={48} textoDiferenca={String(48)} />
+                  <CardEstatistica
+                     titulo="PERGUNTAS ACERTADAS"
+                     Icone={CheckCheck}
+                     valor={`${estatisticas.perguntasAcertadas}`}
+                     diferenca={estatisticas.diferencaPerguntasAcertadas}
+                     textoDiferenca={String(estatisticas.diferencaPerguntasAcertadas)}
+                  />
                   {/* TAXA DE ACERTO */}
                   <CardEstatistica
                      titulo="TAXA DE ACERTO"
                      Icone={Target}
-                     valor={"78,4%"}
-                     diferenca={3.2}
-                     textoDiferenca={String(3.2)}
+                     valor={`${estatisticas.taxaDeAcertos}%`}
+                     diferenca={estatisticas.diferencaTaxaDeAcertos}
+                     textoDiferenca={String(estatisticas.diferencaTaxaDeAcertos)}
                      tipoPercentual={true}
                   />
                </section>
                {/* Segunda Linha */}
-               <section className="flex gap-8 flex-nowrap *:grow font-sora">
-                  <CardGraficoDesempenho />
-                  <CardGraficoDesempenho />
+               <section className="flex gap-8 flex-nowrap *:grow *:basis-1/2 font-sora">
+                  <CardGraficoDesempenho chartData={chartData} />
+                  <CardGraficoDesempenho chartData={chartData} />
                </section>
                {/* Terceira Linha */}
                <section>

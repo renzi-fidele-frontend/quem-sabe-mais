@@ -25,7 +25,7 @@ const CardEstatistica = ({ Icone, diferenca, titulo, valor, destacar, tipoPercen
             <span
                className={`px-2 py-0.5 rounded-[10px] font-bold ${diferenca >= 0 ? "text-green-400 bg-green-400/13 " : "text-red-400 bg-red-400/13"} `}
             >
-               {diferenca >= 0 ? "+" : "-"} {textoDiferenca}
+               {diferenca >= 0 ? "+" : ""} {textoDiferenca}
                {tipoPercentual ? "%" : ""}
             </span>
             este mês
