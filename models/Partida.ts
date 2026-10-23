@@ -124,7 +124,7 @@ const partidaSchema = new Schema<IPartida>(
 
       status: {
          type: String,
-         enum: ["em_andamento", "vitoria", "eliminado", "abandonado"],
+         enum: ["em_andamento", "vitoria", "eliminado", "abandonada"],
          default: "em_andamento",
          index: true,
       },

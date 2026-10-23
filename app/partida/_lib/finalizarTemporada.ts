@@ -36,7 +36,7 @@ export async function finalizarTemporada(temporadaId: string) {
          $match: {
             temporadaId: temporada._id,
             status: {
-               $in: ["vitoria", "eliminado", "abandonado", "abandonada"],
+               $in: ["vitoria", "eliminado", "abandonada"],
             },
             dataFim: { $exists: true, $ne: null },
          },

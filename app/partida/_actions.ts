@@ -10,6 +10,7 @@ import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { obterSessaoComUsuario } from "../(auth)/_lib/session";
+import { obterTemporadaAtual } from "./_lib/obterTemporadaAtual";
 
 export async function iniciarPartida() {
    await dbConnect();
@@ -21,6 +22,8 @@ export async function iniciarPartida() {
       if (!usuario) {
          throw new Error("Usuário não encontrado");
       }
+
+      const temporada = await obterTemporadaAtual();
 
       const inicioDoDia = new Date();
       inicioDoDia.setHours(0, 0, 0, 0);
@@ -58,6 +61,7 @@ export async function iniciarPartida() {
          pularPerguntaUsado: false,
          ajudaPublicaUsada: false,
          dataInicio: new Date(),
+         temporadaId: temporada._id,
       });
    } catch (error) {
       console.log("Erro ao inicializar uma partida!");
@@ -288,7 +292,7 @@ export async function usarPularPergunta(partidaId: string) {
       if (partida.perguntaAtual === TOTAL_PERGUNTAS) {
          await Partida.updateOne(
             { _id: partidaId, usuarioId: sessao.usuario._id },
-            { $set: { status: "vitória", dataFim: new Date(), pularPerguntaUsado: true, valorAtual } },
+            { $set: { status: "vitoria", dataFim: new Date(), pularPerguntaUsado: true, valorAtual } },
          );
          redirecionar = true;
       } else {
