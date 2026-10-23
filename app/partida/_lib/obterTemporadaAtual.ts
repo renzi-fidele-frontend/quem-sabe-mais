@@ -1,5 +1,7 @@
+"use server";
 import { dbConnect } from "@/lib/db/dbConnect";
 import Temporada from "@/models/Temporada";
+import { finalizarTemporada } from "./finalizarTemporada";
 
 // 14 dias
 const DURACAO_TEMPORADA = 14 * 24 * 60 * 60 * 1000;
@@ -49,9 +51,30 @@ export async function obterTemporadaAtual() {
       }
    }
 
-   // Não iniciar outra temporada sem processar a anterior.
+   // Se a última temporada terminou, finalizá-la e criar a próxima.
    if (ultimaTemporada.dataFim.getTime() <= agora.getTime()) {
-      throw new Error("A temporada anterior precisa de ser finalizada antes de iniciar a seguinte.");
+      const finalizada = await finalizarTemporada(ultimaTemporada._id.toString());
+
+      // Se outra chamada já a finalizou, verificar se existe uma temporada atual.
+      if (!finalizada) {
+         const temporadaEmAndamento = await Temporada.findOne({
+            status: "em_andamento",
+            dataInicio: { $lte: new Date() },
+            dataFim: { $gt: new Date() },
+         });
+
+         if (temporadaEmAndamento) {
+            return temporadaEmAndamento;
+         }
+      }
+
+      // Criar a próxima temporada.
+      return await Temporada.create({
+         numero: ultimaTemporada.numero + 1,
+         dataInicio: agora,
+         dataFim: new Date(agora.getTime() + DURACAO_TEMPORADA),
+         status: "em_andamento",
+      });
    }
 
    throw new Error("Não foi possível determinar a temporada atual.");
