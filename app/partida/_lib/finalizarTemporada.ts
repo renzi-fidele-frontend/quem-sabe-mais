@@ -38,7 +38,7 @@ export async function finalizarTemporada(temporadaId: string) {
             status: {
                $in: ["vitoria", "eliminado", "abandonada"],
             },
-            dataFim: { $exists: true, $ne: null },
+            dataFim: { $exists: true, $ne: null, $lte: temporada.dataFim },
          },
       },
       {
