@@ -51,8 +51,8 @@ const vencedorTemporadaSchema = new Schema<IVencedorTemporada>(
 const temporadaSchema = new Schema<ITemporada>(
    {
       numero: { type: Number, required: true, unique: true },
-      dataInicio: { type: Date, required: true, unique: true },
-      dataFim: { type: Date, required: true, unique: true },
+      dataInicio: { type: Date, required: true },
+      dataFim: { type: Date, required: true },
       status: { type: String, required: true, enum: ["agendada", "em_andamento", "finalizada"] },
       vencedores: {
          type: [vencedorTemporadaSchema],
@@ -63,6 +63,17 @@ const temporadaSchema = new Schema<ITemporada>(
       },
    },
    { collection: "temporadas" },
+);
+
+// Garante que só existe uma temporada em andamento
+temporadaSchema.index(
+   { status: 1 },
+   {
+      unique: true,
+      partialFilterExpression: {
+         status: "em_andamento",
+      },
+   },
 );
 
 const Temporada = models.Temporada || model<ITemporada>("Temporada", temporadaSchema);

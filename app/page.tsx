@@ -198,7 +198,13 @@ export default function Home() {
                               {/* Rank */}
                               <p className={`text-xl font-black ${k === 0 ? "text-tema" : ""}`}>0{k + 1}</p>
                               {/* Avatar */}
-                              <div className={`border-2 rounded-3xl h-13 w-15 ${k === 0 ? "border-tema" : "border-cor-borda"}`}></div>
+                              <Image
+                                 src={`/img/avatars/${k + 1}.jpg`}
+                                 className={`object-cover border-2 rounded-3xl  ${k === 0 ? "border-tema" : "border-cor-borda"}`}
+                                 alt=""
+                                 width={60}
+                                 height={60}
+                              />
                               {/* Nome e Status */}
                               <div className="font-sora">
                                  <p className="text-white font-bold">{item.nome}</p>
