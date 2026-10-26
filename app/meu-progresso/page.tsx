@@ -62,6 +62,7 @@ export default async function MeuProgresso() {
                      valor={`${estatisticas.totalGanhos} MT`}
                      diferenca={estatisticas.diferencaTotalGanhos}
                      textoDiferenca={`+${estatisticas.diferencaTotalGanhos} MT`}
+                     destacar
                   />
                   {/* PERGUNTAS ACERTADAS */}
                   <CardEstatistica

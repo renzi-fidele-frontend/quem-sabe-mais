@@ -48,19 +48,22 @@ const vencedorTemporadaSchema = new Schema<IVencedorTemporada>(
    { _id: false },
 );
 
-const temporadaSchema = new Schema<ITemporada>({
-   numero: { type: Number, required: true, unique: true },
-   dataInicio: { type: Date, required: true, unique: true },
-   dataFim: { type: Date, required: true, unique: true },
-   status: { type: String, required: true, enum: ["agendada", "em_andamento", "finalizada"] },
-   vencedores: {
-      type: [vencedorTemporadaSchema],
-      default: [],
+const temporadaSchema = new Schema<ITemporada>(
+   {
+      numero: { type: Number, required: true, unique: true },
+      dataInicio: { type: Date, required: true, unique: true },
+      dataFim: { type: Date, required: true, unique: true },
+      status: { type: String, required: true, enum: ["agendada", "em_andamento", "finalizada"] },
+      vencedores: {
+         type: [vencedorTemporadaSchema],
+         default: [],
+      },
+      dataFinalizacao: {
+         type: Date,
+      },
    },
-   dataFinalizacao: {
-      type: Date,
-   },
-});
+   { collection: "temporadas" },
+);
 
 const Temporada = models.Temporada || model<ITemporada>("Temporada", temporadaSchema);
 

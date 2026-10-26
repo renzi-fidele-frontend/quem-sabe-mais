@@ -69,12 +69,28 @@ export async function obterTemporadaAtual() {
       }
 
       // Criar a próxima temporada.
-      return await Temporada.create({
-         numero: ultimaTemporada.numero + 1,
-         dataInicio: agora,
-         dataFim: new Date(agora.getTime() + DURACAO_TEMPORADA),
-         status: "em_andamento",
-      });
+      try {
+         return await Temporada.create({
+            numero: ultimaTemporada.numero + 1,
+            dataInicio: agora,
+            dataFim: new Date(agora.getTime() + DURACAO_TEMPORADA),
+            status: "em_andamento",
+         });
+      } catch (error) {
+         // Outra chamada pode ter criado a temporada entretanto.
+         const temporadaCriada = await Temporada.findOne({
+            status: "em_andamento",
+            dataInicio: { $lte: new Date() },
+            dataFim: { $gt: new Date() },
+         });
+
+         if (temporadaCriada) {
+            return temporadaCriada;
+         }
+
+         // Se não existir uma temporada ativa, propagar o erro original.
+         throw error;
+      }
    }
 
    throw new Error("Não foi possível determinar a temporada atual.");
