@@ -79,16 +79,19 @@ const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados 
                      }))}
                      value={periodo}
                      onValueChange={(value) => {
-                        if (value) setPeriodo(value);
+                        if (value !== null) {
+                           setPeriodo(String(value));
+                        }
                      }}
                   >
                      <SelectTrigger className="bg-azul-leve border-0 *:text-sm!">
                         <SelectValue placeholder={filterOptions[0].label} className="text-white" />
                      </SelectTrigger>
+
                      <SelectContent>
                         <SelectGroup>
                            {filterOptions.map((item) => (
-                              <SelectItem key={item.value} value={item.value}>
+                              <SelectItem key={item.value} value={String(item.value)}>
                                  {item.label}
                               </SelectItem>
                            ))}
