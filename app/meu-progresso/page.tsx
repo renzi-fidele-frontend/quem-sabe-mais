@@ -18,19 +18,8 @@ export default async function MeuProgresso() {
    ];
 
    // Dados da seção da primeira linha
-   const estatisticas = {
-      totalDeJogos: 128,
-      diferencaTotalDeJogos: 12,
-      totalGanhos: 10075,
-      diferencaTotalGanhos: 2300,
-      perguntasAcertadas: 842,
-      diferencaPerguntasAcertadas: 48,
-      taxaDeAcertos: 78.4,
-      diferencaTaxaDeAcertos: 3.2,
-   };
 
-   const stats = await obterEstatisticas();
-   console.log(stats);
+   const estatisticas = await obterEstatisticas();
 
    return (
       <div className="relative">
