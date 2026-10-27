@@ -6,17 +6,9 @@ import CardGraficoDesempenho from "./_components/CardGraficoDesempenho";
 import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
 import { obterEstatisticas } from "./_lib/obterEstatisticas";
+import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
 
 export default async function MeuProgresso() {
-   const dadosDesempenhoNasPerguntas = [
-      { data: "Out", valor: 1000 },
-      { data: "Nov", valor: 500 },
-      { data: "Dez", valor: 800 },
-      { data: "Jan", valor: 500 },
-      { data: "Fev", valor: 1000 },
-      { data: "Atual", valor: 1300 },
-   ];
-
    const dadosDinheiroAcumulado = [
       { data: "Out", valor: 1000 },
       { data: "Nov", valor: 500 },
@@ -83,17 +75,17 @@ export default async function MeuProgresso() {
                </section>
                {/* Segunda Linha */}
                <section className="flex gap-8 flex-nowrap *:grow *:basis-1/2 font-sora">
-                  {/* TODO: Calcular e renderizar os dados reais */}
                   <CardGraficoDesempenho
+                     apanharDados={obterDesempenhoPerguntas}
                      titulo="Desempenho nas perguntas"
                      descricao="Veja como sua taxa de acerto evoluiu ao longo do tempo"
+                     // FIXME: Existe um defeito quando o value é 0 a opção não é selecionável
                      filterOptions={[
                         { label: "Últimos 7 dias", value: 7 },
                         { label: "Último mês", value: 30 },
                         { label: "Último ano", value: 365 },
                         { label: "Desde sempre", value: 0 },
                      ]}
-                     chartData={dadosDesempenhoNasPerguntas}
                   />
                   {/* TODO: Calcular e renderizar os dados reais */}
                   <CardGraficoDesempenho
@@ -105,7 +97,6 @@ export default async function MeuProgresso() {
                         { label: "Últimas 10", value: 14 * 10 },
                         { label: "Desde sempre", value: 0 },
                      ]}
-                     chartData={dadosDinheiroAcumulado}
                   />
                </section>
                {/* Terceira Linha */}

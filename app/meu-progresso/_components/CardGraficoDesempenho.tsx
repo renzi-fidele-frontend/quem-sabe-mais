@@ -1,7 +1,9 @@
 "use client";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { obterDesempenhoPerguntas } from "../_lib/obterDesempenhoPerguntas";
 
 const chartConfig = {
    valor: {
@@ -10,14 +12,54 @@ const chartConfig = {
    },
 } satisfies ChartConfig;
 
+type ItemDataChart = {
+   data: string;
+   valor: number;
+};
+
 type Props = {
    titulo: string;
    descricao: string;
-   chartData: { data: string; valor: number }[];
    filterOptions: { label: string; value: number }[];
+   apanharDados: (dias: number) => Promise<ItemDataChart[]>;
 };
 
-const CardGraficoDesempenho = ({ chartData, filterOptions, titulo, descricao }: Props) => {
+const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados }: Props) => {
+   const [periodo, setPeriodo] = useState("7");
+   const [dados, setDados] = useState([]);
+   const [carregando, setCarregando] = useState(false);
+
+   useEffect(() => {
+      console.log("Reagiu...");
+      if (!apanharDados) {
+         return;
+      }
+
+      let cancelado = false;
+
+      async function atualizarGrafico() {
+         setCarregando(true);
+
+         try {
+            const resultado = await apanharDados(Number(periodo));
+
+            if (!cancelado) {
+               setDados(resultado);
+            }
+         } finally {
+            if (!cancelado) {
+               setCarregando(false);
+            }
+         }
+      }
+
+      atualizarGrafico();
+
+      return () => {
+         cancelado = true;
+      };
+   }, [periodo, apanharDados]);
+
    return (
       <div className="p-7 bg-azul-escuro2/90 border border-cor-borda rounded-[24px]">
          {/* Heading */}
@@ -26,10 +68,20 @@ const CardGraficoDesempenho = ({ chartData, filterOptions, titulo, descricao }: 
                <h6 className="text-white text-lg font-bold mb-1">{titulo}</h6>
                <p className="text-xs mb-5">{descricao}</p>
             </div>
+            {/* FIXME: Ao mudar de opção, a label passa a ser o value */}
             {/* Opções */}
             {filterOptions && (
                <div>
-                  <Select items={filterOptions} >
+                  <Select
+                     items={filterOptions.map((item) => ({
+                        label: item.label,
+                        value: String(item.value),
+                     }))}
+                     value={periodo}
+                     onValueChange={(value) => {
+                        if (value) setPeriodo(value);
+                     }}
+                  >
                      <SelectTrigger className="bg-azul-leve border-0 *:text-sm!">
                         <SelectValue placeholder={filterOptions[0].label} className="text-white" />
                      </SelectTrigger>
@@ -51,7 +103,7 @@ const CardGraficoDesempenho = ({ chartData, filterOptions, titulo, descricao }: 
                <AreaChart
                   responsive
                   accessibilityLayer
-                  data={chartData}
+                  data={dados}
                   margin={{
                      left: 12,
                      right: 12,
