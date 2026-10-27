@@ -5,8 +5,8 @@ import CardEstatistica from "./_components/CardEstatistica";
 import CardGraficoDesempenho from "./_components/CardGraficoDesempenho";
 import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
+import { obterEstatisticas } from "./_lib/obterEstatisticas";
 
-// TODO: Após implementar o sistema de temporadas, deverei dar continuidade nesta página
 export default async function MeuProgresso() {
    const chartData = [
       { data: "Out", valor: 1000 },
@@ -28,6 +28,9 @@ export default async function MeuProgresso() {
       taxaDeAcertos: 78.4,
       diferencaTaxaDeAcertos: 3.2,
    };
+
+   const stats = await obterEstatisticas();
+   console.log(stats);
 
    return (
       <div className="relative">
