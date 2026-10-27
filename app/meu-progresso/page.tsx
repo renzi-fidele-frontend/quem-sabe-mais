@@ -59,9 +59,9 @@ export default async function MeuProgresso() {
                   <CardEstatistica
                      titulo="TOTAL DE GANHOS"
                      Icone={Coins}
-                     valor={`${estatisticas.totalGanhos} MT`}
+                     valor={`${estatisticas.totalGanhos.toLocaleString("pt-PT")} MT`}
                      diferenca={estatisticas.diferencaTotalGanhos}
-                     textoDiferenca={`+${estatisticas.diferencaTotalGanhos} MT`}
+                     textoDiferenca={`${estatisticas.diferencaTotalGanhos} MT`}
                      destacar
                   />
                   {/* PERGUNTAS ACERTADAS */}
@@ -84,8 +84,27 @@ export default async function MeuProgresso() {
                </section>
                {/* Segunda Linha */}
                <section className="flex gap-8 flex-nowrap *:grow *:basis-1/2 font-sora">
-                  <CardGraficoDesempenho chartData={chartData} />
-                  <CardGraficoDesempenho chartData={chartData} />
+                  <CardGraficoDesempenho
+                     titulo="Desempenho nas perguntas"
+                     descricao="Veja como sua taxa de acerto evoluiu ao longo do tempo"
+                     filterOptions={[
+                        { label: "7 dias", value: 7 },
+                        { label: "30 dias", value: 30 },
+                        { label: "1 ano", value: 365 },
+                     ]}
+                     chartData={chartData}
+                  />
+                  <CardGraficoDesempenho
+                     titulo="Dinheiro acumulado"
+                     descricao="Acompanhe a evolução dos seus ganhos ao longo das épocas"
+                     filterOptions={[
+                        { label: "Esta temporada", value: 0 },
+                        { label: "Últimas 5", value: 0 },
+                        { label: "Últimas 10", value: 0 },
+                        { label: "Tudo", value: 0 },
+                     ]}
+                     chartData={chartData}
+                  />
                </section>
                {/* Terceira Linha */}
                <section>

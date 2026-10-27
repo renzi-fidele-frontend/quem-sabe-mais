@@ -11,41 +11,40 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 type Props = {
+   titulo: string;
+   descricao: string;
    chartData: { data: string; valor: number }[];
+   filterOptions: { label: string; value: number }[];
 };
 
-const CardGraficoDesempenho = ({ chartData }: Props) => {
-   const opcoes = [
-      { label: "7 dias", value: 7 },
-      { label: "30 dias", value: 30 },
-      { label: "1 ano", value: 365 },
-   ];
-
+const CardGraficoDesempenho = ({ chartData, filterOptions, titulo, descricao }: Props) => {
    return (
       <div className="p-7 bg-azul-escuro2/90 border border-cor-borda rounded-[24px]">
          {/* Heading */}
          <div className="flex justify-between gap-6 ">
             <div>
-               <h6 className="text-white text-lg font-bold mb-1">Desempenho nas perguntas</h6>
-               <p className="text-xs mb-5">Veja como sua taxa de acerto evoluiu ao longo do tempo.</p>
+               <h6 className="text-white text-lg font-bold mb-1">{titulo}</h6>
+               <p className="text-xs mb-5">{descricao}</p>
             </div>
             {/* Opções */}
-            <div>
-               <Select items={opcoes}>
-                  <SelectTrigger className="bg-azul-leve border-0">
-                     <SelectValue placeholder="7 dias" className="text-white" />
-                  </SelectTrigger>
-                  <SelectContent>
-                     <SelectGroup>
-                        {opcoes.map((item) => (
-                           <SelectItem key={item.value} value={item.value}>
-                              {item.label}
-                           </SelectItem>
-                        ))}
-                     </SelectGroup>
-                  </SelectContent>
-               </Select>
-            </div>
+            {filterOptions && (
+               <div>
+                  <Select items={filterOptions} >
+                     <SelectTrigger className="bg-azul-leve border-0 *:text-sm!">
+                        <SelectValue placeholder={filterOptions[0].label} className="text-white" />
+                     </SelectTrigger>
+                     <SelectContent>
+                        <SelectGroup>
+                           {filterOptions.map((item) => (
+                              <SelectItem key={item.value} value={item.value}>
+                                 {item.label}
+                              </SelectItem>
+                           ))}
+                        </SelectGroup>
+                     </SelectContent>
+                  </Select>
+               </div>
+            )}
          </div>
          <div>
             <ChartContainer className="w-full" config={chartConfig}>

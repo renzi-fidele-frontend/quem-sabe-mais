@@ -28,7 +28,7 @@ const CardEstatistica = ({ Icone, diferenca, titulo, valor, destacar, tipoPercen
                {diferenca >= 0 ? "+" : ""} {textoDiferenca}
                {tipoPercentual ? "%" : ""}
             </span>
-            este mês
+            nesta temporada
          </p>
       </div>
    );
