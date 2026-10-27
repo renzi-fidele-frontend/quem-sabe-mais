@@ -1,3 +1,4 @@
+"use server";
 import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
 import { dbConnect } from "@/lib/db/dbConnect";
 import Partida from "@/models/Partida";
@@ -8,7 +9,7 @@ export type DadoDesempenhoPerguntas = {
    valor: number;
 };
 
-export async function obterDesempenhoPerguntas(): Promise<DadoDesempenhoPerguntas[]> {
+export async function obterDesempenhoPerguntas(dias: number = 7): Promise<DadoDesempenhoPerguntas[]> {
    await dbConnect();
 
    const sessao = await obterSessaoComUsuario();
@@ -16,6 +17,34 @@ export async function obterDesempenhoPerguntas(): Promise<DadoDesempenhoPergunta
    if (!sessao) {
       redirect("/entrar");
    }
+
+   const agora = new Date();
+
+   // Data de hoje à meia-noite em Maputo
+   const dataHoje = new Date(
+      agora.toLocaleDateString("en-CA", {
+         timeZone: "Africa/Maputo",
+      }) + "T00:00:00+02:00",
+   );
+
+   const dataFinal = new Date(dataHoje);
+   dataFinal.setDate(dataFinal.getDate() + 1);
+
+   const dataInicial = new Date(dataHoje);
+
+   if (dias > 0) {
+      dataInicial.setDate(dataInicial.getDate() - (dias - 1));
+   }
+
+   const filtroDatas =
+      dias > 0
+         ? {
+              "respondidas.respondidaEm": {
+                 $gte: dataInicial,
+                 $lt: dataFinal,
+              },
+           }
+         : {};
 
    return Partida.aggregate([
       {
@@ -26,6 +55,8 @@ export async function obterDesempenhoPerguntas(): Promise<DadoDesempenhoPergunta
       {
          $unwind: "$respondidas",
       },
+      //    Filtra as partidas por data
+      { $match: filtroDatas },
       //   Agrupa as partidas por dia e soma o valor das respostas corretas
       {
          $group: {
@@ -62,7 +93,7 @@ export async function obterDesempenhoPerguntas(): Promise<DadoDesempenhoPergunta
             range: {
                step: 1,
                unit: "day",
-               bounds: "full",
+               bounds: dias > 0 ? [dataInicial, dataFinal] : "full",
             },
          },
       },
