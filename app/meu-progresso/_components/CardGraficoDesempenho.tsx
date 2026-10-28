@@ -26,11 +26,10 @@ type Props = {
 
 const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados }: Props) => {
    const [periodo, setPeriodo] = useState("7");
-   const [dados, setDados] = useState([]);
+   const [dados, setDados] = useState<ItemDataChart[]>([]);
    const [carregando, setCarregando] = useState(false);
 
    useEffect(() => {
-      console.log("Reagiu...");
       if (!apanharDados) {
          return;
       }
@@ -68,7 +67,6 @@ const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados 
                <h6 className="text-white text-lg font-bold mb-1">{titulo}</h6>
                <p className="text-xs mb-5">{descricao}</p>
             </div>
-            {/* FIXME: Ao mudar de opção, a label passa a ser o value */}
             {/* Opções */}
             {filterOptions && (
                <div>

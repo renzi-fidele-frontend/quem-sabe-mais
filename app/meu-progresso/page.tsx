@@ -79,7 +79,6 @@ export default async function MeuProgresso() {
                      apanharDados={obterDesempenhoPerguntas}
                      titulo="Desempenho nas perguntas"
                      descricao="Veja como sua taxa de acerto evoluiu ao longo do tempo"
-                     // FIXME: Existe um defeito quando o value é 0 a opção não é selecionável
                      filterOptions={[
                         { label: "Últimos 7 dias", value: 7 },
                         { label: "Último mês", value: 30 },
