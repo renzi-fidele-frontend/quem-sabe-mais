@@ -25,7 +25,7 @@ type Props = {
 };
 
 const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados }: Props) => {
-   const [periodo, setPeriodo] = useState("7");
+   const [periodo, setPeriodo] = useState(String(filterOptions[0].value));
    const [dados, setDados] = useState<ItemDataChart[]>([]);
    const [carregando, setCarregando] = useState(false);
 

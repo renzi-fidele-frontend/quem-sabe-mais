@@ -7,6 +7,7 @@ import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
 import { obterEstatisticas } from "./_lib/obterEstatisticas";
 import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
+import { obterEvolucaoDinheiroAcumulado } from "./obterEvolucaoDinheiroAcumulado";
 
 export default async function MeuProgresso() {
    const dadosDinheiroAcumulado = [
@@ -78,7 +79,7 @@ export default async function MeuProgresso() {
                   <CardGraficoDesempenho
                      apanharDados={obterDesempenhoPerguntas}
                      titulo="Desempenho nas perguntas"
-                     descricao="Veja como sua taxa de acerto evoluiu ao longo do tempo"
+                     descricao="Veja sua quantidade de acertos por dia ao longo do tempo"
                      filterOptions={[
                         { label: "Últimos 7 dias", value: 7 },
                         { label: "Último mês", value: 30 },
@@ -86,14 +87,14 @@ export default async function MeuProgresso() {
                         { label: "Desde sempre", value: 0 },
                      ]}
                   />
-                  {/* TODO: Calcular e renderizar os dados reais */}
                   <CardGraficoDesempenho
+                     apanharDados={obterEvolucaoDinheiroAcumulado}
                      titulo="Dinheiro acumulado"
                      descricao="Acompanhe a evolução dos seus ganhos ao longo das épocas"
                      filterOptions={[
-                        { label: "Esta temporada", value: 14 },
-                        { label: "Últimas 5", value: 14 * 5 },
-                        { label: "Últimas 10", value: 14 * 10 },
+                        { label: "Esta temporada", value: 1 },
+                        { label: "Últimas 5", value: 5 },
+                        { label: "Últimas 10", value: 10 },
                         { label: "Desde sempre", value: 0 },
                      ]}
                   />
