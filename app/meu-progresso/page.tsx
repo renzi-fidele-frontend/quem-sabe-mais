@@ -7,7 +7,7 @@ import CardResumoDaPerformace from "./_components/CardResumoDaPerformace";
 import CardNivelJogador from "./_components/CardNivelJogador";
 import { obterEstatisticas } from "./_lib/obterEstatisticas";
 import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
-import { obterEvolucaoDinheiroAcumulado } from "./obterEvolucaoDinheiroAcumulado";
+import { obterEvolucaoDinheiroAcumulado } from "./_lib/obterEvolucaoDinheiroAcumulado";
 
 export default async function MeuProgresso() {
    const dadosDinheiroAcumulado = [

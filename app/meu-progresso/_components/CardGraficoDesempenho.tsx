@@ -3,7 +3,7 @@ import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
-import { obterDesempenhoPerguntas } from "../_lib/obterDesempenhoPerguntas";
+import formatarDataGrafico from "../_lib/formatarDataGrafico";
 
 const chartConfig = {
    valor: {
@@ -118,13 +118,16 @@ const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados 
 
                   <CartesianGrid strokeDasharray="5" className="stroke-cor-borda! stroke-2" vertical={false} />
                   <XAxis
-                     fontWeight={800}
+                     fontWeight={700}
+                     fontSize={"9px"}
                      fontStyle={"italic"}
                      dataKey="data"
                      tickLine={true}
                      axisLine={false}
+                     angle={-25}
+                     stroke="var(--texto-1)"
                      tickMargin={8}
-                     tickFormatter={(value) => value.slice(0, 3)}
+                     tickFormatter={(value) => formatarDataGrafico(value, Number(periodo)).toUpperCase()}
                   />
                   <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
                   <Area

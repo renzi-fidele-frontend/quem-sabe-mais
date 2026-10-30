@@ -11,7 +11,7 @@ type Props = {
 
 const ChartDesempenho = ({ respostasCorretas, respostasErradas, respostasNaoRespondidas, porcentagemAcertos }: Props) => {
    const chartData = [
-      { tipo: "correto", quantidade: respostasCorretas, fill: "var(--tema)" },
+      { tipo: "correto", quantidade: respostasCorretas, fill: "var(--color-green-600)" },
       { tipo: "errado", quantidade: respostasErradas, fill: "var(--destructive)" },
       { tipo: "nao_respondida", quantidade: respostasNaoRespondidas, fill: "var(--cor-borda)" },
    ];
@@ -22,7 +22,7 @@ const ChartDesempenho = ({ respostasCorretas, respostasErradas, respostasNaoResp
       },
       correto: {
          label: "Corretas",
-         color: "var(--tema)",
+         color: "green",
       },
       errado: {
          label: "Erradas",
@@ -44,7 +44,7 @@ const ChartDesempenho = ({ respostasCorretas, respostasErradas, respostasNaoResp
                      if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                         return (
                            <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
-                              <tspan x={viewBox.cx} y={viewBox.cy} className="fill-tema text-3xl font-bold">
+                              <tspan x={viewBox.cx} y={viewBox.cy} className="fill-green-500 text-3xl font-bold">
                                  {porcentagemAcertos}%
                               </tspan>
                               <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 24} className="fill-texto-1">

@@ -62,6 +62,11 @@ export async function obterDesempenhoPerguntas(dias: number = 7): Promise<DadoDe
          $group: {
             _id: {
                $dateToString: {
+                  /* TODO: Adaptar caso os intervalos de datas sejam diferentes
+                  - Nos últimos 7 dias: [ Seg | Ter | Qua | Qui | Sex | Sab | Dom ]
+                  - No útlimo mês: 03/04
+                  - No último ano: 10/04/2023
+                   */
                   format: "%Y-%m-%d",
                   date: "$respondidas.respondidaEm",
                   timezone: "Africa/Maputo",
