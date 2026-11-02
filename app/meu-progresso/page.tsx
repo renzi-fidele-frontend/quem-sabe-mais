@@ -8,18 +8,10 @@ import CardNivelJogador from "./_components/CardNivelJogador";
 import { obterEstatisticas } from "./_lib/obterEstatisticas";
 import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
 import { obterEvolucaoDinheiroAcumulado } from "./_lib/obterEvolucaoDinheiroAcumulado";
+import { obterResumoDaPerformance } from "./_lib/obterResumoDaPerformance";
 
 export default async function MeuProgresso() {
-   const dadosDinheiroAcumulado = [
-      { data: "Out", valor: 1000 },
-      { data: "Nov", valor: 500 },
-      { data: "Dez", valor: 800 },
-      { data: "Jan", valor: 500 },
-      { data: "Fev", valor: 1000 },
-      { data: "Atual", valor: 1300 },
-   ];
-
-   const estatisticas = await obterEstatisticas();
+   const [estatisticas, resumoDasPerguntas] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance()]);
 
    return (
       <div className="relative">
