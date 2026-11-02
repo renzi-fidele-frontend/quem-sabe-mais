@@ -65,7 +65,7 @@ export async function buscarHistoricoPartidas({ paginaAtual = 1, limitePorPagina
    };
 }
 
-type ResultadoBuscarResumoHistorico = {
+export type ResultadoBuscarResumoHistorico = {
    _id: null;
    totalPartidas: number;
    totalVitorias: number;
