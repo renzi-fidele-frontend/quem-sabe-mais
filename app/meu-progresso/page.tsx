@@ -77,6 +77,7 @@ export default async function MeuProgresso() {
                {/* Segunda Linha */}
                <section className="flex gap-8 flex-nowrap *:grow *:basis-1/2 font-sora">
                   <CardGraficoDesempenho
+                     formatarData
                      apanharDados={obterDesempenhoPerguntas}
                      titulo="Desempenho nas perguntas"
                      descricao="Veja sua quantidade de acertos por dia ao longo do tempo"

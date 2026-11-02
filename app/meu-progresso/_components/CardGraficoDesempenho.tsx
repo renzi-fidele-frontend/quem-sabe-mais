@@ -22,9 +22,10 @@ type Props = {
    descricao: string;
    filterOptions: { label: string; value: number }[];
    apanharDados: (dias: number) => Promise<ItemDataChart[]>;
+   formatarData?: boolean;
 };
 
-const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados }: Props) => {
+const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados, formatarData }: Props) => {
    const [periodo, setPeriodo] = useState(String(filterOptions[0].value));
    const [dados, setDados] = useState<ItemDataChart[]>([]);
    const [carregando, setCarregando] = useState(false);
@@ -127,7 +128,7 @@ const CardGraficoDesempenho = ({ filterOptions, titulo, descricao, apanharDados 
                      angle={-25}
                      stroke="var(--texto-1)"
                      tickMargin={8}
-                     tickFormatter={(value) => formatarDataGrafico(value, Number(periodo)).toUpperCase()}
+                     tickFormatter={(value) => formatarData ? formatarDataGrafico(value, Number(periodo)).toUpperCase(): value}
                   />
                   <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
                   <Area
