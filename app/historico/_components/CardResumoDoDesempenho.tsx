@@ -1,4 +1,4 @@
-import { buscarResumoHistorico, ResultadoBuscarResumoHistorico } from "../_actions";
+import { ResultadoBuscarResumoHistorico } from "../_actions";
 import ChartResumoHistorico from "./ChartResumoHistorico";
 
 type Props = {

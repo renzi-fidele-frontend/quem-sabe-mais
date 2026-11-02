@@ -1,13 +1,16 @@
-const CardResumoDaPerformace = () => {
+import { ResumoDaPerformance } from "../_lib/obterResumoDaPerformance";
+
+type Props = { resumoDaPerformance: ResumoDaPerformance };
+const CardResumoDaPerformace = ({ resumoDaPerformance }: Props) => {
    const data = [
-      { titulo: "Melhor sequência", dado: "12 acertos" },
-      { titulo: "Maior prêmio", dado: "2.500 MT" },
-      { titulo: "Máx. perguntas/partida", dado: "15/15" },
-      { titulo: "Média perguntas/partida", dado: "11,2" },
-      { titulo: "Total respondidas", dado: "1.078" },
-      { titulo: "Respostas erradas", dado: "236" },
-      { titulo: "Partidas vencidas", dado: "47" },
-      { titulo: "Partidas abandonadas", dado: "3" },
+      { titulo: "Melhor sequência", dado: `${resumoDaPerformance.melhorSequencia} acertos` },
+      { titulo: "Maior prêmio", dado: `${new Intl.NumberFormat("pt-MZ").format(resumoDaPerformance.maiorPremio)} MT` },
+      { titulo: "Máx. perguntas/partida", dado: `${resumoDaPerformance.melhorSequencia}/15` },
+      { titulo: "Média perguntas/partida", dado: resumoDaPerformance.mediaPerguntasPartida },
+      { titulo: "Total respondidas", dado: resumoDaPerformance.totalRespondidas },
+      { titulo: "Respostas erradas", dado: resumoDaPerformance.respostasErradas },
+      { titulo: "Partidas vencidas", dado: resumoDaPerformance.partidasVencidas },
+      { titulo: "Partidas abandonadas", dado: resumoDaPerformance.partidasAbandonadas },
    ];
 
    return (

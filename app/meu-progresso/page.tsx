@@ -11,7 +11,7 @@ import { obterEvolucaoDinheiroAcumulado } from "./_lib/obterEvolucaoDinheiroAcum
 import { obterResumoDaPerformance } from "./_lib/obterResumoDaPerformance";
 
 export default async function MeuProgresso() {
-   const [estatisticas, resumoDasPerguntas] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance()]);
+   const [estatisticas, resumoDaPerformance] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance()]);
 
    return (
       <div className="relative">
@@ -94,7 +94,7 @@ export default async function MeuProgresso() {
                </section>
                {/* Terceira Linha */}
                <section>
-                  <CardResumoDaPerformace />
+                  <CardResumoDaPerformace resumoDaPerformance={resumoDaPerformance} />
                </section>
                {/* Quarta Linha */}
                <section>
