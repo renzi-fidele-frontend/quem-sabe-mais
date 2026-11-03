@@ -16,9 +16,13 @@ const CardNivelJogador = ({ xp }: { xp: number }) => {
                <p className="text-[28px] font-black text-white font-outfit flex gap-3">
                   Nível {progresso.nivel} <span>•</span> <span className="text-tema font-semibold">{progresso.titulo}</span>
                </p>
-               <span className="text-tema text-sm font-semibold">
-                  {progresso.xpAtual} / <span className="text-white text-[16px]">{progresso.xpProximoNivel} XP</span>
-               </span>
+               {progresso.xpProximoNivel !== null ? (
+                  <span className="text-tema text-sm font-semibold">
+                     {progresso.xpAtual} / <span className="text-white text-[16px]">{progresso.xpProximoNivel} XP</span>
+                  </span>
+               ) : (
+                  <span className="text-tema text-sm font-semibold">NÍVEL MÁXIMO</span>
+               )}
             </div>
             {/* Barra do progresso */}
             <div className="bg-azul-leve relative inset-y-0 h-3 my-3 rounded-[6px]">
@@ -26,9 +30,13 @@ const CardNivelJogador = ({ xp }: { xp: number }) => {
             </div>
             {/* Detalhes */}
             <div className="flex justify-between">
-               <p className="text-tema font-semibold text-[13px]">
-                  {progresso.xpRestante} XP para alcançar o nível {progresso.proximoNivel.nivel}
-               </p>
+               {progresso.xpProximoNivel !== null ? (
+                  <p className="text-tema font-semibold text-[13px]">
+                     {progresso.xpRestante} XP para alcançar o nível {progresso.proximoNivel.nivel}
+                  </p>
+               ) : (
+                  <p className="text-tema font-semibold text-[13px]">Parabéns! Alcançaste o nível máximo!</p>
+               )}
                <span className="text-xs">Continue jogando para ganhar XP e desbloquear novas recompensas.</span>
             </div>
          </div>
