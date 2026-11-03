@@ -10,6 +10,7 @@ import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
 import { obterEvolucaoDinheiroAcumulado } from "./_lib/obterEvolucaoDinheiroAcumulado";
 import { obterResumoDaPerformance } from "./_lib/obterResumoDaPerformance";
 import { obterXp } from "./_lib/obterXp";
+import CardNiveisRecompensas from "./_components/CardNiveisRecompensas";
 
 export default async function MeuProgresso() {
    const [estatisticas, resumoDaPerformance, xp] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance(), obterXp()]);
@@ -102,7 +103,9 @@ export default async function MeuProgresso() {
                   <CardNivelJogador xp={xp ?? 0} />
                </section>
                {/* Quinta Linha */}
-               <section></section>
+               <section>
+                  <CardNiveisRecompensas xp={xp ?? 0} />
+               </section>
                {/* Sexta Linha */}
                <section></section>
             </main>
