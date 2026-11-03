@@ -1,6 +1,9 @@
+import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
 import { Shield } from "lucide-react";
 
-const CardNivelJogador = () => {
+const CardNivelJogador = ({ xp }: { xp: number }) => {
+   const progresso = obterProgressoXpUsuario(xp);
+
    return (
       <div className="flex gap-8 items-stretch border-2 border-tema bg-azul-escuro2/90 rounded-[24px] p-8 font-sora">
          {/* Ícone */}
@@ -10,16 +13,22 @@ const CardNivelJogador = () => {
          <div className="grow">
             {/* Heading */}
             <div className="flex justify-between items-end">
-               <p className="text-[28px] font-black text-white font-outfit">Nível 8</p>
-               <span className="text-tema text-sm font-semibold">2.450 / 3.000 XP</span>
+               <p className="text-[28px] font-black text-white font-outfit flex gap-3">
+                  Nível {progresso.nivel} <span>•</span> <span className="text-tema font-semibold">{progresso.titulo}</span>
+               </p>
+               <span className="text-tema text-sm font-semibold">
+                  {progresso.xpAtual} / <span className="text-white text-[16px]">{progresso.xpProximoNivel} XP</span>
+               </span>
             </div>
             {/* Barra do progresso */}
             <div className="bg-azul-leve relative inset-y-0 h-3 my-3 rounded-[6px]">
-               <div className="h-3 bg-tema w-[70%] rounded-[inherit]"></div>
+               <div className={`h-3 bg-tema rounded-[inherit]`} style={{ width: `${progresso.percentual}%` }}></div>
             </div>
             {/* Detalhes */}
             <div className="flex justify-between">
-               <p className="text-tema font-semibold text-[13px]">550 XP para alcançar o nível 9</p>
+               <p className="text-tema font-semibold text-[13px]">
+                  {progresso.xpRestante} XP para alcançar o nível {progresso.proximoNivel.nivel}
+               </p>
                <span className="text-xs">Continue jogando para ganhar XP e desbloquear novas recompensas.</span>
             </div>
          </div>
