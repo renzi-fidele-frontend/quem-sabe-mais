@@ -9,9 +9,10 @@ import { obterEstatisticas } from "./_lib/obterEstatisticas";
 import { obterDesempenhoPerguntas } from "./_lib/obterDesempenhoPerguntas";
 import { obterEvolucaoDinheiroAcumulado } from "./_lib/obterEvolucaoDinheiroAcumulado";
 import { obterResumoDaPerformance } from "./_lib/obterResumoDaPerformance";
+import { obterXp } from "./_lib/obterXp";
 
 export default async function MeuProgresso() {
-   const [estatisticas, resumoDaPerformance] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance()]);
+   const [estatisticas, resumoDaPerformance, xp] = await Promise.all([obterEstatisticas(), obterResumoDaPerformance(), obterXp()]);
 
    return (
       <div className="relative">
@@ -98,7 +99,7 @@ export default async function MeuProgresso() {
                </section>
                {/* Quarta Linha */}
                <section>
-                  <CardNivelJogador />
+                  <CardNivelJogador xp={xp ?? 0} />
                </section>
                {/* Quinta Linha */}
                <section></section>
