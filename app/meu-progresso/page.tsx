@@ -106,6 +106,7 @@ export default async function MeuProgresso() {
                <section>
                   <CardNiveisRecompensas xp={xp ?? 0} />
                </section>
+               {/* TODO: Adicionar o sistema de conquistas */}
                {/* Sexta Linha */}
                <section></section>
             </main>

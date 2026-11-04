@@ -20,6 +20,7 @@ const Header = async () => {
          nome: "Meu progresso",
          path: "/meu-progresso",
       },
+      { nome: "Histórico", path: "/historico" },
       {
          nome: "Liderança",
          path: "/lideranca",
