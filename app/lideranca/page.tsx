@@ -2,8 +2,12 @@ import Container from "@/components/layout/Container";
 import SectionIntro from "@/components/layout/SectionIntro";
 import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
+import { obterClassificacao } from "./_lib/obterClassificacao";
 
-export default function Lideranca() {
+export default async function Lideranca() {
+   const classificacao = await obterClassificacao();
+   console.log(classificacao);
+
    return (
       <div className="relative">
          {/* Fundo com overlay */}
