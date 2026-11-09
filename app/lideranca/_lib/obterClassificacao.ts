@@ -5,7 +5,23 @@ import { Usuario } from "@/models/Usuario";
 import { NIVEIS } from "@/data/jogo";
 import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
 
-export async function obterClassificacao() {
+type ResultadoClassificacao = {
+   posicao: number;
+   usuarioId: string;
+   nome: string;
+   username: string;
+   nivel: number;
+   titulo: string;
+   avatarUrl: string;
+   totalPartidas: number;
+   totalVitorias: number;
+   totalAcertos: number;
+   taxaDeAcerto: number;
+   premioAcumulado: number;
+   xp: number;
+}[];
+
+export async function obterClassificacao(): Promise<ResultadoClassificacao> {
    await dbConnect();
 
    const agora = new Date();
@@ -45,7 +61,6 @@ export async function obterClassificacao() {
             usuarioId: 1,
             status: 1,
             valorAtual: 1,
-
             totalRespondidas: {
                $size: { $ifNull: ["$respondidas", []] },
             },
@@ -68,7 +83,6 @@ export async function obterClassificacao() {
       {
          $group: {
             _id: "$usuarioId",
-
             totalPartidas: { $sum: 1 },
 
             totalVitorias: {
@@ -115,7 +129,7 @@ export async function obterClassificacao() {
             nome: "$usuario.nomeCompleto",
             username: "$usuario.nickname",
             xp: { $ifNull: ["$usuario.xp", 0] },
-
+            avatarUrl: "$usuario.avatarUrl",
             totalPartidas: 1,
             totalVitorias: 1,
             totalAcertos: 1,
@@ -147,7 +161,7 @@ export async function obterClassificacao() {
 
          nome: jogador.nome,
          username: jogador.username,
-
+         avatarUrl: jogador.avatarUrl,
          nivel: progresso.nivel,
          titulo: progresso.titulo,
 
