@@ -38,7 +38,7 @@ const Header = async () => {
             <Image src="/logo.png" alt="Logo" width={214} height={38} />
 
             {/* Menu */}
-            <nav className="*:font-semibold flex gap-9">
+            <nav className="*:font-semibold flex gap-9.5">
                {links.map((link, k) => (
                   <Link className={`text-lg ${pathname === link.path && "text-tema"}`} href={link.path} key={k}>
                      {link.nome}

@@ -1,11 +1,9 @@
 import { dbConnect } from "@/lib/db/dbConnect";
 import Partida from "@/models/Partida";
 import Temporada, { ITemporada } from "@/models/Temporada";
-import { Usuario } from "@/models/Usuario";
-import { NIVEIS } from "@/data/jogo";
 import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
 
-type ResultadoClassificacao = {
+type JogadorClassificado = {
    posicao: number;
    usuarioId: string;
    nome: string;
@@ -19,9 +17,20 @@ type ResultadoClassificacao = {
    taxaDeAcerto: number;
    premioAcumulado: number;
    xp: number;
-}[];
+   totalRespondidas?: number;
+};
 
-export async function obterClassificacao(): Promise<ResultadoClassificacao> {
+type ResultadoClassificacao = {
+   jogadores: JogadorClassificado[];
+   totalJogadores: number;
+   paginaAtual: number;
+   totalPaginas: number;
+   jogadoresPorPagina: number;
+};
+
+const JOGADORES_POR_PAGINA = 10;
+
+export async function obterClassificacao(pagina: number = 1): Promise<ResultadoClassificacao> {
    await dbConnect();
 
    const agora = new Date();
@@ -36,8 +45,17 @@ export async function obterClassificacao(): Promise<ResultadoClassificacao> {
       .lean<Pick<ITemporada, "_id" | "dataFim">>();
 
    if (!temporadaAtual) {
-      return [];
+      return {
+         jogadores: [],
+         totalJogadores: 0,
+         paginaAtual: 1,
+         totalPaginas: 0,
+         jogadoresPorPagina: JOGADORES_POR_PAGINA,
+      };
    }
+
+   const paginaAtual = Math.max(1, Math.floor(pagina) || 1);
+   const skip = (paginaAtual - 1) * JOGADORES_POR_PAGINA;
 
    // Agregar estatísticas das partidas de cada jogador
    const resultados = await Partida.aggregate([
@@ -147,21 +165,37 @@ export async function obterClassificacao(): Promise<ResultadoClassificacao> {
             usuarioId: 1,
          },
       },
+      {
+         $facet: {
+            // Obter somente os jogadores da página atual
+            jogadores: [{ $skip: skip }, { $limit: JOGADORES_POR_PAGINA }],
+
+            // Contabilizar todos os jogadores classificados
+            total: [{ $count: "quantidade" }],
+         },
+      },
    ]);
 
+   const resultado = resultados[0];
+
+   const totalJogadores = resultado?.total[0]?.quantidade ?? 0;
+
+   const totalPaginas = Math.ceil(totalJogadores / JOGADORES_POR_PAGINA);
+
    // Preparar os dados finais
-   return resultados.map((jogador, index) => {
+   const jogadores = resultado.jogadores.map((jogador: JogadorClassificado, index: number) => {
       const progresso = obterProgressoXpUsuario(jogador.xp);
 
-      const taxaDeAcerto = jogador.totalRespondidas > 0 ? Number(((jogador.totalAcertos / jogador.totalRespondidas) * 100).toFixed(1)) : 0;
+      const taxaDeAcerto = jogador.totalRespondidas! > 0 ? Number(((jogador.totalAcertos / jogador.totalRespondidas!) * 100).toFixed(1)) : 0;
 
       return {
-         posicao: index + 1,
+         posicao: skip + index + 1,
          usuarioId: jogador.usuarioId.toString(),
 
          nome: jogador.nome,
          username: jogador.username,
          avatarUrl: jogador.avatarUrl,
+
          nivel: progresso.nivel,
          titulo: progresso.titulo,
 
@@ -174,4 +208,12 @@ export async function obterClassificacao(): Promise<ResultadoClassificacao> {
          xp: jogador.xp,
       };
    });
+
+   return {
+      jogadores,
+      totalJogadores,
+      paginaAtual,
+      totalPaginas,
+      jogadoresPorPagina: JOGADORES_POR_PAGINA,
+   };
 }
