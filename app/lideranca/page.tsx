@@ -4,6 +4,8 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import { obterClassificacao } from "./_lib/obterClassificacao";
 import Paginacao from "@/components/shared/Paginacao";
+import { Info } from "lucide-react";
+import { comoFunciona } from "@/data/lideranca";
 
 type Props = {
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -34,7 +36,7 @@ export default async function Lideranca({ searchParams }: Props) {
             />
             {/* TODO: Ao escalar adicionar a seção da Posição atual */}
             {/* Listagem */}
-            <section>
+            <section className="mb-16">
                <div className="flex justify-between items-center mb-5">
                   <h6 className="text-[20px] font-extrabold text-white">Classificação</h6>
                   <p>{classificacao.totalJogadores} jogadores classificados</p>
@@ -109,6 +111,27 @@ export default async function Lideranca({ searchParams }: Props) {
                   </TableBody>
                </Table>
                <Paginacao paginaAtual={Number(page)} totalPaginas={classificacao.totalPaginas} />
+            </section>
+            {/* Como Funciona a liderança */}
+            <section className="bg-azul-escuro2 p-8 rounded-[16px] border border-cor-borda">
+               <h3 className="flex items-center gap-3 text-[20px] text-white font-extrabold mb-6">
+                  <Info className="stroke-tema size-6" /> COMO FUNCIONA A LIDERANÇA?
+               </h3>
+               <div className="flex flex-nowrap gap-4">
+                  {comoFunciona.map((dica, k) => (
+                     <div className="font-sora">
+                        <h6 className="text-sm text-white font-sora font-bold flex items-center gap-2">
+                           <div className="flex items-center justify-center size-6 border border-tema bg-tema/20 rounded-xl">
+                              <p className="text-tema font-extrabold">{k + 1}</p>
+                           </div>
+                           {dica.titulo}
+                        </h6>
+                        <p className="mt-3 text-[13px]  ">{dica.descricao}</p>
+                     </div>
+                  ))}
+               </div>
+               <hr className="my-6 border-cor-borda size-full" />
+               <p className="text-xs">Os critérios de elegibilidade para premiação podem variar de acordo com a época estabelecida no regulamento oficial.</p>
             </section>
          </Container>
       </div>
