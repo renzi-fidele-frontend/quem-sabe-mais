@@ -41,9 +41,9 @@ export default async function Lideranca({ searchParams }: Props) {
                   <h6 className="text-[20px] font-extrabold text-white">Classificação</h6>
                   <p>{classificacao.totalJogadores} jogadores classificados</p>
                </div>
-               <Table className="bg-azul-escuro2/90 **:text-end mb-16">
-                  <TableHeader className="py-0! font-sora **:text-texto-1 **:text-xs **:font-bold uppercase bg-[#]">
-                     <TableRow className="*:py-0! hover:bg-cor-borda border-cor-borda">
+               <Table className="bg-azul-escuro2/90 **:text-end mb-16 border border-cor-borda rounded-[16px] overflow-hidden ">
+                  <TableHeader className="py-0! font-sora **:text-texto-1 **:text-xs **:font-bold uppercase bg-[#141935]/70">
+                     <TableRow className=" hover:bg-cor-borda border-cor-borda *:px-6 *:py-4">
                         <TableHead className="w-fit text-start!">Rank</TableHead>
                         <TableHead className="text-start!">JOGADOR</TableHead>
                         <TableHead>PARTIDAS</TableHead>
@@ -63,7 +63,7 @@ export default async function Lideranca({ searchParams }: Props) {
                         </TableRow>
                      ) : (
                         classificacao.jogadores.map((jogador) => (
-                           <TableRow key={jogador.usuarioId} className="text-[15px]">
+                           <TableRow key={jogador.usuarioId} className="text-[15px] border-cor-borda *:px-6 *:py-4">
                               <TableCell className={`font-extrabold text-base text-start! ${jogador.posicao === 1 ? "text-tema" : ""}`}>
                                  #{jogador.posicao}
                               </TableCell>
@@ -73,14 +73,14 @@ export default async function Lideranca({ searchParams }: Props) {
                                     <Image
                                        className="rounded-full border border-cor-borda"
                                        src={jogador.avatarUrl}
-                                       width={40}
-                                       height={40}
+                                       width={43}
+                                       height={43}
                                        alt={`Foto de perfil do jogador: ${jogador.nome}`}
                                     />
                                     <div className="*:flex *:items-center">
-                                       <p className="font-bold text-white">
-                                          {jogador.nome}{" "}
-                                          <span className="text-orange-500   ms-2 text-[10px] bg-orange-900/20 border border-cor-borda px-2 py-0.5 rounded">
+                                       <p className="font-bold text-white mb-0.5">
+                                          <span className="underline">{jogador.nome}</span>{" "}
+                                          <span className="text-orange-500 ms-2 text-[10px] bg-orange-900/20 border border-cor-borda px-2 py-0.5 rounded">
                                              {jogador.titulo}
                                           </span>
                                        </p>
@@ -131,7 +131,9 @@ export default async function Lideranca({ searchParams }: Props) {
                   ))}
                </div>
                <hr className="my-6 border-cor-borda size-full" />
-               <p className="text-xs">Os critérios de elegibilidade para premiação podem variar de acordo com a época estabelecida no regulamento oficial.</p>
+               <p className="text-xs font-sora">
+                  Os critérios de elegibilidade para premiação podem variar de acordo com a época estabelecida no regulamento oficial.
+               </p>
             </section>
          </Container>
       </div>
