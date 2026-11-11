@@ -66,7 +66,7 @@ export default function Home() {
                               🥇 PRÉMIO que será distribuído entre os top 3 melhores jogagores
                            </p>
                            <p className="font-outfit text-5xl text-tema text-shadow-md text-shadow-tema font-black">1000.00 MT</p>
-                           <Image src="/img/maleta-com-dinheiro.webp" width={534} height={299} alt="" />
+                           <Image src="/img/maleta-com-dinheiro-2.png" width={546} height={305} alt="" />
                            <p className="text-white font-semibold">Para o grande campeão do mês!</p>
                         </div>
                         <hr className="border-[#1E254A]" />
