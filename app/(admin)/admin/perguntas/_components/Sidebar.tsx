@@ -32,11 +32,12 @@ const Sidebar = async () => {
             <nav className="space-y-2">
                {links.map((link, k) => (
                   <Link
-                     className={`px-4 py-3.5 flex items-center rounded-[8px] gap-3 ${pathname === link.path ? "bg-tema/13 text-tema font-semibold" : ""}`}
+                     className={`relative px-4 py-3.5 flex items-center rounded-[8px] gap-3 ${pathname === link.path ? "bg-tema/13 text-tema font-semibold" : ""}`}
                      href={link.path}
                      key={k}
                   >
                      <link.Icone /> {link.titulo}{" "}
+                     {pathname === link.path && <div className="absolute w-0.75 inset-y-3 rounded left-0 bg-tema"></div>}
                   </Link>
                ))}
             </nav>

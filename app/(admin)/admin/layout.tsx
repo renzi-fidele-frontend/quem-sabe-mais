@@ -6,7 +6,7 @@ export default function AdminLayout({ children }: LayoutProps<"/admin">) {
          <div className="">
             <Sidebar />
          </div>
-         <div className="grow">{children}</div>
+         <div className="grow p-8">{children}</div>
       </div>
    );
 }
