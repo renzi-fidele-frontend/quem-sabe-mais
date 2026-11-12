@@ -1,5 +1,5 @@
-import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
 import { Shield } from "lucide-react";
+import obterProgressoXpUsuario from "../../partida/_lib/obterProgresso";
 
 const CardNivelJogador = ({ xp }: { xp: number }) => {
    const progresso = obterProgressoXpUsuario(xp);

@@ -1,7 +1,7 @@
 import { dbConnect } from "@/lib/db/dbConnect";
 import Partida from "@/models/Partida";
 import Temporada, { ITemporada } from "@/models/Temporada";
-import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
+import obterProgressoXpUsuario from "../../partida/_lib/obterProgresso";
 
 type JogadorClassificado = {
    posicao: number;

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CardAlternativa from "./CardAlternativa";
 import LinhasDeApoio from "./LinhasDeApoio";
 import { IAlternativa } from "@/models/Pergunta";
-import { ResultadoAjudaPublica } from "@/app/partida/_lib/gerarVotosSimulados";
+import { ResultadoAjudaPublica } from "../_lib/gerarVotosSimulados";
 
 type Props = {
    perguntaId: string;

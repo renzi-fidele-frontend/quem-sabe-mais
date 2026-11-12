@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Outfit, Sora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 
 const OutfitFont = Outfit({
    variable: "--font-outfit",
@@ -22,11 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
    return (
       <html lang="pt-BR" className={`${OutfitFont.variable} ${SoraFont.variable} h-full antialiased`}>
-         <body className="min-h-full flex flex-col">
-            <Header />
-            <main>{children}</main>
-            <Footer />
-         </body>
+         <body className="min-h-full flex flex-col">{children}</body>
       </html>
    );
 }

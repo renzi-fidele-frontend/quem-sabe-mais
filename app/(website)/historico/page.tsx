@@ -16,7 +16,6 @@ export default async function HistoricoPage({ searchParams }: Props) {
       buscarHistoricoPartidas({ paginaAtual: Number(page), limitePorPagina: 9 }),
       buscarMelhorPartida(),
       buscarResumoHistorico(),
-      
    ]);
 
    return (

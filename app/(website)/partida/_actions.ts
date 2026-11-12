@@ -1,16 +1,16 @@
 "use server";
 import { CHECKPOINTS, MAX_PARTIDAS_DIARIAS, TOTAL_PERGUNTAS, VALORES_PARTIDA } from "@/data/jogo";
 import { dbConnect } from "@/lib/db/dbConnect";
-import { calcularXPGanhoNaPartida } from "@/app/partida/_lib/calcularXpGanhoNaPartida";
-import gerarVotosSimulados from "@/app/partida/_lib/gerarVotosSimulados";
 import Partida, { IPartida } from "@/models/Partida";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { Usuario } from "@/models/Usuario";
 import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { obterSessaoComUsuario } from "../(auth)/_lib/session";
 import { obterTemporadaAtual } from "./_lib/obterTemporadaAtual";
+import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
+import { calcularXPGanhoNaPartida } from "./_lib/calcularXpGanhoNaPartida";
+import gerarVotosSimulados from "./_lib/gerarVotosSimulados";
 
 export async function iniciarPartida() {
    await dbConnect();

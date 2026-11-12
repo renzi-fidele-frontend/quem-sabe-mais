@@ -1,5 +1,5 @@
 import { NIVEIS } from "@/data/jogo";
-import obterProgressoXpUsuario from "@/app/partida/_lib/obterProgresso";
+import obterProgressoXpUsuario from "../../partida/_lib/obterProgresso";
 import { Check, Lock } from "lucide-react";
 
 const niveisAoContrario = [...NIVEIS].reverse();
@@ -18,10 +18,15 @@ const CardNiveisRecompensas = ({ xp }: { xp: number }) => {
                const atual = progresso.titulo === nivel.titulo;
 
                return (
-                  <div className={`p-4.5 rounded-[12px] ${atual ? "border-tema border-2 bg-tema/13 shadow-xl shadow-tema/20" : "border-cor-borda border bg-azul-escuro2/90"}`} key={nivel.nivel}>
+                  <div
+                     className={`p-4.5 rounded-[12px] ${atual ? "border-tema border-2 bg-tema/13 shadow-xl shadow-tema/20" : "border-cor-borda border bg-azul-escuro2/90"}`}
+                     key={nivel.nivel}
+                  >
                      <div className="flex justify-between mb-3 items-center">
                         <span className={`text-sm font-extrabold ${desbloqueado && "text-tema"}`}>NÍVEL {nivel.nivel}</span>
-                        {atual && <span className="text-[9px] font-sora font-extrabold text-black px-2 py-0.5 rounded-[4px] bg-tema">ATUAL</span>}
+                        {atual && (
+                           <span className="text-[9px] font-sora font-extrabold text-black px-2 py-0.5 rounded-[4px] bg-tema">ATUAL</span>
+                        )}
                      </div>
 
                      <p className="text-sm font-sora text-white font-bold mb-1.5">{nivel.titulo}</p>

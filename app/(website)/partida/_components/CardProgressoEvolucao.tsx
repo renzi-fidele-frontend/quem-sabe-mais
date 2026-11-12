@@ -1,5 +1,5 @@
-import { IProgressoXp } from "@/app/partida/_lib/obterProgresso";
 import { ArrowDown, ArrowUp } from "lucide-react";
+import { IProgressoXp } from "../_lib/obterProgresso";
 
 type Props = {
    cardStyle: string;
