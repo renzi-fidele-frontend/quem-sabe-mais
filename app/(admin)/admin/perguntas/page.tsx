@@ -1,8 +1,12 @@
 import Button from "@/components/shared/Button";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Lock, Plus } from "lucide-react";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Ellipsis, Lock, Plus } from "lucide-react";
+import { obterPerguntas } from "./_lib/obterPerguntas";
+import Image from "next/image";
 
-export default function PerguntasPage() {
+export default async function PerguntasPage() {
+   const perguntas = await obterPerguntas();
+
    return (
       <div>
          {/* Breadcrumb */}
@@ -24,18 +28,19 @@ export default function PerguntasPage() {
                <Plus /> Nova pergunta
             </Button>
          </div>
-         <div>
-            <div>
+         {/* Listagem */}
+         <div className="bg-azul-escuro rounded-[14px] overflow-hidden">
+            <div className="">
                <div className="py-5 px-6 flex items-center">
                   <span className="font-sora text-lg font-semibold me-6 text-white">Banco de perguntas</span>{" "}
                   <span className="px-3 py-1 text-xs bg-azul-leve rounded-[5px] font-medium">1.248</span>
                </div>
-               <hr />
+               <hr className="border-cor-borda" />
                {/* Filtragem */}
                {/* Listagem */}
                <Table className="**:text-texto-1">
                   <TableHeader>
-                     <TableRow className="*:px-6">
+                     <TableRow className="*:px-6 *:text-xs">
                         <TableHead>Pergunta</TableHead>
                         <TableHead>Categoria</TableHead>
                         <TableHead>Dificuldade</TableHead>
@@ -45,7 +50,29 @@ export default function PerguntasPage() {
                         <TableHead>Ações</TableHead>
                      </TableRow>
                   </TableHeader>
-                  <TableBody></TableBody>
+                  {/* TODO: Renderizar a lista de perguntas */}
+                  <TableBody>
+                     {perguntas.map((pergunta, k) => (
+                        <TableRow key={k} className="hover:bg-azul-leve *:px-6">
+                           <TableCell>
+                              <div className="flex items-center gap-2">
+                                 <Image width={48} height={32} src={pergunta.imagem} alt="Foto da pergunta" />
+                                 <p>{pergunta.enunciado}</p>
+                              </div>
+                           </TableCell>
+                           <TableCell>{pergunta.categoria.nome}</TableCell>
+                           <TableCell>
+                              <span>{pergunta.dificuldade}</span>
+                           </TableCell>
+                           <TableCell>{pergunta.respostaCorreta}</TableCell>
+                           <TableCell>{pergunta.ativa ? "Ativa" : "Inativa"}</TableCell>
+                           <TableCell>{new Date(pergunta.createdAt).toLocaleDateString()}</TableCell>
+                           <TableCell>
+                              <Ellipsis />{" "}
+                           </TableCell>
+                        </TableRow>
+                     ))}
+                  </TableBody>
                </Table>
             </div>
          </div>
