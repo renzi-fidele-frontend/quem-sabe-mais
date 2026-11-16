@@ -1,11 +1,17 @@
 import Button from "@/components/shared/Button";
-import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Lock, Plus } from "lucide-react";
 import { obterPerguntas } from "./_lib/obterPerguntas";
 import LinhaPergunta from "./_components/LinhaPergunta";
+import Paginacao from "@/components/shared/Paginacao";
 
-export default async function PerguntasPage() {
-   const perguntas = await obterPerguntas();
+type Props = {
+   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+export default async function PerguntasPage({ searchParams }: Props) {
+   const page = (await searchParams).page || 1;
+
+   const perguntas = await obterPerguntas(Number(page), 11);
 
    return (
       <div>
@@ -29,7 +35,7 @@ export default async function PerguntasPage() {
             </Button>
          </div>
          {/* Listagem */}
-         <div className="bg-azul-escuro rounded-[14px] overflow-hidden border border-cor-borda">
+         <div className="bg-azul-escuro rounded-[14px] overflow-hidden border border-cor-borda pb-6">
             <div>
                <div className="py-5 px-6 flex items-center">
                   <span className="font-sora text-lg font-semibold me-6 text-white">Banco de perguntas</span>{" "}
@@ -51,11 +57,14 @@ export default async function PerguntasPage() {
                      </TableRow>
                   </TableHeader>
                   <TableBody>
-                     {perguntas.map((pergunta, k) => (
+                     {perguntas.perguntas.map((pergunta, k) => (
                         <LinhaPergunta pergunta={pergunta} key={k} />
                      ))}
                   </TableBody>
                </Table>
+               <div className="mt-3">
+                  <Paginacao paginaAtual={perguntas.paginaAtual} totalPaginas={perguntas.totalPaginas} />
+               </div>
             </div>
          </div>
       </div>
