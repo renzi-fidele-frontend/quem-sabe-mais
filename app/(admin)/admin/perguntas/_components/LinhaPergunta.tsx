@@ -1,11 +1,12 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { DificuldadePergunta, IPergunta } from "@/models/Pergunta";
+import { DificuldadePergunta } from "@/models/Pergunta";
 import { Ellipsis, Eye, Pause, Pencil, Trash } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+import { IPerguntaComCategoria } from "../_lib/obterPerguntas";
 
-const LinhaPergunta = ({ pergunta }: { pergunta: IPergunta }) => {
+const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
    function analisarFundoDificuldade(dificuldade: DificuldadePergunta) {
       switch (dificuldade) {
          case "fácil":
@@ -98,18 +99,18 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPergunta }) => {
          {/* Ações */}
          <TableCell>
             <Popover>
-               <PopoverTrigger>
+               <PopoverTrigger className="cursor-pointer">
                   <Ellipsis />
                </PopoverTrigger>
-               <PopoverContent className="max-w-60 right-5! bg-azul-escuro2">
+               <PopoverContent className="max-w-54 me-10 bg-azul-escuro2 border-2 border-cor-borda">
                   <div className="flex flex-col">
                      {acoes.map((item, key) => (
                         <form action={item.acao} key={key}>
                            <button
-                              className={`flex items-center gap-3 p-3 text-sm text-white ${item.danger ? "text-red-400! border-t border-cor-borda" : ""}`}
+                              className={`w-full flex items-center gap-3 p-3 text-sm text-white cursor-pointer transition hover:bg-cor-borda ${item.danger ? "text-red-400! border-t border-cor-borda" : ""}`}
                               key={key}
                            >
-                              <item.Icone className={`size-4.5 ${item.danger ? "stroke-red-400!" : ""}`} /> {item.nome}
+                              <item.Icone className={`size-4.5 ${item.danger ? "stroke-red-400!" : "stroke-texto-1"}`} /> {item.nome}
                            </button>
                         </form>
                      ))}
