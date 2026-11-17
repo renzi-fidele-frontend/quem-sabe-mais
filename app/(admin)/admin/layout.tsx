@@ -1,12 +1,17 @@
 import Sidebar from "./perguntas/_components/Sidebar";
 
-export default function AdminLayout({ children }: LayoutProps<"/admin">) {
+interface Props {
+   children: React.ReactNode;
+   modal: React.ReactNode;
+}
+export default function AdminLayout({ children, modal }: Props) {
    return (
       <div className="flex flex-nowrap max-h-screen">
          <div className="">
             <Sidebar />
          </div>
          <div className="grow p-8 overflow-auto">{children}</div>
+         {modal}
       </div>
    );
 }

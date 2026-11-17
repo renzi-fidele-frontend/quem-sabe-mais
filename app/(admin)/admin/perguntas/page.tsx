@@ -1,9 +1,10 @@
 import Button from "@/components/shared/Button";
-import { Table, TableBody, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Lock, Plus } from "lucide-react";
 import { obterPerguntas } from "./_lib/obterPerguntas";
 import LinhaPergunta from "./_components/LinhaPergunta";
 import Paginacao from "@/components/shared/Paginacao";
+import Link from "next/link";
 
 type Props = {
    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -30,9 +31,11 @@ export default async function PerguntasPage({ searchParams }: Props) {
                <h1 className="mb-2 font-sora font-semibold text-[30px] text-white">Gestão de perguntas</h1>
                <p className="mb-10">Crie, organize e controle as perguntas utilizadas nas partidas do quiz.</p>
             </div>
-            <Button className="rounded-[8px] py-2.5">
-               <Plus /> Nova pergunta
-            </Button>
+            <Link href="perguntas/nova">
+               <Button className="rounded-[8px] py-2.5">
+                  <Plus /> Nova pergunta
+               </Button>
+            </Link>
          </div>
          {/* Listagem */}
          <div className="bg-azul-escuro rounded-[14px] overflow-hidden border border-cor-borda pb-6">
