@@ -16,5 +16,5 @@ export async function obterCategorias() {
       throw new Error("Não tens permissão para aceder a esta área.");
    }
 
-   return await Categoria.find<ICategoria>();
+   return await Categoria.find().lean<ICategoria[]>();
 }

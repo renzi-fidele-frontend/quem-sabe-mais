@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { DificuldadePergunta } from "@/models/Pergunta";
 import { Upload, X } from "lucide-react";
 import { obterCategorias } from "../_lib/obterCategorias";
+import FecharModalBtn from "./FecharModalBtn";
 
 const ModalPergunta = async () => {
    const alternativas = ["A", "B", "C", "D"];
@@ -25,9 +26,7 @@ const ModalPergunta = async () => {
                <h4 className="text-white font-sora font-semibold text-[22px] mb-2">Nova pergunta</h4>
                <p className="text-sm">Atualize os dados e confirme a resposta correta.</p>
             </div>
-            <button className="p-3 h-fit border border-cor-borda rounded-[8px] bg-azul-escuro2 cursor-pointer">
-               <X />
-            </button>
+            <FecharModalBtn />
          </div>
          <hr className="w-full border-cor-borda" />
          {/* Conteúdo principal */}
@@ -136,7 +135,8 @@ const ModalPergunta = async () => {
                   </fieldset>
                </form>
             </section>
-            {/* Pré-visualização */}
+
+            {/* TODO: Ao escalar adicionar a seção de Pré-visualização */}
             <section></section>
          </div>
          <section className="px-8 pt-3 border-t border-cor-borda flex items-center justify-between">
