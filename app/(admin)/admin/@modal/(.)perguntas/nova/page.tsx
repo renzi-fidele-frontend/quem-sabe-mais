@@ -128,13 +128,20 @@ export default function ModalNovaPergunta() {
                            <label className="text-white text-[13px]">Pergunta ativa</label>
                            <p className="mb-4.5 mt-2 text-xs">Disponível para ser utilizada nas partidas.</p>
                         </div>
-                        <Switch id="pergunta_ativa" />
+                        <Switch className="h-6! w-11! *:size-4.5!" id="pergunta_ativa" />
                      </fieldset>
                   </form>
                </section>
                {/* Pré-visualização */}
                <section></section>
             </div>
+            <section className="px-8 py-3 border-t border-cor-borda flex items-center justify-between">
+               <p className="text-xs">* Campos obrigatórios</p>
+               <div className="flex gap-3 *:py-3 *:px-6.5 *:rounded-[7px] *:font-semibold">
+                  <button className="border border-cor-borda bg-azul-escuro2">Cancelar</button>
+                  <button className="bg-tema text-black">Guardar pergunta</button>
+               </div>
+            </section>
          </div>
       </div>
    );
