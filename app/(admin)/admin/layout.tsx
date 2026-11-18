@@ -7,7 +7,7 @@ interface Props {
 export default function AdminLayout({ children, modal }: Props) {
    return (
       <div className="flex flex-nowrap max-h-screen">
-         <div className="">
+         <div>
             <Sidebar />
          </div>
          <div className="grow p-8 overflow-auto">{children}</div>
