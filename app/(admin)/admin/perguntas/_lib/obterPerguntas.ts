@@ -5,6 +5,7 @@ import { dbConnect } from "@/lib/db/dbConnect";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { Categoria } from "@/models/Categoria";
 console.log(Categoria);
+
 export interface IPerguntaComCategoria extends Omit<IPergunta, "categoria"> {
    categoria: {
       _id: string;

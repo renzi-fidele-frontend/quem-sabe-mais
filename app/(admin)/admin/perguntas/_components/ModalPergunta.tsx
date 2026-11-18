@@ -6,21 +6,26 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { DificuldadePergunta } from "@/models/Pergunta";
 import { Upload, X } from "lucide-react";
+import { obterCategorias } from "../_lib/obterCategorias";
 
-const ModalPergunta = () => {
+const ModalPergunta = async () => {
    const alternativas = ["A", "B", "C", "D"];
    // TODO: Apanhar as categorias via server actions
    const dificuldades: DificuldadePergunta[] = ["fácil", "média", "difícil"];
 
+   const categorias = await obterCategorias();
+
+   console.log(categorias);
+
    return (
-      <div className="py-7 border border-cor-borda rounded-[16px] bg-azul-escuro max-w-5xl max-h-[90dvh] mx-auto w-full overflow-y-auto scrollbar-thin scrollbar-thumb-tema">
+      <div className="py-7 border border-cor-borda rounded-[16px] bg-azul-escuro max-w-3xl max-h-[90dvh] mx-auto w-full overflow-y-auto scrollbar-thin scrollbar-thumb-tema">
          {/* Heading */}
          <div className="px-8 pb-4 flex justify-between ">
             <div>
                <h4 className="text-white font-sora font-semibold text-[22px] mb-2">Nova pergunta</h4>
                <p className="text-sm">Atualize os dados e confirme a resposta correta.</p>
             </div>
-            <button className="p-3 h-fit border border-cor-borda rounded-[8px] bg-azul-escuro2">
+            <button className="p-3 h-fit border border-cor-borda rounded-[8px] bg-azul-escuro2 cursor-pointer">
                <X />
             </button>
          </div>
@@ -88,8 +93,8 @@ const ModalPergunta = () => {
                      <fieldset>
                         <label className="text-white text-[13px] font-medium">Categoria *</label>
                         <Select items={dificuldades.map((item) => ({ value: item, label: item }))}>
-                           <SelectTrigger className="w-full mt-2 bg-azul-escuro2">
-                              <SelectValue className="text-texto-1" placeholder="Selecione a categoria" />
+                           <SelectTrigger className="w-full mt-2 bg-azul-escuro2  h-10!">
+                              <SelectValue className="text-texto-1 capitalize" placeholder="Selecione a categoria" />
                            </SelectTrigger>
                            <SelectContent className="bg-azul-escuro2 text-white border border-cor-borda">
                               <SelectGroup>
@@ -106,8 +111,8 @@ const ModalPergunta = () => {
                      <fieldset>
                         <label className="text-white text-[13px] font-medium">Dificuldade *</label>
                         <Select items={dificuldades.map((item) => ({ value: item, label: item }))}>
-                           <SelectTrigger className="w-full mt-2 bg-azul-escuro2">
-                              <SelectValue className="text-texto-1" placeholder="Selecione" />
+                           <SelectTrigger className="w-full mt-2 bg-azul-escuro2 h-10!">
+                              <SelectValue className="text-texto-1 capitalize" placeholder="Selecione a dificuldade" />
                            </SelectTrigger>
                            <SelectContent className="bg-azul-escuro2 text-white border border-cor-borda">
                               <SelectGroup>
@@ -134,7 +139,7 @@ const ModalPergunta = () => {
             {/* Pré-visualização */}
             <section></section>
          </div>
-         <section className="px-8 py-3 border-t border-cor-borda flex items-center justify-between">
+         <section className="px-8 pt-3 border-t border-cor-borda flex items-center justify-between">
             <p className="text-xs">* Campos obrigatórios</p>
             <div className="flex gap-3 *:py-3 *:px-6.5 *:rounded-[7px] *:font-semibold">
                <button className="border border-cor-borda bg-azul-escuro2">Cancelar</button>
