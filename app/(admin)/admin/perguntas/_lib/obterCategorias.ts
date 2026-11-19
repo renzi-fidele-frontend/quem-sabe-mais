@@ -12,9 +12,5 @@ export async function obterCategorias() {
       throw new Error("Utilizador não autenticado.");
    }
 
-   if (sessao.usuario.role !== "admin") {
-      throw new Error("Não tens permissão para aceder a esta área.");
-   }
-
    return await Categoria.find().lean<ICategoria[]>();
 }
