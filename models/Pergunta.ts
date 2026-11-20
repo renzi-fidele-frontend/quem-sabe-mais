@@ -48,6 +48,11 @@ const perguntaSchema = new Schema<IPergunta>(
          required: true,
       },
 
+      idImagem: {
+         type: String,
+         required: true,
+      },
+
       alternativas: {
          type: [alternativaSchema],
          required: true,
