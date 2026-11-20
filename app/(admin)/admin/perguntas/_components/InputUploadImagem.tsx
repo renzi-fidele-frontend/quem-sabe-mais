@@ -19,7 +19,7 @@ const InputUploadImagem = () => {
 
    return (
       <label htmlFor="imagem">
-         <input onChange={renderizarPrevia} type="file" id="imagem" ref={imagemRef} className="hidden" />
+         <input onChange={renderizarPrevia}  type="file" id="imagem" name="imagem" ref={imagemRef} className="hidden" />
          <div className="flex items-center gap-4.5 rounded-[8px] bg-azul-escuro2 px-7 py-8 border border-dashed border-cor-borda mt-2.5 cursor-pointer">
             <Upload className="stroke-tema size-7" />
             <div className="space-y-1.75">

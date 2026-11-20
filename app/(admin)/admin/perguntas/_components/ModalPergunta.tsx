@@ -9,6 +9,7 @@ import { obterCategorias } from "../_lib/obterCategorias";
 import FecharModalBtn from "./FecharModalBtn";
 import CancelarModal from "./CancelarModal";
 import InputUploadImagem from "./InputUploadImagem";
+import { criarPergunta } from "../_lib/criarPergunta";
 
 const ModalPergunta = async () => {
    const alternativas = ["A", "B", "C", "D"];
@@ -34,7 +35,7 @@ const ModalPergunta = async () => {
          <div className="px-8 pt-6">
             {/* Formulário */}
             <section>
-               <form id="adicionarNovaPergunta" className="space-y-8" action="">
+               <form id="adicionarNovaPergunta" className="space-y-8" action={criarPergunta}>
                   {/* Enunciado */}
                   <fieldset>
                      <label className="text-white text-[13px]" htmlFor="enunciado">

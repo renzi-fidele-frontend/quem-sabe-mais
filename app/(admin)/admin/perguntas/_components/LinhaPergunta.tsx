@@ -69,7 +69,7 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
          <TableCell>
             <div className="flex items-center gap-3.5">
                <Image className="object-cover w-12 h-8 rounded-[5px]" width={48} height={32} src={pergunta.imagem} alt="Foto da pergunta" />
-               <p className="font-medium text-[13px] text-white! line-clamp-1">{pergunta.enunciado}</p>
+               <p className="font-medium text-[13px] text-white! truncate line-clamp-1 max-w-135">{pergunta.enunciado}</p>
             </div>
          </TableCell>
          {/* Categoria */}

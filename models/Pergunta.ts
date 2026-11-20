@@ -10,6 +10,7 @@ export interface IAlternativa {
 export interface IPergunta extends Document {
    enunciado: string;
    imagem: string;
+   idImagem: string;
    alternativas: IAlternativa[];
    respostaCorreta: string;
    categoria: Types.ObjectId; // Projeção
