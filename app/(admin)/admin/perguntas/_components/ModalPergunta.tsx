@@ -5,10 +5,10 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { DificuldadePergunta } from "@/models/Pergunta";
-import { Upload } from "lucide-react";
 import { obterCategorias } from "../_lib/obterCategorias";
 import FecharModalBtn from "./FecharModalBtn";
 import CancelarModal from "./CancelarModal";
+import InputUploadImagem from "./InputUploadImagem";
 
 const ModalPergunta = async () => {
    const alternativas = ["A", "B", "C", "D"];
@@ -53,15 +53,7 @@ const ModalPergunta = async () => {
                      <label className="text-white text-[13px]" htmlFor="imagem">
                         Imagem
                      </label>
-                     <input type="file" id="imagem" className="hidden" />
-                     <div className="flex items-center gap-4.5 rounded-[8px] bg-azul-escuro2 px-7 py-8 border border-dashed border-cor-borda mt-2.5 cursor-pointer">
-                        <Upload className="stroke-tema size-7" />
-                        <div className="space-y-1.75">
-                           <p className="text-white font-medium text-sm">Clique para adicionar uma imagem</p>
-                           <p className="text-xs">JPG, PNG ou WebP · proporção recomendada 16:9</p>
-                           <p className="text-[11px]">A imagem é opcional.</p>
-                        </div>
-                     </div>
+                     <InputUploadImagem />
                   </fieldset>
                   {/* Alternativas */}
                   <fieldset>
