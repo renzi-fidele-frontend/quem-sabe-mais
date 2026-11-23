@@ -9,7 +9,6 @@ const InputUploadImagem = () => {
    const imagemRef = useRef<HTMLInputElement | null>(null);
 
    function renderizarPrevia(e: ChangeEvent<HTMLInputElement>) {
-      console.log("Renderizando a previa...");
       if (!e.target.files) return;
       const reader = new FileReader();
       reader.onload = () => {

@@ -1,4 +1,4 @@
-import { Document, model, models, Schema, Types } from "mongoose";
+import { model, models, Schema, Types } from "mongoose";
 
 export type DificuldadePergunta = "fácil" | "média" | "difícil";
 
@@ -7,7 +7,7 @@ export interface IAlternativa {
    texto: string;
 }
 
-export interface IPergunta extends Document {
+export interface IPergunta {
    enunciado: string;
    imagem: string;
    idImagem: string;
@@ -18,6 +18,7 @@ export interface IPergunta extends Document {
    ativa: boolean;
    createdAt: Date;
    updatedAt: Date;
+   _id: Types.ObjectId;
 }
 
 const alternativaSchema = new Schema<IAlternativa>(

@@ -12,6 +12,8 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
    const perguntaId = partida.perguntas[partida.perguntaAtual - 1];
    const pergunta = (await Pergunta.findById(perguntaId)) as IPergunta;
 
+   pergunta.alternativas.forEach((item) => console.log(item.texto));
+
    return (
       <div className="relative">
          {/* Fundo com overlay */}
@@ -29,7 +31,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             <div className="p-10.5 bg-azul-escuro2/90 border border-cor-borda rounded-[24px] basis-[68%] text-white">
                {/* Imagem e temporizador */}
                <div className="relative">
-                  <Image className="rounded-[6px]" width={812} height={434} src="/img/foto_pergunta.webp" alt="Foto da pergunta" />
+                  <Image
+                     className="rounded-[6px]"
+                     width={812}
+                     height={434}
+                     src={pergunta.imagem || "/img/foto_pergunta.webp"}
+                     alt="Foto da pergunta"
+                  />
                   <span className="px-1.75 absolute top-1.5 left-1.75 font-bold text-lg bg-[#177D2D]/80 border border-black rounded-[9px]">
                      00:15
                   </span>

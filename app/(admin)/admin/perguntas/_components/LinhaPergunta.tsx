@@ -1,10 +1,11 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { DificuldadePergunta } from "@/models/Pergunta";
-import { Ellipsis, Eye, Pause, Pencil, Trash } from "lucide-react";
+import { Ellipsis, Eye, Pause, Pencil, Play, Trash } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { IPerguntaComCategoria } from "../_lib/obterPerguntas";
+import { alternarEstadoPergunta, removerPergunta } from "../_lib/gerenciarPerguntas";
 
 const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
    function analisarFundoDificuldade(dificuldade: DificuldadePergunta) {
@@ -46,10 +47,11 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
          danger: false,
       },
       {
-         nome: "Desativar pergunta",
-         Icone: Pause,
+         nome: pergunta.ativa ? "Desativar pergunta" : "Ativar pergunta",
+         Icone: pergunta.ativa ? Pause : Play,
          acao: async () => {
             "use server";
+            await alternarEstadoPergunta(pergunta._id.toString());
          },
          danger: false,
       },
@@ -58,6 +60,7 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
          Icone: Trash,
          acao: async () => {
             "use server";
+            await removerPergunta(pergunta._id.toString());
          },
          danger: true,
       },
