@@ -4,29 +4,35 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { DificuldadePergunta } from "@/models/Pergunta";
+import { DificuldadePergunta, IPergunta, Pergunta } from "@/models/Pergunta";
 import { obterCategorias } from "../_lib/obterCategorias";
 import FecharModalBtn from "./FecharModalBtn";
 import CancelarModal from "./CancelarModal";
 import InputUploadImagem from "./InputUploadImagem";
 import { criarPergunta } from "../_lib/criarPergunta";
 
-const ModalPergunta = async () => {
+// TODO: Tornar o modal de pergunta em editável
+const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
+   console.log(`Aqui é`);
+   console.log(perguntaId);
    const alternativas = ["A", "B", "C", "D"];
-   // TODO: Apanhar as categorias via server actions
    const dificuldades: DificuldadePergunta[] = ["fácil", "média", "difícil"];
 
-   const categorias = await obterCategorias();
+   const [pergunta, categorias] = await Promise.all([Pergunta.findById(perguntaId).lean<IPergunta>(), obterCategorias()]);
 
-   console.log(categorias);
+   if (!pergunta && perguntaId) {
+      throw new Error("A pergunta a se editar não existe!");
+   }
+
+   console.log(pergunta);
 
    return (
       <div className="py-7 border border-cor-borda rounded-[16px] bg-azul-escuro max-w-3xl max-h-[90dvh] mx-auto w-full overflow-y-auto scrollbar-thin scrollbar-thumb-tema">
          {/* Heading */}
          <div className="px-8 pb-4 flex justify-between ">
             <div>
-               <h4 className="text-white font-sora font-semibold text-[22px] mb-2">Nova pergunta</h4>
-               <p className="text-sm">Atualize os dados e confirme a resposta correta.</p>
+               <h4 className="text-white font-sora font-semibold text-[22px] mb-2">{pergunta ? "Editar pergunta" : "Nova pergunta"}</h4>
+               <p className="text-sm">{pergunta ? "Adicione conhecimento ao banco de perguntas." : ""}</p>
             </div>
             <FecharModalBtn />
          </div>

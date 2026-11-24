@@ -1,3 +1,13 @@
-export default function AdminPage() {
-   return <div></div>;
+import ModalPergunta from "../../_components/ModalPergunta";
+
+type Props = { params: Promise<{ id: string }> };
+
+export default async function EditarPerguntaPage({ params }: Props) {
+   const { id } = await params;
+
+   return (
+      <div>
+         <ModalPergunta perguntaId={id} />
+      </div>
+   );
 }

@@ -5,8 +5,10 @@ import Image from "next/image";
 import EscadaPremios from "../_components/EscadaDePremios";
 import { abandonarPartida } from "../_actions";
 import GameplayClient from "../_components/GameplayClient";
+import { dbConnect } from "@/lib/db/dbConnect";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+   await dbConnect();
    const { id } = await params;
    const partida = (await Partida.findOne({ _id: id })) as IPartida;
    const perguntaId = partida.perguntas[partida.perguntaAtual - 1];

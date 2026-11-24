@@ -2,7 +2,7 @@
 import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
 import { dbConnect } from "@/lib/db/dbConnect";
 import { remover_imagem } from "@/lib/upload/cloudinary";
-import { Pergunta } from "@/models/Pergunta";
+import { IPergunta, Pergunta } from "@/models/Pergunta";
 import Partida from "@/models/Partida";
 import { revalidatePath } from "next/cache";
 import { Types } from "mongoose";
@@ -49,7 +49,7 @@ export async function removerPergunta(id: string) {
    await verificarPermissaoAdmin();
    validarIdPergunta(id);
 
-   const pergunta = await Pergunta.findById(id).select("idImagem");
+   const pergunta = await Pergunta.findById<IPergunta>(id).select(["idImagem", "ativa"]);
 
    if (!pergunta) {
       throw new Error("Pergunta não encontrada.");
