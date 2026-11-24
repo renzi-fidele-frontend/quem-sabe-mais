@@ -2,9 +2,9 @@
 
 import { Upload } from "lucide-react";
 import Image from "next/image";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
-const InputUploadImagem = () => {
+const InputUploadImagem = ({ modoEdicao }: { modoEdicao?: boolean }) => {
    const [previa, setPrevia] = useState<string | ArrayBuffer | null>(null);
    const imagemRef = useRef<HTMLInputElement | null>(null);
 
@@ -16,6 +16,14 @@ const InputUploadImagem = () => {
       };
       reader.readAsDataURL(e.target.files[0]);
    }
+
+   // Controlador atrelado ao modo de edição
+   useEffect(()=> {
+      if (modoEdicao) {
+
+      }
+
+   }, [modoEdicao])
 
    return (
       <label htmlFor="imagem">

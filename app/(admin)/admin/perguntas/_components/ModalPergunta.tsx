@@ -32,7 +32,9 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
          <div className="px-8 pb-4 flex justify-between ">
             <div>
                <h4 className="text-white font-sora font-semibold text-[22px] mb-2">{pergunta ? "Editar pergunta" : "Nova pergunta"}</h4>
-               <p className="text-sm">{pergunta ? "Adicione conhecimento ao banco de perguntas." : ""}</p>
+               <p className="text-sm">
+                  {pergunta ? "Atualize os dados e confirme a resposta correta." : "Adicione conhecimento ao banco de perguntas."}
+               </p>
             </div>
             <FecharModalBtn />
          </div>
@@ -53,8 +55,10 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                         id="enunciado"
                         name="enunciado"
                         required
+                        defaultValue={pergunta ? pergunta.enunciado : ""}
                      />
                   </fieldset>
+                  {/* TODO: Deixar para o final o auto preenchimento da imagem */}
                   {/* Imagem */}
                   <fieldset>
                      <label className="text-white text-[13px]" htmlFor="imagem">
@@ -67,16 +71,36 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                      <label className="text-white text-[13px]">Alternativas</label>
                      <p className="mb-4.5 mt-2 text-xs">Selecione uma única resposta correta.</p>
                      <div className="space-y-2 *:border-cor-borda *:placeholder:text-texto-1 *:placeholder:text-xs">
-                        <Input required name="alternativa_a" placeholder="Alternativa A" />
-                        <Input required name="alternativa_b" placeholder="Alternativa B" />
-                        <Input required name="alternativa_c" placeholder="Alternativa C" />
-                        <Input required name="alternativa_d" placeholder="Alternativa D" />
+                        <Input
+                           defaultValue={pergunta ? pergunta.alternativas[0].texto : ""}
+                           required
+                           name="alternativa_a"
+                           placeholder="Alternativa A"
+                        />
+                        <Input
+                           defaultValue={pergunta ? pergunta.alternativas[1].texto : ""}
+                           required
+                           name="alternativa_b"
+                           placeholder="Alternativa B"
+                        />
+                        <Input
+                           defaultValue={pergunta ? pergunta.alternativas[2].texto : ""}
+                           required
+                           name="alternativa_c"
+                           placeholder="Alternativa C"
+                        />
+                        <Input
+                           defaultValue={pergunta ? pergunta.alternativas[3].texto : ""}
+                           required
+                           name="alternativa_d"
+                           placeholder="Alternativa D"
+                        />
                      </div>
                   </fieldset>
                   {/* Resposta Correta */}
                   <fieldset className="flex items-center gap-5 w-full">
                      <label className="text-white text-[16px] whitespace-nowrap">Resposta correta:</label>
-                     <RadioGroup name="respostaCorreta" required className="flex gap-5" defaultValue="A">
+                     <RadioGroup name="respostaCorreta" required className="flex gap-5" defaultValue={pergunta ? pergunta.respostaCorreta : "A"}>
                         {alternativas.map((item, k) => (
                            <div
                               className="flex items-center gap-2 bg-azul-escuro2 px-3 py-2.5 border border-cor-borda rounded-[8px] *:cursor-pointer"
@@ -94,7 +118,7 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                      {/* Categoria */}
                      <fieldset>
                         <label className="text-white text-[13px] font-medium">Categoria *</label>
-                        <Select required name="categoria" items={dificuldades.map((item) => ({ value: item, label: item }))}>
+                        <Select defaultValue={pergunta ? pergunta.categoria.toString() : ""} required name="categoria">
                            <SelectTrigger className="w-full mt-2 bg-azul-escuro2  h-10!">
                               <SelectValue className="text-texto-1 capitalize" placeholder="Selecione a categoria" />
                            </SelectTrigger>
@@ -112,7 +136,7 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                      {/* Dificuldade */}
                      <fieldset>
                         <label className="text-white text-[13px] font-medium">Dificuldade *</label>
-                        <Select required name="dificuldade" items={dificuldades.map((item) => ({ value: item, label: item }))}>
+                        <Select defaultValue={pergunta ? pergunta.dificuldade : ""} required name="dificuldade">
                            <SelectTrigger className="w-full mt-2 bg-azul-escuro2 h-10!">
                               <SelectValue className="text-texto-1 capitalize" placeholder="Selecione a dificuldade" />
                            </SelectTrigger>
@@ -134,7 +158,12 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                         <label className="text-white text-[13px]">Pergunta ativa</label>
                         <p className="mb-4.5 mt-2 text-xs">Disponível para ser utilizada nas partidas.</p>
                      </div>
-                     <Switch name="pergunta_ativa" defaultChecked className="h-6! w-11! *:size-4.5!" id="pergunta_ativa" />
+                     <Switch
+                        name="pergunta_ativa"
+                        defaultChecked={pergunta ? pergunta.ativa : true}
+                        className="h-6! w-11! *:size-4.5!"
+                        id="pergunta_ativa"
+                     />
                   </fieldset>
                </form>
             </section>
