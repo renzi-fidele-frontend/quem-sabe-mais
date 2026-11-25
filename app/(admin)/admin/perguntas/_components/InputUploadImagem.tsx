@@ -25,10 +25,18 @@ const InputUploadImagem = ({ fotoAtual }: { fotoAtual?: string }) => {
 
    return (
       <label htmlFor="imagem">
-         <input onChange={renderizarPrevia} type="file" id="imagem" name="imagem" ref={imagemRef} className="hidden" />
+         <input
+            onChange={renderizarPrevia}
+            type="file"
+            id="imagem"
+            name="imagem"
+            ref={imagemRef}
+            className="hidden"
+            required={(fotoAtual ? true : false)!}
+         />
          <div className="flex items-center gap-4.5 rounded-[8px] bg-azul-escuro2 px-7 py-8 border border-dashed border-cor-borda mt-2.5 cursor-pointer">
             {!previa && <Upload className="stroke-tema size-7" />}
-            {(previa) && (
+            {previa && (
                <Image
                   className="object-cover"
                   src={!fotoAtual ? previa!.toString() : String(previa)}
@@ -39,7 +47,9 @@ const InputUploadImagem = ({ fotoAtual }: { fotoAtual?: string }) => {
             )}
 
             <div className="space-y-1.75">
-               <p className="text-white font-medium text-sm">{fotoAtual ? "Clique para alterar a imagem" : "Clique para adicionar uma imagem"}</p>
+               <p className="text-white font-medium text-sm">
+                  {fotoAtual ? "Clique para alterar a imagem" : "Clique para adicionar uma imagem"}
+               </p>
                <p className="text-xs">JPG, PNG ou WebP · proporção recomendada 16:9</p>
                <p className="text-[11px]">A resolução deve ser (812x434)</p>
             </div>

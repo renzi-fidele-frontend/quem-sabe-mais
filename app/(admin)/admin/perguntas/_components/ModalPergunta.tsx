@@ -10,6 +10,7 @@ import FecharModalBtn from "./FecharModalBtn";
 import CancelarModal from "./CancelarModal";
 import InputUploadImagem from "./InputUploadImagem";
 import { criarPergunta } from "../_lib/criarPergunta";
+import editarPergunta from "../_lib/editarPergunta";
 
 // TODO: Tornar o modal de pergunta em editável
 const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
@@ -41,7 +42,9 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
          <div className="px-8 pt-6">
             {/* Formulário */}
             <section>
-               <form id="adicionarNovaPergunta" className="space-y-8" action={criarPergunta}>
+               <form id="adicionarNovaPergunta" className="space-y-8" action={perguntaId ? editarPergunta : criarPergunta}>
+                  {/* Id pergunta */}
+                  {perguntaId && <input type="hidden" name="perguntaId" value={perguntaId} />}
                   {/* Enunciado */}
                   <fieldset>
                      <label className="text-white text-[13px]" htmlFor="enunciado">
@@ -56,7 +59,6 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                         defaultValue={pergunta ? pergunta.enunciado : ""}
                      />
                   </fieldset>
-                  {/* TODO: Deixar para o final o auto preenchimento da imagem */}
                   {/* Imagem */}
                   <fieldset>
                      <label className="text-white text-[13px]" htmlFor="imagem">

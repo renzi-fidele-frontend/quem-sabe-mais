@@ -1,9 +1,7 @@
 "use server";
-
-import { obterSessaoComUsuario } from "@/app/(auth)/_lib/session";
-import { dbConnect } from "@/lib/db/dbConnect";
 import { IPergunta, Pergunta } from "@/models/Pergunta";
 import { Categoria } from "@/models/Categoria";
+import verificarPermissaoAdmin from "./verificarPermissaoAdmin";
 console.log(Categoria);
 
 export interface IPerguntaComCategoria extends Omit<IPergunta, "categoria"> {
@@ -14,18 +12,7 @@ export interface IPerguntaComCategoria extends Omit<IPergunta, "categoria"> {
 }
 
 export async function obterPerguntas(paginaAtual = 1, limitePorPagina = 10) {
-   await dbConnect();
-
-   // Verificar autenticação e autorização
-   const sessao = await obterSessaoComUsuario();
-
-   if (!sessao) {
-      throw new Error("Utilizador não autenticado.");
-   }
-
-   if (sessao.usuario.role !== "admin") {
-      throw new Error("Não tens permissão para aceder a esta área.");
-   }
+   await verificarPermissaoAdmin();
 
    // Obter o total de perguntas
    const totalPerguntas = await Pergunta.countDocuments();
