@@ -5,9 +5,5 @@ type Props = { params: Promise<{ id: string }> };
 export default async function EditarPerguntaPage({ params }: Props) {
    const { id } = await params;
 
-   return (
-      <div>
-         <ModalPergunta perguntaId={id} />
-      </div>
-   );
+   return <ModalPergunta perguntaId={id} />;
 }
