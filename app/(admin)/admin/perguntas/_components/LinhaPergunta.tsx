@@ -3,9 +3,9 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { DificuldadePergunta } from "@/models/Pergunta";
 import { Ellipsis, Eye, Pause, Pencil, Play, Trash } from "lucide-react";
 import Image from "next/image";
-import { redirect } from "next/navigation";
 import { IPerguntaComCategoria } from "../_lib/obterPerguntas";
 import { alternarEstadoPergunta, removerPergunta } from "../_lib/gerenciarPerguntas";
+import Link from "next/link";
 
 const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
    function analisarFundoDificuldade(dificuldade: DificuldadePergunta) {
@@ -28,24 +28,22 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
       }
    }
 
-   const acoes = [
+   const acoesViaLink = [
       {
          nome: "Visualizar pergunta",
          Icone: Eye,
-         acao: async () => {
-            "use server";
-         },
-         danger: false,
+         href: "#",
       },
       {
          nome: "Editar pergunta",
          Icone: Pencil,
-         acao: async () => {
-            "use server";
-            redirect(`/admin/perguntas/${pergunta._id.toString()}/editar`);
-         },
+         href: `/admin/perguntas/${pergunta._id.toString()}/editar`,
          danger: false,
       },
+   ];
+
+   // Ações
+   const acoes = [
       {
          nome: pergunta.ativa ? "Desativar pergunta" : "Ativar pergunta",
          Icone: pergunta.ativa ? Pause : Play,
@@ -107,6 +105,15 @@ const LinhaPergunta = ({ pergunta }: { pergunta: IPerguntaComCategoria }) => {
                </PopoverTrigger>
                <PopoverContent className="max-w-54 me-10 bg-azul-escuro2 border-2 border-cor-borda">
                   <div className="flex flex-col">
+                     {acoesViaLink.map((item, key) => (
+                        <Link
+                           className={`w-full flex items-center gap-3 p-3 text-sm text-white cursor-pointer transition hover:bg-cor-borda ${item.danger ? "text-red-400! border-t border-cor-borda" : ""}`}
+                           href={item.href}
+                           key={key}
+                        >
+                           <item.Icone className={`size-4.5 ${item.danger ? "stroke-red-400!" : "stroke-texto-1"}`} /> {item.nome}
+                        </Link>
+                     ))}
                      {acoes.map((item, key) => (
                         <form action={item.acao} key={key}>
                            <button
