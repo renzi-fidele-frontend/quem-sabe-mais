@@ -25,15 +25,7 @@ const InputUploadImagem = ({ fotoAtual }: { fotoAtual?: string }) => {
 
    return (
       <label htmlFor="imagem">
-         <input
-            onChange={renderizarPrevia}
-            type="file"
-            id="imagem"
-            name="imagem"
-            ref={imagemRef}
-            className="hidden"
-            required={(fotoAtual ? true : false)!}
-         />
+         <input onChange={renderizarPrevia} type="file" id="imagem" name="imagem" ref={imagemRef} className="hidden" required={!fotoAtual} />
          <div className="flex items-center gap-4.5 rounded-[8px] bg-azul-escuro2 px-7 py-8 border border-dashed border-cor-borda mt-2.5 cursor-pointer">
             {!previa && <Upload className="stroke-tema size-7" />}
             {previa && (
