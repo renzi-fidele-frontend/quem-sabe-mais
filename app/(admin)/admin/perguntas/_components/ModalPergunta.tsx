@@ -24,8 +24,6 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
       throw new Error("A pergunta a se editar não existe!");
    }
 
-   console.log(pergunta);
-
    return (
       <div className="py-7 border border-cor-borda rounded-[16px] bg-azul-escuro max-w-3xl max-h-[90dvh] mx-auto w-full overflow-y-auto scrollbar-thin scrollbar-thumb-tema">
          {/* Heading */}
@@ -64,7 +62,7 @@ const ModalPergunta = async ({ perguntaId }: { perguntaId?: string }) => {
                      <label className="text-white text-[13px]" htmlFor="imagem">
                         Imagem
                      </label>
-                     <InputUploadImagem />
+                     <InputUploadImagem fotoAtual={perguntaId ? pergunta?.imagem : undefined} />
                   </fieldset>
                   {/* Alternativas */}
                   <fieldset>
